@@ -313,26 +313,9 @@ button, summary { font: inherit; }
   text-transform: uppercase;
 }
 
-.hero h1 > span {
-  display: inline-block;
-  padding-right: .06em;
+.hero h1 span {
   color: transparent;
   -webkit-text-stroke: 1px var(--paper);
-}
-
-.hero-last-letter {
-  display: inline-block;
-  position: relative;
-}
-
-.hero-last-letter::after {
-  content: "";
-  position: absolute;
-  top: .22em;
-  right: -.005em;
-  bottom: .025em;
-  width: 1px;
-  background: var(--paper);
 }
 
 .hero-bottom {
@@ -1261,7 +1244,7 @@ button, summary { font: inherit; }
   .hero-kicker { max-width: 25ch; font-size: 1.5rem; }
   .hero h1 { max-width: none; font-size: clamp(6rem, 12.5vw, 13rem); white-space: nowrap; }
   .hero h1 br { display: none; }
-  .hero h1 > span { margin-left: .15em; }
+  .hero h1 span { margin-left: .15em; }
   .hero-bottom { width: min(100%, 70rem); }
   .hero-scroll { display: flex; }
   .section { padding-block: var(--space-7); }
