@@ -1188,6 +1188,7 @@ button, summary { font: inherit; }
 }
 
 @media (min-width: 40rem) {
+  html { font-size: 96.875%; }
   :root { --frame: min(100% - 3rem, 90rem); }
   .hero-meta { right: 1.5rem; left: 1.5rem; }
   .hero-bottom { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
@@ -1216,6 +1217,7 @@ button, summary { font: inherit; }
 }
 
 @media (min-width: 64rem) {
+  html { font-size: 93.75%; }
   :root { --frame: min(100% - 5rem, 90rem); }
   .menu summary { display: none; }
   .brand-logo { width: 12.5rem; }
