@@ -822,8 +822,11 @@ button, summary { font: inherit; }
 
 .price-row p { max-width: 48ch; margin: 0; }
 .price-note { max-width: 44ch; margin: var(--space-4) 0 var(--space-3); font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
+.price-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 .price .button-primary { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .price .button-primary:hover { border-color: var(--signal); background: var(--signal); color: var(--ink); }
+.price-button-secondary { border-color: var(--ink); background: transparent; color: var(--ink); }
+.price-button-secondary:hover { border-color: var(--signal); background: var(--signal); }
 
 .visit {
   position: relative;
