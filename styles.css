@@ -49,6 +49,9 @@
   --signal-soft: #ff7fc3;
   --font-display: "Beni", Impact, sans-serif;
   --font-text: "Kinetika", sans-serif;
+  --font-label: .82rem;
+  --font-label-emphasis: .9rem;
+  --font-label-compact: .76rem;
   --space-1: .5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -279,7 +282,7 @@ button, summary { font: inherit; }
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  font-size: .65rem;
+  font-size: var(--font-label-compact);
   font-weight: 800;
   letter-spacing: .11em;
   text-transform: uppercase;
@@ -338,7 +341,7 @@ button, summary { font: inherit; }
   gap: 1.5rem;
   border: 1px solid;
   text-decoration: none;
-  font-size: .72rem;
+  font-size: .78rem;
   font-weight: 800;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -364,7 +367,7 @@ button, summary { font: inherit; }
   align-items: center;
   gap: .75rem;
   text-decoration: none;
-  font-size: .65rem;
+  font-size: var(--font-label-compact);
   font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -408,7 +411,7 @@ button, summary { font: inherit; }
   gap: 1rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: .68rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -522,7 +525,7 @@ button, summary { font: inherit; }
   display: block;
   margin-bottom: var(--space-2);
   color: var(--muted);
-  font-size: .7rem;
+  font-size: var(--font-label-emphasis);
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -578,7 +581,7 @@ button, summary { font: inherit; }
   justify-content: space-between;
   gap: 1rem;
   color: var(--muted);
-  font-size: .67rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -625,7 +628,7 @@ button, summary { font: inherit; }
   display: block;
   margin-bottom: .25rem;
   color: var(--paper);
-  font-size: .66rem;
+  font-size: var(--font-label-compact);
   letter-spacing: .08em;
   text-transform: uppercase;
 }
@@ -703,7 +706,7 @@ button, summary { font: inherit; }
   justify-content: space-between;
   gap: 1rem;
   background: var(--ink);
-  font-size: .68rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -721,7 +724,7 @@ button, summary { font: inherit; }
 }
 
 .transform-note > span {
-  font-size: .68rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
@@ -756,7 +759,7 @@ button, summary { font: inherit; }
   border-bottom: 1px solid var(--line);
 }
 
-.features li > span { color: var(--signal); font-size: .68rem; font-weight: 800; }
+.features li > span { color: var(--signal); font-size: var(--font-label-compact); font-weight: 800; }
 .features strong { font-size: clamp(1.15rem, 4vw, 1.45rem); line-height: 1.15; }
 .features small { grid-column: 2; color: var(--muted); font-size: .78rem; line-height: 1.35; }
 
@@ -769,7 +772,7 @@ button, summary { font: inherit; }
 .eyebrow {
   margin: 0;
   color: var(--signal);
-  font-size: .7rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .11em;
   text-transform: uppercase;
@@ -814,7 +817,7 @@ button, summary { font: inherit; }
 
 .price-row > span {
   color: #555550;
-  font-size: .68rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -885,7 +888,7 @@ button, summary { font: inherit; }
   gap: 1rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: .68rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -927,7 +930,7 @@ button, summary { font: inherit; }
 }
 
 .visit-facts b { font-size: 1.15rem; }
-.visit-facts small { color: var(--muted); font-size: .72rem; }
+.visit-facts small { color: var(--muted); font-size: var(--font-label-compact); }
 
 .audience-list {
   margin: var(--space-6) 0 0;
@@ -966,7 +969,7 @@ button, summary { font: inherit; }
 
 .contact-kicker {
   margin: 0 0 var(--space-2);
-  font-size: .72rem;
+  font-size: var(--font-label-emphasis);
   font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -996,7 +999,7 @@ button, summary { font: inherit; }
 .contact address { display: grid; gap: var(--space-2); font-style: normal; }
 .contact address p { margin: 0; font-weight: 700; }
 .contact address a { overflow-wrap: anywhere; }
-.contact address span { display: block; margin-bottom: .25rem; font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.contact address span { display: block; margin-bottom: .25rem; font-size: var(--font-label-compact); font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
 .contact-info address { margin-top: var(--space-4); }
 
 .contact-form {
@@ -1024,7 +1027,7 @@ button, summary { font: inherit; }
 }
 
 .form-heading > div > span {
-  font-size: .72rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -1061,7 +1064,7 @@ button, summary { font: inherit; }
 
 .contact-form label > span {
   display: block;
-  font-size: .72rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -1109,7 +1112,7 @@ button, summary { font: inherit; }
   padding-block: var(--space-3);
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: .65rem;
+  font-size: var(--font-label-compact);
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -1232,7 +1235,7 @@ button, summary { font: inherit; }
     color: inherit;
     box-shadow: none;
   }
-  .menu-list a { min-height: 2.75rem; padding: 0; font-size: .65rem; }
+  .menu-list a { min-height: 2.75rem; padding: 0; font-size: var(--font-label-compact); }
   .menu-list a:hover { background: none; color: var(--signal); }
   .menu-list .menu-cta { padding-inline: 1rem; border: 1px solid var(--paper); }
   .menu-list .menu-cta:hover { border-color: var(--signal); background: var(--signal); color: var(--ink); }
