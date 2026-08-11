@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Визуальная система культурного хаба СЭНС: типографика, цвет, композиция и компоненты.">
+  <title>СЭНС — визуальная система</title>
+  <style>
+    @font-face {
+      font-family: "Beni";
+      src: url("assets/fonts/beni-black.otf") format("opentype");
+      font-style: normal;
+      font-weight: 900;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kinetika";
+      src: url("assets/fonts/kinetika-regular.otf") format("opentype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kinetika";
+      src: url("assets/fonts/kinetika-medium.otf") format("opentype");
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kinetika";
+      src: url("assets/fonts/kinetika-bold.otf") format("opentype");
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kinetika";
+      src: url("assets/fonts/kinetika-heavy.otf") format("opentype");
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+    }
+    :root {
+      color-scheme: dark;
+      --ink: #050505;
+      --ink-raised: #111111;
+      --paper: #f4f3ef;
+      --muted: #9b9b96;
+      --line: #343432;
+      --signal: #ff1493;
+      --signal-soft: #ff7fc3;
+      --font-display: "Beni", sans-serif;
+      --font-text: "Kinetika", sans-serif;
+      --tracking-display: 0.04em;
+      --tracking-display-compact: 0.02em;
+      --tracking-accent: 0em;
+      --space-1: 0.5rem;
+      --space-2: 1rem;
+      --space-3: 1.5rem;
+      --space-4: 2rem;
+      --space-5: 3rem;
+      --space-6: 4.5rem;
+      --space-7: 7rem;
+      --frame: min(100% - 2rem, 90rem);
+      --ease: cubic-bezier(.2, .7, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { overflow-x: clip; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-text);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      opacity: .055;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+    ::selection { background: var(--signal); color: var(--ink); }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .skip-link {
+      position: fixed;
+      top: .5rem;
+      left: .5rem;
+      z-index: 100;
+      transform: translateY(-150%);
+      padding: .75rem 1rem;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .skip-link:focus { transform: none; }
+    .frame { width: var(--frame); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 var(--space-2);
+      color: var(--signal);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .rule { border-top: 1px solid var(--line); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--ink) 86%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(1rem);
+    }
+    .header-inner {
+      min-height: 4.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .brand {
+      min-height: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      text-decoration: none;
+    }
+    .brand-word {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: var(--tracking-display-compact);
+    }
+    :where(
+      .brand-word,
+      .hero-title,
+      .section-title,
+      .principle strong,
+      .swatch-name,
+      .type-display-solid,
+      .type-display-outline,
+      .guidance-card b,
+      .event-date,
+      .poster-title,
+      .do-dont h3,
+      .footer-title
+    ) {
+      font-kerning: none;
+      font-variant-ligatures: none;
+      font-feature-settings: "kern" 0, "liga" 0;
+    }
+    .brand-edition {
+      writing-mode: vertical-rl;
+      font-size: .42rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .header-meta {
+      display: none;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .menu { position: relative; }
+    .menu summary {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      list-style: none;
+      font-size: 0;
+    }
+    .menu summary::-webkit-details-marker { display: none; }
+    .menu summary::before,
+    .menu summary::after {
+      content: "";
+      position: absolute;
+      width: 1rem;
+      height: 1px;
+      background: var(--paper);
+      transition: transform .25s var(--ease);
+    }
+    .menu summary::before { transform: translateY(-.2rem); }
+    .menu summary::after { transform: translateY(.2rem); }
+    .menu[open] summary::before { transform: rotate(45deg); }
+    .menu[open] summary::after { transform: rotate(-45deg); }
+    .menu-list {
+      position: absolute;
+      top: calc(100% + .55rem);
+      right: 0;
+      min-width: 14rem;
+      padding: .5rem;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 1rem 3rem #0008;
+    }
+    .menu-list a {
+      display: block;
+      min-height: 2.75rem;
+      padding: .7rem .75rem;
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .menu-list a:hover { background: var(--signal); }
+
+    .hero {
+      position: relative;
+      min-height: calc(100svh - 4.5rem);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+      filter: grayscale(1) contrast(1.2) brightness(.55);
+      animation: scale-in 1.5s var(--ease) both;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #0002 0%, #0000 34%, #000 100%);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100svh - 4.5rem);
+      display: grid;
+      align-content: end;
+      padding-block: var(--space-5);
+    }
+    .hero-kicker {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: var(--space-2);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .hero-kicker::before {
+      content: "";
+      width: 2.75rem;
+      height: .5rem;
+      background: var(--signal);
+    }
+    .hero-title {
+      margin: 0;
+      color: transparent;
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 38vw, 27rem);
+      font-weight: 900;
+      letter-spacing: var(--tracking-display);
+      line-height: .72;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1.5px var(--paper);
+      animation: rise .9s .15s var(--ease) both;
+    }
+    .hero-bottom {
+      margin-top: var(--space-3);
+      display: grid;
+      gap: var(--space-3);
+      align-items: end;
+    }
+    .hero-copy {
+      max-width: 30ch;
+      margin: 0;
+      font-size: clamp(1.15rem, 4.2vw, 2rem);
+      font-weight: 500;
+      letter-spacing: .06em;
+      line-height: 1.25;
+    }
+    .hero-index {
+      justify-self: start;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    @keyframes scale-in { from { opacity: 0; transform: scale(1.06); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(2rem); } }
+
+    .section { padding-block: var(--space-6); }
+    .section-head {
+      margin-bottom: var(--space-5);
+      display: grid;
+      gap: var(--space-2);
+    }
+    .section-number {
+      color: var(--signal);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .section-title {
+      max-width: 11ch;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 16vw, 9rem);
+      font-weight: 900;
+      letter-spacing: var(--tracking-display);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .section-intro {
+      max-width: 52ch;
+      margin: 0;
+      color: #cacac5;
+      font-size: 1rem;
+    }
+
+    .principles { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--line); }
+    .principle {
+      min-width: 0;
+      min-height: 12rem;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .principle strong {
+      display: block;
+      margin-bottom: var(--space-3);
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.8rem, 11vw, 5rem);
+      letter-spacing: var(--tracking-display);
+      line-height: .98;
+      text-transform: uppercase;
+    }
+    .principle p { max-width: 38ch; margin: 0; color: var(--muted); }
+
+    .palette { display: grid; gap: .75rem; }
+    .swatch {
+      min-height: 11rem;
+      padding: var(--space-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+    }
+    .swatch-name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .swatch-code { font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+    .swatch--paper { background: var(--paper); color: var(--ink); }
+    .swatch--signal { background: var(--signal); color: var(--ink); }
+    .swatch--raised { background: var(--ink-raised); }
+    .swatch--muted { background: var(--muted); color: var(--ink); }
+    .color-rule {
+      margin-top: var(--space-3);
+      padding: var(--space-3);
+      border-left: .5rem solid var(--signal);
+      background: var(--ink-raised);
+      font-size: clamp(1.1rem, 4vw, 1.65rem);
+      font-weight: 700;
+    }
+
+    .type-specimens { display: grid; gap: var(--space-5); }
+    .type-specimen { padding-top: var(--space-3); border-top: 1px solid var(--line); }
+    .type-meta {
+      margin-bottom: var(--space-3);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: .5rem 1rem;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .type-display-solid,
+    .type-display-outline {
+      margin: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 25vw, 15rem);
+      font-weight: 900;
+      letter-spacing: var(--tracking-display);
+      line-height: .94;
+      text-transform: uppercase;
+    }
+    .type-display-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--paper);
+    }
+    .type-accent {
+      max-width: 15ch;
+      margin: 0;
+      color: var(--signal);
+      font-size: clamp(2rem, 9vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: var(--tracking-accent);
+      line-height: 1;
+    }
+    .type-body {
+      max-width: 58ch;
+      margin: 0;
+      color: #d2d2cd;
+      font-size: clamp(1rem, 3vw, 1.35rem);
+    }
+
+    .grid-demo {
+      min-height: 25rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .5rem;
+      background-image: linear-gradient(90deg, transparent calc(100% - 1px), #ff149344 0);
+      background-size: 25% 100%;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .grid-demo span {
+      min-width: 0;
+      padding: .75rem;
+      display: flex;
+      align-items: end;
+      border-right: 1px solid #ffffff2b;
+      color: var(--muted);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .grid-demo span:nth-child(2) { background: var(--paper); color: var(--ink); transform: translateY(25%); }
+    .grid-demo span:nth-child(3) { background: var(--signal); color: var(--ink); transform: translateY(55%); }
+    .spacing-scale { margin-top: var(--space-4); display: grid; gap: .75rem; }
+    .space-token { min-width: 0; display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+    .space-token span { color: var(--muted); font-size: .75rem; }
+    .space-bar { height: .6rem; width: var(--w); max-width: 100%; background: var(--paper); }
+
+    .image-grid { display: grid; gap: .75rem; }
+    .image-tile {
+      position: relative;
+      min-height: 23rem;
+      overflow: hidden;
+      background: var(--ink-raised);
+    }
+    .image-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.12);
+      transition: filter .45s var(--ease), transform .7s var(--ease);
+    }
+    .image-tile:hover img { filter: grayscale(.2) contrast(1.05); transform: scale(1.025); }
+    .image-label {
+      position: absolute;
+      right: .75rem;
+      bottom: .75rem;
+      left: .75rem;
+      padding: .75rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--ink);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .image-label em { color: var(--signal); font-style: normal; }
+    .image-guidance {
+      margin-top: var(--space-4);
+      display: grid;
+      gap: .75rem;
+    }
+    .guidance-card { padding: var(--space-3); background: var(--ink-raised); }
+    .guidance-card b {
+      display: block;
+      margin-bottom: .5rem;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.75rem;
+      text-transform: uppercase;
+    }
+    .guidance-card p { margin: 0; color: var(--muted); }
+
+    .component-grid { display: grid; gap: .75rem; }
+    .component-panel {
+      min-width: 0;
+      padding: var(--space-3);
+      background: var(--ink-raised);
+      border: 1px solid var(--line);
+    }
+    .component-panel h3 {
+      margin: 0 0 var(--space-3);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .button {
+      min-height: 3rem;
+      padding: .8rem 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .7rem;
+      border: 1px solid var(--paper);
+      background: var(--paper);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .button:hover { background: var(--signal); border-color: var(--signal); }
+    .button--ghost { background: transparent; color: var(--paper); }
+    .button--ghost:hover { color: var(--ink); }
+    .button--arrow::after { content: "↗"; font-size: 1.1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag {
+      min-height: 2.75rem;
+      padding: .6rem .9rem;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .tag--active { background: var(--signal); border-color: var(--signal); color: var(--ink); }
+    .event-card {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 1rem;
+      padding-block: var(--space-2);
+      border-top: 1px solid var(--line);
+    }
+    .event-date {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: .85;
+      text-transform: uppercase;
+    }
+    .event-date small { display: block; margin-top: .4rem; color: var(--signal); font-family: var(--font-text); font-size: .65rem; letter-spacing: .08em; }
+    .event-title { margin: 0 0 .35rem; font-size: 1rem; }
+    .event-meta { margin: 0; color: var(--muted); font-size: .78rem; }
+    .quote {
+      margin: 0;
+      font-size: clamp(1.5rem, 6vw, 3rem);
+      font-weight: 600;
+      letter-spacing: var(--tracking-accent);
+      line-height: 1.05;
+    }
+    .quote strong { color: var(--signal); }
+
+    .poster-row { display: grid; gap: 1rem; }
+    .poster {
+      position: relative;
+      isolation: isolate;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--line);
+      container-type: inline-size;
+    }
+    .poster img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.2) brightness(.65);
+    }
+    .poster:first-child img {
+      transform: scale(2.05);
+      transform-origin: 28% 0;
+    }
+    .poster:nth-child(2) img {
+      transform: scale(2.05);
+      transform-origin: 50% 0;
+    }
+    .poster::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, #0001 0%, #0000 52%, #000 95%);
+    }
+    .poster-content {
+      height: 100%;
+      padding: 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .poster-number { color: var(--signal); font-size: .72rem; font-weight: 800; }
+    .poster-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.3rem, 20cqi, 7rem);
+      font-weight: 900;
+      letter-spacing: var(--tracking-display-compact);
+      line-height: .9;
+      text-transform: uppercase;
+    }
+    .poster--outline .poster-title { color: transparent; -webkit-text-stroke: 1px var(--paper); }
+    .poster-lockup { display: flex; align-items: center; gap: 1rem; }
+    .poster-lockup .brand-word { font-size: 2rem; }
+    .poster-lockup p { margin: 0; padding-left: 1rem; border-left: 1px solid var(--paper); font-size: .72rem; font-weight: 800; line-height: 1.15; }
+
+    .do-dont { display: grid; gap: .75rem; }
+    .do-dont article { padding: var(--space-3); border-top: .5rem solid; background: var(--ink-raised); }
+    .do-dont article:first-child { border-color: var(--signal); }
+    .do-dont article:last-child { border-color: var(--muted); }
+    .do-dont h3 { margin: 0 0 var(--space-2); font-family: var(--font-display); font-size: 2.25rem; font-weight: 900; text-transform: uppercase; }
+    .do-dont ul { margin: 0; padding-left: 1.25rem; color: var(--muted); }
+    .do-dont li + li { margin-top: .5rem; }
+
+    .site-footer {
+      padding-block: var(--space-5);
+      background: var(--signal);
+      color: var(--ink);
+    }
+    .footer-title {
+      margin: 0 0 var(--space-4);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 28vw, 15rem);
+      font-weight: 900;
+      letter-spacing: var(--tracking-display);
+      line-height: .86;
+      text-transform: uppercase;
+    }
+    .footer-grid { display: grid; gap: var(--space-2); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
+    .footer-grid p { margin: 0; }
+
+    @media (min-width: 40rem) {
+      :root { --frame: min(100% - 3rem, 90rem); }
+      .header-meta { display: block; }
+      .hero-bottom { grid-template-columns: 1fr auto; }
+      .hero-index { justify-self: end; text-align: right; }
+      .section-head { grid-template-columns: 4rem minmax(0, 1fr); }
+      .section-intro { grid-column: 2; }
+      .section-title { font-size: clamp(3.5rem, 14vw, 9rem); }
+      .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .principle { padding-inline: var(--space-3); }
+      .principle:nth-child(odd) { border-right: 1px solid var(--line); }
+      .palette { grid-template-columns: repeat(2, 1fr); }
+      .grid-demo { grid-template-columns: repeat(8, 1fr); background-size: 12.5% 100%; }
+      .image-grid { grid-template-columns: repeat(2, 1fr); }
+      .image-tile:first-child { grid-row: span 2; }
+      .image-guidance { grid-template-columns: repeat(3, 1fr); }
+      .component-grid { grid-template-columns: repeat(2, 1fr); }
+      .poster-row { grid-template-columns: repeat(2, 1fr); }
+      .do-dont { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 64rem) {
+      :root { --frame: min(100% - 5rem, 90rem); }
+      .menu { min-width: max-content; }
+      .menu summary { display: none; }
+      .menu-list {
+        position: static;
+        min-width: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.25rem;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+      }
+      .menu-list a { min-height: auto; padding: 0; font-size: .68rem; }
+      .menu-list a:hover { background: none; color: var(--signal); }
+      .hero-inner { padding-block: var(--space-6); }
+      .section { padding-block: var(--space-7); }
+      .section-head { grid-template-columns: 5rem minmax(0, 1.1fr) minmax(18rem, .7fr); align-items: start; }
+      .section-intro { grid-column: 3; padding-top: .5rem; }
+      .principles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .principle { min-height: 19rem; border-right: 1px solid var(--line); }
+      .principle strong { font-size: clamp(2.5rem, 4.6vw, 5rem); }
+      .principle:last-child { border-right: 0; }
+      .palette { grid-template-columns: 2fr 1fr 1fr 1fr; }
+      .swatch { min-height: 18rem; }
+      .type-specimen { display: grid; grid-template-columns: 12rem 1fr; gap: var(--space-3); }
+      .type-meta { display: block; }
+      .type-meta span { display: block; margin-top: .35rem; }
+      .image-grid { grid-template-columns: 1.5fr 1fr 1fr; }
+      .image-tile { min-height: 28rem; }
+      .image-tile:first-child { grid-row: auto; }
+      .component-grid { grid-template-columns: repeat(12, 1fr); }
+      .component-panel:nth-child(1) { grid-column: span 7; }
+      .component-panel:nth-child(2) { grid-column: span 5; }
+      .component-panel:nth-child(3) { grid-column: span 5; }
+      .component-panel:nth-child(4) { grid-column: span 7; }
+      .poster-row { width: min(100%, 62rem); margin-inline: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+
+  <header class="site-header">
+    <div class="header-inner frame">
+      <a class="brand" href="#top" aria-label="СЭНС — наверх">
+        <span class="brand-word">СЭНС</span><span class="brand-edition">since 2026</span>
+      </a>
+      <div class="header-meta">Визуальная система<br>версия 1.0</div>
+      <details class="menu">
+        <summary aria-label="Открыть навигацию">Меню</summary>
+        <nav class="menu-list" aria-label="Разделы дизайн-системы">
+          <a href="#principles">Принципы</a>
+          <a href="#color">Цвет</a>
+          <a href="#type">Типографика</a>
+          <a href="#image">Фото</a>
+          <a href="#components">Компоненты</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <img class="hero-image" src="assets/sens-collective.jpeg" alt="Танцовщики в общей пластической композиции">
+      <div class="hero-inner frame">
+        <div class="hero-kicker">Культурный хаб · Кульман 1/2</div>
+        <h1 class="hero-title" id="hero-title">СЭНС</h1>
+        <div class="hero-bottom">
+          <p class="hero-copy">У этого названия есть смысл.</p>
+          <div class="hero-index">Система 01—07<br>Минск · 2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section frame" id="principles">
+      <div class="section-head">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Движение как метод</h2>
+        <p class="section-intro">СЭНС говорит языком сцены: резко, телесно и без декоративного шума. Система строится на столкновении монументального текста, живого кадра и больших пауз.</p>
+      </div>
+      <div class="principles">
+        <article class="principle"><strong>Контраст</strong><p>Черное поле, белая типографика и один сигнальный цвет. Никаких промежуточных компромиссов.</p></article>
+        <article class="principle"><strong>Масштаб</strong><p>Заголовок не сопровождает изображение — он становится частью хореографии кадра.</p></article>
+        <article class="principle"><strong>Тело</strong><p>В центре — жест, напряжение, контакт и след движения. Не поза, а момент действия.</p></article>
+        <article class="principle"><strong>Пауза</strong><p>Пустое пространство работает как тишина на сцене: направляет внимание и усиливает событие.</p></article>
+      </div>
+    </section>
+
+    <section class="section rule" id="color">
+      <div class="frame">
+        <div class="section-head">
+          <span class="section-number">02</span>
+          <h2 class="section-title">Цвет</h2>
+          <p class="section-intro">Базовая палитра почти монохромна. Electric Pink — не украшение, а смысловой маркер: дата, номер, действие или короткая часть фразы.</p>
+        </div>
+        <div class="palette" aria-label="Палитра дизайн-системы">
+          <article class="swatch swatch--signal"><span class="swatch-name">Signal</span><span class="swatch-code">#FF1493 · действие</span></article>
+          <article class="swatch swatch--paper"><span class="swatch-name">Paper</span><span class="swatch-code">#F4F3EF · текст</span></article>
+          <article class="swatch swatch--raised"><span class="swatch-name">Raised</span><span class="swatch-code">#111111 · поверхность</span></article>
+          <article class="swatch swatch--muted"><span class="swatch-name">Muted</span><span class="swatch-code">#9B9B96 · метаданные</span></article>
+        </div>
+        <div class="color-rule">Правило 90 / 9 / 1: черное поле — 90%, белое содержание — 9%, розовый сигнал — не более 1% композиции.</div>
+      </div>
+    </section>
+
+    <section class="section frame" id="type">
+      <div class="section-head">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Голос системы</h2>
+        <p class="section-intro">Два фирменных семейства, четыре режима. Beni держит афишный масштаб; Kinetika обслуживает смысл, интерфейс и навигацию.</p>
+      </div>
+      <div class="type-specimens">
+        <article class="type-specimen">
+          <div class="type-meta">Display / Solid<span>Beni Black · 80–240</span></div>
+          <p class="type-display-solid">Лаборатория</p>
+        </article>
+        <article class="type-specimen">
+          <div class="type-meta">Display / Outline<span>Beni Black · 1 px stroke</span></div>
+          <p class="type-display-outline">Ты идешь</p>
+        </article>
+        <article class="type-specimen">
+          <div class="type-meta">Accent / Signal<span>Kinetika Bold · –5 tracking</span></div>
+          <p class="type-accent">какой-то второстепенный заголовок</p>
+        </article>
+        <article class="type-specimen">
+          <div class="type-meta">Text / Interface<span>Kinetika 400–800 · 16–24</span></div>
+          <p class="type-body">Не боимся пробовать и делать то, <strong style="color:var(--signal)">чего еще не было.</strong> Текст короткий, прямой и живой. Мы не объясняем культуру сверху — мы приглашаем войти внутрь.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section rule" id="layout">
+      <div class="frame">
+        <div class="section-head">
+          <span class="section-number">04</span>
+          <h2 class="section-title">Сетка и ритм</h2>
+          <p class="section-intro">Сетка дисциплинирует крупную типографику, но не делает композицию статичной. Допустимы сдвиги, пересечения и вертикальный набор.</p>
+        </div>
+        <div class="grid-demo" aria-label="Адаптивная восьмиколоночная сетка">
+          <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span>
+        </div>
+        <div class="spacing-scale" aria-label="Шкала отступов">
+          <div class="space-token"><span>08</span><i class="space-bar" style="--w:2rem"></i><span>xs</span></div>
+          <div class="space-token"><span>16</span><i class="space-bar" style="--w:4rem"></i><span>sm</span></div>
+          <div class="space-token"><span>24</span><i class="space-bar" style="--w:6rem"></i><span>md</span></div>
+          <div class="space-token"><span>48</span><i class="space-bar" style="--w:12rem"></i><span>lg</span></div>
+          <div class="space-token"><span>72</span><i class="space-bar" style="--w:18rem"></i><span>xl</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section frame" id="image">
+      <div class="section-head">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Живой кадр</h2>
+        <p class="section-intro">Фотография не иллюстрирует событие, а фиксирует его физическую энергию. Кадрирование близкое, свет драматичный, зерно допустимо.</p>
+      </div>
+      <div class="image-grid">
+        <figure class="image-tile"><img src="assets/sens-laboratory.png" alt="Танцовщицы в сценической композиции" loading="lazy"><figcaption class="image-label">Дистанция <em>средняя</em></figcaption></figure>
+        <figure class="image-tile"><img src="assets/sens-headline.png" alt="Руки исполнителей в контакте" loading="lazy"><figcaption class="image-label">Деталь <em>контакт</em></figcaption></figure>
+        <figure class="image-tile"><img src="assets/sens-manifesto.png" alt="Фрагменты костюмов и рук исполнителей" loading="lazy"><figcaption class="image-label">Кроп <em>смелый</em></figcaption></figure>
+      </div>
+      <div class="image-guidance">
+        <article class="guidance-card"><b>Свет</b><p>Жесткий контровой или точечный. Черный должен занимать значительную часть кадра.</p></article>
+        <article class="guidance-card"><b>Кадр</b><p>Руки, ткань, лица и контакт можно обрезать. Центрирование не обязательно.</p></article>
+        <article class="guidance-card"><b>Обработка</b><p>Монохром, высокий контраст, заметное зерно. Цвет — только если он несет сюжет.</p></article>
+      </div>
+    </section>
+
+    <section class="section rule" id="components">
+      <div class="frame">
+        <div class="section-head">
+          <span class="section-number">06</span>
+          <h2 class="section-title">Компоненты</h2>
+          <p class="section-intro">Интерфейс поддерживает афишу, но остается практичным: крупные зоны нажатия, ясные состояния и минимум декоративных контейнеров.</p>
+        </div>
+        <div class="component-grid">
+          <article class="component-panel">
+            <h3>Действия</h3>
+            <div class="actions"><a class="button button--arrow" href="#templates">Смотреть программу</a><a class="button button--ghost" href="#templates">Купить билет</a></div>
+          </article>
+          <article class="component-panel">
+            <h3>Фильтры</h3>
+            <div class="tags"><span class="tag tag--active">Все события</span><span class="tag">Танец</span><span class="tag">Музыка</span><span class="tag">Лаборатория</span></div>
+          </article>
+          <article class="component-panel">
+            <h3>Событие</h3>
+            <div class="event-card"><time class="event-date" datetime="2026-09-18">18<small>сент</small></time><div><h4 class="event-title">Ты идешь — совместный перформанс</h4><p class="event-meta">20:00 · зал 02 · 16+</p></div></div>
+            <div class="event-card"><time class="event-date" datetime="2026-09-24">24<small>сент</small></time><div><h4 class="event-title">Открытая лаборатория движения</h4><p class="event-meta">19:30 · зал 01 · вход свободный</p></div></div>
+          </article>
+          <article class="component-panel">
+            <h3>Манифест</h3>
+            <blockquote class="quote">Не боимся пробовать и делать то, <strong>чего еще не было.</strong></blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section frame" id="templates">
+      <div class="section-head">
+        <span class="section-number">07</span>
+        <h2 class="section-title">Афишный модуль</h2>
+        <p class="section-intro">Одна система дает два характера: Solid — для объявления и прямого сообщения; Outline — для манифеста, серии или образного заголовка.</p>
+      </div>
+      <div class="poster-row">
+        <article class="poster">
+          <img src="assets/sens-collective.jpeg" alt="" loading="lazy">
+          <div class="poster-content">
+            <span class="poster-number">01 · ПРЕМЬЕРА</span>
+            <h3 class="poster-title">Какой-то заголовок</h3>
+            <div class="poster-lockup"><span class="brand-word">СЭНС</span><p>культурный хаб<br>Кульман 1/2</p></div>
+          </div>
+        </article>
+        <article class="poster poster--outline">
+          <img src="assets/sens-collective.jpeg" alt="" loading="lazy">
+          <div class="poster-content">
+            <span class="poster-number">02 · ПЕРФОРМАНС</span>
+            <h3 class="poster-title">Ты идешь</h3>
+            <div class="poster-lockup"><span class="brand-word">СЭНС</span><p>культурный хаб<br>Кульман 1/2</p></div>
+          </div>
+        </article>
+      </div>
+      <div class="do-dont" style="margin-top:var(--space-5)">
+        <article><h3>Делать</h3><ul><li>Выбирать один главный жест на макет.</li><li>Разрешать заголовку пересекать изображение.</li><li>Оставлять минимум одну крупную зону тишины.</li></ul></article>
+        <article><h3>Не делать</h3><ul><li>Красить большие площади в розовый.</li><li>Использовать мягкие тени, скругления и градиенты.</li><li>Ставить больше двух акцентных начертаний рядом.</li></ul></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="frame">
+      <p class="footer-title">Есть смысл</p>
+      <div class="footer-grid"><p>СЭНС · культурный хаб</p><p>Кульман 1/2 · Минск</p><p>Visual system · v1.0 · 2026</p></div>
+    </div>
+  </footer>
+</body>
+</html>
