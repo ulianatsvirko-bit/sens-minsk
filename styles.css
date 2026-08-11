@@ -903,14 +903,14 @@ button, summary { font: inherit; }
 }
 
 .contact {
-  padding-block: 3.5rem;
+  padding-block: 2.5rem 3rem;
   overflow: hidden;
   background: var(--signal);
   color: var(--ink);
 }
 
 .contact-kicker {
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-2);
   font-size: .72rem;
   font-weight: 800;
   letter-spacing: .12em;
@@ -920,17 +920,19 @@ button, summary { font: inherit; }
 .contact h2 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(4.25rem, 18vw, 10.5rem);
+  font-size: clamp(3.1rem, 12vw, 8.5rem);
   font-weight: 900;
   letter-spacing: .035em;
-  line-height: .76;
+  line-height: .8;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.contact h2 span { color: transparent; -webkit-text-stroke: 1px var(--ink); }
+.contact h2 br { display: none; }
+.contact h2 span { margin-left: .14em; color: transparent; -webkit-text-stroke: 1px var(--ink); }
 
 .contact-bottom {
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
   display: grid;
   gap: var(--space-4);
 }
@@ -1096,6 +1098,13 @@ button, summary { font: inherit; }
   will-change: auto;
 }
 
+.display-title.reveal.is-visible,
+.visit h2.reveal.is-visible,
+.contact h2.reveal.is-visible {
+  clip-path: inset(0 0 0 0);
+  transform: none;
+}
+
 .format-card.reveal.is-visible {
   transition: border-color .25s, transform .3s var(--ease);
 }
@@ -1194,7 +1203,7 @@ button, summary { font: inherit; }
   .visit h2 { font-size: clamp(6rem, 10vw, 10.5rem); }
   .audience-list { margin-left: 12.5%; }
   .audience-list li { grid-template-columns: 6rem 1fr; }
-  .contact { padding-block: 5rem; }
+  .contact { padding-block: 3.5rem 4rem; }
   .contact-bottom { margin-left: 6.25%; grid-template-columns: .72fr 1.28fr; }
 }
 
