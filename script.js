@@ -86,6 +86,8 @@ const contactForm = document.querySelector('[data-contact-form]');
 const formStatus = document.querySelector('[data-form-status]');
 const submitButton = contactForm?.querySelector('[data-submit-button]');
 const formStartedAt = contactForm?.querySelector('[data-form-started-at]');
+const formEntry = contactForm?.querySelector('[data-form-entry]');
+const formSuccess = contactForm?.querySelector('[data-form-success]');
 const isLocalPreview = window.location.protocol === 'file:';
 
 if (formStartedAt) formStartedAt.value = String(Date.now());
@@ -136,7 +138,13 @@ contactForm?.addEventListener('submit', async (event) => {
     contactForm.reset();
     window.localStorage.removeItem('sens-contact-draft');
     if (formStartedAt) formStartedAt.value = String(Date.now());
-    setFormStatus('Готово! Заявка отправлена. Мы свяжемся с вами.', 'success');
+    setFormStatus('Готово! Заявка отправлена.', 'success');
+    if (formEntry && formSuccess) {
+      formEntry.hidden = true;
+      formSuccess.hidden = false;
+      window.requestAnimationFrame(() => formSuccess.classList.add('is-visible'));
+      formSuccess.focus({ preventScroll: true });
+    }
   } catch (error) {
     setFormStatus(`${error.message} Попробуйте ещё раз или напишите на sensehubminsk@gmail.com.`, 'error');
   } finally {

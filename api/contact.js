@@ -65,9 +65,10 @@ export default async function handler(request, response) {
   const contact = clean(body.contact, MAX_LENGTH.contact);
   const format = clean(body.format, MAX_LENGTH.format);
   const idea = clean(body.idea, MAX_LENGTH.idea);
+  const consent = clean(body.consent, 20);
 
-  if (!name || !contact || !format) {
-    return sendJson(response, 400, { message: 'Заполните имя, контакт и формат.' });
+  if (!name || !contact || !format || consent !== 'accepted') {
+    return sendJson(response, 400, { message: 'Заполните обязательные поля и подтвердите согласие на обработку данных.' });
   }
 
   const text = [
@@ -77,6 +78,7 @@ export default async function handler(request, response) {
     `<b>Контакт:</b> ${escapeHtml(contact)}`,
     `<b>Формат:</b> ${escapeHtml(format)}`,
     `<b>Идея:</b> ${escapeHtml(idea || '—')}`,
+    '<b>Согласие на обработку данных:</b> получено',
   ].join('\n');
 
   try {

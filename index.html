@@ -8,7 +8,7 @@
   <title>СЭНС — сцена в центре Минска для ваших событий</title>
   <link rel="icon" href="assets/sens-favicon.png?v=2" type="image/png" sizes="any">
   <link rel="apple-touch-icon" href="assets/sens-favicon.png?v=2">
-  <link rel="stylesheet" href="styles.css?v=20260813-1">
+  <link rel="stylesheet" href="styles.css?v=20260813-2">
 </head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
@@ -251,44 +251,61 @@
           </div>
 
           <form class="contact-form" action="/api/contact" method="post" data-contact-form>
-            <div class="form-heading">
-              <div>
-                <span>Заявка на сотрудничество</span>
-                <h3>Расскажите об идее</h3>
-                <p>Заполните четыре коротких поля. Мы изучим задачу и свяжемся с вами, чтобы всё обсудить.</p>
+            <div class="form-entry" data-form-entry>
+              <div class="form-heading">
+                <div>
+                  <span>Заявка на сотрудничество</span>
+                  <h3>Расскажите об идее</h3>
+                  <p>Заполните четыре коротких поля. Мы изучим задачу и свяжемся с вами, чтобы всё обсудить.</p>
+                </div>
+              </div>
+              <div class="form-fields">
+                <div class="form-honeypot" aria-hidden="true">
+                  <label for="company-website">Не заполняйте это поле</label>
+                  <input id="company-website" type="text" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <input type="hidden" name="form_started_at" data-form-started-at>
+                <label>
+                  <span>Ваше имя <em>*</em></span>
+                  <input type="text" name="name" autocomplete="name" placeholder="Введите ваше имя" required>
+                </label>
+                <label>
+                  <span>Телефон, Telegram или email <em>*</em></span>
+                  <input type="text" name="contact" autocomplete="email" placeholder="Например, @username" required>
+                </label>
+                <label class="form-field-wide">
+                  <span>Какой формат вас интересует <em>*</em></span>
+                  <select name="format" required>
+                    <option value="" selected disabled>Нажмите и выберите вариант</option>
+                    <option>Аренда</option>
+                    <option>Коллаборация</option>
+                    <option>Событие под ключ</option>
+                    <option>Пока не знаю — хочу обсудить</option>
+                  </select>
+                </label>
+                <label class="form-field-wide">
+                  <span>Коротко о вашей идее</span>
+                  <textarea name="idea" rows="4" placeholder="Что хотите провести, когда и для скольких гостей?"></textarea>
+                </label>
+                <label class="consent-field form-field-wide">
+                  <input type="checkbox" name="consent" value="accepted" checked required>
+                  <span class="consent-copy">Я согласен(на) на обработку моих персональных данных <em>*</em></span>
+                </label>
+              </div>
+              <button class="button button-dark" type="submit" data-submit-button>Оставить заявку <span aria-hidden="true">↗</span></button>
+              <p class="form-status" data-form-status aria-live="polite" role="status"></p>
+            </div>
+            <div class="form-success" data-form-success hidden tabindex="-1" role="status" aria-live="polite">
+              <span class="form-success-mark" aria-hidden="true">✓</span>
+              <p class="form-success-kicker">Заявка отправлена</p>
+              <h3>Спасибо<br>большое!</h3>
+              <p class="form-success-copy">Совсем скоро мы свяжемся с вами, пригласим на просмотр пространства и обсудим все условия.</p>
+              <div class="form-success-contacts">
+                <p>Если хотите связаться как можно скорее:</p>
+                <a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a>
+                <a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram: @senseminsk ↗</a>
               </div>
             </div>
-            <div class="form-fields">
-              <div class="form-honeypot" aria-hidden="true">
-                <label for="company-website">Не заполняйте это поле</label>
-                <input id="company-website" type="text" name="website" tabindex="-1" autocomplete="off">
-              </div>
-              <input type="hidden" name="form_started_at" data-form-started-at>
-              <label>
-                <span>Ваше имя <em>*</em></span>
-                <input type="text" name="name" autocomplete="name" placeholder="Введите ваше имя" required>
-              </label>
-              <label>
-                <span>Телефон, Telegram или email <em>*</em></span>
-                <input type="text" name="contact" autocomplete="email" placeholder="Например, @username" required>
-              </label>
-              <label class="form-field-wide">
-                <span>Какой формат вас интересует <em>*</em></span>
-                <select name="format" required>
-                  <option value="" selected disabled>Нажмите и выберите вариант</option>
-                  <option>Аренда</option>
-                  <option>Коллаборация</option>
-                  <option>Событие под ключ</option>
-                  <option>Пока не знаю — хочу обсудить</option>
-                </select>
-              </label>
-              <label class="form-field-wide">
-                <span>Коротко о вашей идее</span>
-                <textarea name="idea" rows="4" placeholder="Что хотите провести, когда и для скольких гостей?"></textarea>
-              </label>
-            </div>
-            <button class="button button-dark" type="submit" data-submit-button>Оставить заявку <span aria-hidden="true">↗</span></button>
-            <p class="form-status" data-form-status aria-live="polite" role="status"></p>
           </form>
         </div>
       </div>
@@ -303,6 +320,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260813-1"></script>
+  <script src="script.js?v=20260813-2"></script>
 </body>
 </html>

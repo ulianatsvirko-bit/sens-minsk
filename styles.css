@@ -1075,6 +1075,35 @@ button, summary { font: inherit; }
   font-style: normal;
 }
 
+.contact-form .consent-field {
+  min-height: 3.5rem;
+  padding: .85rem 1rem;
+  grid-template-columns: 1.4rem 1fr;
+  align-items: start;
+  gap: .75rem;
+  border: 1px solid #05050580;
+  background: #e8e7e1;
+  cursor: pointer;
+}
+
+.contact-form .consent-field input {
+  width: 1.4rem;
+  height: 1.4rem;
+  min-height: 0;
+  margin: .05rem 0 0;
+  padding: 0;
+  accent-color: var(--signal);
+  cursor: pointer;
+}
+
+.contact-form .consent-copy {
+  font-size: .875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: none;
+}
+
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
@@ -1118,6 +1147,70 @@ button, summary { font: inherit; }
 .form-status { min-height: 1.4rem; margin: var(--space-2) 0 0; font-size: .875rem; font-weight: 700; line-height: 1.4; }
 .form-status[data-status="success"] { color: #14713c; }
 .form-status[data-status="error"] { color: #a32121; }
+
+.form-success[hidden] { display: none; }
+.form-success {
+  min-height: clamp(32rem, 58vw, 42rem);
+  padding: clamp(.5rem, 2vw, 1.5rem);
+  display: grid;
+  align-content: center;
+  outline: 0;
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.form-success.is-visible { opacity: 1; transform: none; }
+.form-success-mark {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--signal);
+  color: var(--paper);
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+.form-success-kicker {
+  margin: var(--space-3) 0 .7rem;
+  font-size: var(--font-label);
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.form-success h3 {
+  max-width: 8ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: .78;
+  text-transform: uppercase;
+}
+.form-success-copy {
+  max-width: 38rem;
+  margin: var(--space-3) 0 0;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.form-success-contacts {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  display: grid;
+  gap: .55rem;
+  border-top: 2px solid var(--ink);
+}
+.form-success-contacts p { max-width: 32ch; margin: 0 0 .25rem; font-weight: 700; }
+.form-success-contacts a {
+  width: fit-content;
+  font-size: .95rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .25rem;
+}
 
 .site-footer {
   padding-block: var(--space-3);
