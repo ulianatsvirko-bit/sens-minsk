@@ -1106,7 +1106,18 @@ button, summary { font: inherit; }
   margin-top: var(--space-3);
   justify-content: space-between;
 }
-.form-status { min-height: 1.4rem; margin: var(--space-2) 0 0; font-size: .75rem; font-weight: 700; }
+.contact-form .button:disabled { cursor: wait; opacity: .65; transform: none; }
+.form-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.form-status { min-height: 1.4rem; margin: var(--space-2) 0 0; font-size: .875rem; font-weight: 700; line-height: 1.4; }
+.form-status[data-status="success"] { color: #14713c; }
+.form-status[data-status="error"] { color: #a32121; }
 
 .site-footer {
   padding-block: var(--space-3);

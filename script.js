@@ -84,14 +84,56 @@ updatePageChrome();
 
 const contactForm = document.querySelector('[data-contact-form]');
 const formStatus = document.querySelector('[data-form-status]');
+const submitButton = contactForm?.querySelector('[data-submit-button]');
+const formStartedAt = contactForm?.querySelector('[data-form-started-at]');
 
-contactForm?.addEventListener('submit', (event) => {
+if (formStartedAt) formStartedAt.value = String(Date.now());
+
+function setFormStatus(message, type = '') {
+  if (!formStatus) return;
+  formStatus.textContent = message;
+  formStatus.dataset.status = type;
+}
+
+contactForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const draft = Object.fromEntries(new FormData(contactForm).entries());
+  const formData = new FormData(contactForm);
+  const draft = Object.fromEntries(formData.entries());
   window.localStorage.setItem('sens-contact-draft', JSON.stringify(draft));
 
-  if (formStatus) {
-    formStatus.textContent = 'Черновик сохранён на этом устройстве. Для отправки используйте контакт слева.';
+  if (!contactForm.reportValidity()) return;
+
+  contactForm.setAttribute('aria-busy', 'true');
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.firstChild.textContent = 'Отправляем… ';
+  }
+  setFormStatus('Отправляем заявку…', 'pending');
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(draft),
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.message || 'Не удалось отправить заявку.');
+    }
+
+    contactForm.reset();
+    window.localStorage.removeItem('sens-contact-draft');
+    if (formStartedAt) formStartedAt.value = String(Date.now());
+    setFormStatus('Готово! Заявка отправлена. Мы свяжемся с вами.', 'success');
+  } catch (error) {
+    setFormStatus(`${error.message} Попробуйте ещё раз или напишите на sensehubminsk@gmail.com.`, 'error');
+  } finally {
+    contactForm.removeAttribute('aria-busy');
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.firstChild.textContent = 'Оставить заявку ';
+    }
   }
 });

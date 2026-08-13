@@ -250,7 +250,7 @@
             </address>
           </div>
 
-          <form class="contact-form" data-contact-form>
+          <form class="contact-form" action="/api/contact" method="post" data-contact-form>
             <div class="form-heading">
               <div>
                 <span>Заявка на сотрудничество</span>
@@ -259,6 +259,11 @@
               </div>
             </div>
             <div class="form-fields">
+              <div class="form-honeypot" aria-hidden="true">
+                <label for="company-website">Не заполняйте это поле</label>
+                <input id="company-website" type="text" name="website" tabindex="-1" autocomplete="off">
+              </div>
+              <input type="hidden" name="form_started_at" data-form-started-at>
               <label>
                 <span>Ваше имя <em>*</em></span>
                 <input type="text" name="name" autocomplete="name" placeholder="Введите ваше имя" required>
@@ -282,8 +287,8 @@
                 <textarea name="idea" rows="4" placeholder="Что хотите провести, когда и для скольких гостей?"></textarea>
               </label>
             </div>
-            <button class="button button-dark" type="submit">Оставить заявку <span aria-hidden="true">↗</span></button>
-            <p class="form-status" data-form-status aria-live="polite"></p>
+            <button class="button button-dark" type="submit" data-submit-button>Оставить заявку <span aria-hidden="true">↗</span></button>
+            <p class="form-status" data-form-status aria-live="polite" role="status"></p>
           </form>
         </div>
       </div>
