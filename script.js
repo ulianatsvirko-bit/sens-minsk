@@ -86,6 +86,7 @@ const contactForm = document.querySelector('[data-contact-form]');
 const formStatus = document.querySelector('[data-form-status]');
 const submitButton = contactForm?.querySelector('[data-submit-button]');
 const formStartedAt = contactForm?.querySelector('[data-form-started-at]');
+const isLocalPreview = window.location.protocol === 'file:';
 
 if (formStartedAt) formStartedAt.value = String(Date.now());
 
@@ -95,8 +96,17 @@ function setFormStatus(message, type = '') {
   formStatus.dataset.status = type;
 }
 
+if (isLocalPreview) {
+  setFormStatus('Это локальная копия. Заявки отправляются на sens-minsk.vercel.app.', 'error');
+}
+
 contactForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
+
+  if (isLocalPreview) {
+    setFormStatus('Откройте sens-minsk.vercel.app — там форма отправит заявку в Telegram.', 'error');
+    return;
+  }
 
   const formData = new FormData(contactForm);
   const draft = Object.fromEntries(formData.entries());
