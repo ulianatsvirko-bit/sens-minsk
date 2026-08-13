@@ -314,8 +314,11 @@ button, summary { font: inherit; }
 }
 
 .hero h1 span {
+  display: inline-block;
+  padding-right: .018em;
   color: transparent;
   -webkit-text-stroke: 1px var(--paper);
+  filter: drop-shadow(1px 0 0 var(--paper));
 }
 
 .hero-bottom {
