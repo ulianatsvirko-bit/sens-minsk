@@ -1,0 +1,180 @@
+/* Editorial troupe block */
+.company {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(22rem, .82fr) minmax(0, 1.18fr);
+  background: var(--paper);
+  color: var(--ink);
+  border-block: 1px solid #0002;
+}
+
+.company-image {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  background: #111;
+}
+
+.company-image::after {
+  content: "живое тело · живой театр";
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  padding: .55rem .75rem;
+  background: var(--pink);
+  color: var(--ink);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.company-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% center;
+  filter: grayscale(1) contrast(1.08);
+}
+
+.company-copy {
+  min-width: 0;
+  padding: clamp(4rem, 7vw, 7rem) clamp(1.5rem, 5vw, 5.5rem);
+}
+
+.company-copy .eyebrow {
+  margin-bottom: 1.25rem;
+}
+
+.company h2 {
+  max-width: 10ch;
+  color: var(--ink);
+  font-size: clamp(3.5rem, 6.2vw, 6.8rem);
+  line-height: .88;
+  letter-spacing: .012em;
+}
+
+.company h2 span {
+  color: var(--pink);
+}
+
+.company-copy .lead {
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  color: #4f4c48;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+}
+
+.troupe-members {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.25rem 1rem;
+  margin: clamp(3.5rem, 7vw, 6rem) 0 3rem;
+}
+
+.troupe-member {
+  display: block;
+  grid-template-columns: none;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.troupe-member img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 22%;
+  filter: grayscale(1);
+  transition: filter .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+}
+
+.troupe-member:hover img {
+  filter: grayscale(0);
+  transform: translateY(-.25rem);
+}
+
+.troupe-member div {
+  display: block;
+  padding-top: .8rem;
+  border-top: 1px solid #0003;
+}
+
+.troupe-member h3 {
+  margin: .7rem 0 .3rem;
+  color: var(--ink);
+  font-family: Kinetika, sans-serif;
+  font-size: clamp(.9rem, 1.25vw, 1.08rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.troupe-member p {
+  margin: 0;
+  color: #7a756f;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.company-copy > .text-link {
+  color: var(--ink);
+}
+
+@media (max-width: 63.99rem) {
+  .company {
+    grid-template-columns: 1fr;
+  }
+
+  .company-image {
+    position: relative;
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .company-copy {
+    padding: 4.5rem max(1rem, 4vw);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .company-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .company-image::after {
+    left: 1rem;
+    bottom: 1rem;
+  }
+
+  .company-copy {
+    padding: 3.75rem 1rem 4.5rem;
+  }
+
+  .company h2 {
+    font-size: clamp(3rem, 13vw, 4.25rem);
+  }
+
+  .troupe-members {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem .7rem;
+    margin-top: 3rem;
+  }
+
+  .troupe-member h3 {
+    font-size: .95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .troupe-member img {
+    transition: none;
+  }
+}
