@@ -60,8 +60,11 @@ function requireAuth(req, res, next) {
 }
 function sameOrigin(req, res, next) {
   const origin=req.headers.origin; const host=req.headers['x-forwarded-host']||req.headers.host;
-  const allowedProxyOrigin = origin && ['sens-minsk.vercel.app', 'sens-minsk-o0e1l62bu-ulianatsvirko-bits-projects.vercel.app'].includes(new URL(origin).host);
-  if (origin && new URL(origin).host !== host && !allowedProxyOrigin) return res.status(403).json({message:'Запрос с другого сайта запрещён.'});
+  const configuredOrigins=String(process.env.ALLOWED_ORIGINS||'').split(',').map(value=>value.trim()).filter(Boolean);
+  const allowedHosts=new Set(['sens-troupe-preview.vercel.app','sens-troupe-preview-ulianatsvirko-bits-projects.vercel.app',...configuredOrigins.map(value=>{try{return new URL(value).host}catch{return value}})]);
+  let originHost;
+  try { originHost=origin&&new URL(origin).host; } catch { return res.status(400).json({message:'Некорректный Origin.'}); }
+  if (originHost && originHost !== host && !allowedHosts.has(originHost)) return res.status(403).json({message:'Запрос с другого сайта запрещён.'});
   next();
 }
 
