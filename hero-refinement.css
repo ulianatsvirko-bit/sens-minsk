@@ -1,0 +1,25 @@
+/* Desktop hero refinement: centered editorial block, looser display letters, clearer positioning. */
+.hero-shade{background:linear-gradient(180deg,#05050532 0%,#0505055c 42%,#050505ef 100%)}
+.hero-content{padding-bottom:calc(2rem + env(safe-area-inset-bottom))}
+@media (min-width:48rem){
+  .hero-content{
+    width:min(88rem,calc(100% - 7rem));
+    margin-inline:auto;
+    padding-block:3.25rem 2.75rem;
+  }
+  .hero h1{
+    max-width:15ch;
+    font-size:clamp(4.75rem,7.4vw,7.9rem);
+    line-height:.9;
+    letter-spacing:.025em;
+  }
+  .hero .eyebrow{
+    font-size:.88rem;
+    letter-spacing:.12em;
+  }
+  .hero-bottom{gap:3rem}
+}
+@media (max-width:47.99rem){
+  .hero-content{padding-bottom:calc(2.5rem + env(safe-area-inset-bottom))}
+  .hero-shade{background:linear-gradient(180deg,#05050528 0%,#05050558 36%,#050505f2 100%)}
+}

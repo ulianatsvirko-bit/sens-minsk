@@ -2,3 +2,5 @@
 **/.DS_Store
 tmp/
 .vercel/
+.vercel
+node_modules/
