@@ -6,37 +6,28 @@
   <meta name="description" content="Календарь мероприятий СЭНС — спектакли, лекции, концерты и воркшопы в Минске.">
   <title>Календарь мероприятий — СЭНС</title>
   <link rel="stylesheet" href="events.css?v=20260917-2">
-</head>
+<link rel="stylesheet" href="shared.css?v=20260923"><link rel="stylesheet" href="navigation.css?v=20260925"></head>
 <body>
   <a class="skip-link" href="#events">К событиям</a>
-  <header class="site-header">
-    <div class="frame header-inner">
-      <a class="brand" href="rent.html" aria-label="СЭНС — об аренде"><img src="assets/sens-logo-lockup.png" alt="СЭНС" class="brand-logo"></a>
-      <nav class="nav" aria-label="Основная навигация">
-        <a href="rent.html">Аренда</a><a href="events.html" aria-current="page">Календарь</a>
-      </nav>
-      <a class="header-cta" href="#events">Ближайшие события <span>↓</span></a>
-    </div>
-  </header>
+  <header class="sens-header"><div class="sens-header-inner"><a class="sens-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="168"></a><details class="sens-menu"><summary aria-label="Открыть навигацию">Меню <span aria-hidden="true">☰</span></summary><nav aria-label="Основная навигация"><a href="index.html">О СЭНС</a><a href="events.html">Афиша</a><a href="space.html">Пространство</a><a href="index.html#troupe">Труппа</a><a href="rent.html">Аренда</a><a href="rent.html#contact">Связаться ↗</a></nav></details></div><div class="sens-progress" aria-hidden="true"><span data-sens-progress></span></div></header>
 
   <main>
     <section class="hero frame" aria-labelledby="page-title">
-      <div class="hero-meta"><span>09 / 2026</span><span>Кульман 1/2 · Минск</span></div>
+      <div class="hero-meta"><span>Афиша СЭНС</span><span>Кульман 1/2 · Минск</span></div>
       <p class="eyebrow">События, на которые хочется прийти</p>
-      <h1 id="page-title">КАЛЕН<span>ДАРЬ</span></h1>
+      <h1 id="page-title">АФИ<span>ША</span></h1>
       <p class="hero-note">Выбирайте событие по настроению. Здесь появляются показы, разговоры, музыка и практика — всё, что происходит в СЭНС.</p>
     </section>
 
     <section class="calendar frame" id="events" aria-labelledby="events-title">
-      <div class="section-top"><div class="section-marker"><span>02</span><span>Сентябрь — октябрь 2026</span></div><h2 id="events-title">Ближайшее</h2></div>
+      <div class="section-top"><div class="section-marker"><span>02</span><span>Новые встречи</span></div><h2 id="events-title">Ближайшее</h2></div>
       <div class="filters" role="group" aria-label="Фильтр событий">
         <button class="filter is-active" data-filter="all">Все события</button><button class="filter" data-filter="performances">Сцена</button><button class="filter" data-filter="talks">Разговоры</button><button class="filter" data-filter="practice">Практика</button>
       </div>
-      <div class="events-list" aria-live="polite"><article class="event-card poster-card" data-type="performances" data-detail-url="event.html?id=1" tabindex="0" role="link" aria-label="Тело, которое помнит"><div class="event-image image-one"><span>01</span><div class="poster-actions"><a class="button secondary-button" href="event.html?id=1">Подробнее</a><button class="button" type="button" data-register data-event-id="1" data-event-title="Тело, которое помнит" data-event-date="18 ЯНВ · 19:00">Записаться</button></div></div></article><article class="event-card poster-card" data-type="talks" data-detail-url="event.html?id=2" tabindex="0" role="link" aria-label="Зачем нам сцена"><div class="event-image image-two"><span>02</span><div class="poster-actions"><a class="button secondary-button" href="event.html?id=2">Подробнее</a><button class="button" type="button" data-register data-event-id="2" data-event-title="Зачем нам сцена?" data-event-date="24 ЯНВ · 18:30">Записаться</button></div></div></article><article class="event-card poster-card" data-type="practice" data-detail-url="event.html?id=3" tabindex="0" role="link" aria-label="Слушать движение"><div class="event-image image-three"><span>03</span><div class="poster-actions"><a class="button secondary-button" href="event.html?id=3">Подробнее</a><button class="button" type="button" data-register data-event-id="3" data-event-title="Слушать движение" data-event-date="01 ФЕВ · 12:00">Записаться</button></div></div></article></div>
-      <p class="calendar-note">Новые события добавляем сюда и в <a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a>. Если хотите предложить своё — <a href="rent.html#contact">напишите нам</a>.</p>
+      <a class="past-events-link" href="?view=past" data-past-link>Посмотреть прошедшие мероприятия →</a><div class="events-list" aria-live="polite"><p class="calendar-note">Загружаем афишу…</p></div><p class="filter-empty" hidden>В этой категории пока нет ближайших событий. Выберите «Все события».</p><p class="calendar-note">Новые события добавляем сюда и в <a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a>. Если хотите предложить своё — <a href="rent.html#contact">напишите нам</a>.</p>
     </section>
   </main>
-  <footer class="footer frame"><span>СЭНС · Кульман 1/2</span><span>События случаются вместе</span><a href="rent.html">Об аренде ↑</a></footer>
+  <footer class="sens-footer"><a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="144"></a><div>Минск · Кульман 1/2<br><a href="https://yandex.by/maps/?text=Минск%20Кульман%201%2F2" target="_blank" rel="noreferrer">Построить маршрут ↗</a></div><div><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a><br><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a></div></footer>
   <dialog class="registration-dialog" data-registration-dialog>
     <button class="dialog-close" type="button" data-dialog-close aria-label="Закрыть">×</button>
     <div class="dialog-grid">
@@ -50,9 +41,9 @@
         <label class="consent"><input name="consent" type="checkbox" value="accepted" required><span>Согласен(на) на обработку данных для записи на мероприятие</span></label>
         <button class="button submit-registration" type="submit">Отправить заявку</button><p class="form-status" data-registration-status role="status"></p>
       </form>
-      <div class="registration-success" data-registration-success hidden><span>Готово</span><h2>Вы в списке.</h2><p>Заявка отправлена организатору в Telegram. Если понадобится уточнение, мы свяжемся с вами.</p><button class="button" type="button" data-dialog-close>Закрыть</button></div>
+      <div class="registration-success" data-registration-success hidden><span>Готово</span><h2>Заявка отправлена.</h2><p>Организатор получил вашу заявку. Сохраните дату и время события; для уточнения деталей мы свяжемся с вами по указанному контакту.</p><button class="button" type="button" data-dialog-close>Закрыть</button></div>
     </div>
   </dialog>
   <script type="module" src="events.js"></script>
-</body>
+<script src="shared.js?v=20260925" defer></script></body>
 </html>

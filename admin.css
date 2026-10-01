@@ -8,4 +8,6 @@
 @media(min-width:48rem){.gallery-preview{grid-template-columns:repeat(5,minmax(0,1fr))}}
 
 .event-schedule{min-width:0;margin:0 0 1rem;padding:1rem;border:1px solid #c8c7c0}.event-schedule legend{font-weight:800}.event-schedule>p{margin:0 0 1rem;font-size:.875rem;color:#666}.time-slot{display:grid;grid-template-columns:minmax(0,1fr);gap:.75rem;padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid #ddd}.time-slot label{min-width:0;margin:0}.time-slot input{width:100%;min-width:0;font-size:1rem}.time-slot button{min-height:2.75rem;align-self:end}.time-slot button:disabled{opacity:.4;cursor:default}.row-meta{flex-wrap:wrap}.row-meta>span{overflow-wrap:anywhere}
-@media(min-width:48rem){.time-slot{grid-template-columns:minmax(0,1fr) minmax(0,2fr) auto}}
+@media(min-width:48rem){.time-slot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+
+.crop-toggle{display:flex!important;align-items:center;gap:.55rem;font-size:.85rem!important;text-transform:none!important;letter-spacing:0!important}.crop-toggle input{width:1.1rem;min-height:1.1rem;accent-color:var(--pink)}

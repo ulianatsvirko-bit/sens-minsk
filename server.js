@@ -60,11 +60,8 @@ function requireAuth(req, res, next) {
 }
 function sameOrigin(req, res, next) {
   const origin=req.headers.origin; const host=req.headers['x-forwarded-host']||req.headers.host;
-  const configuredOrigins=String(process.env.ALLOWED_ORIGINS||'').split(',').map(value=>value.trim()).filter(Boolean);
-  const allowedHosts=new Set(['sens-troupe-preview.vercel.app','sens-troupe-preview-ulianatsvirko-bits-projects.vercel.app',...configuredOrigins.map(value=>{try{return new URL(value).host}catch{return value}})]);
-  let originHost;
-  try { originHost=origin&&new URL(origin).host; } catch { return res.status(400).json({message:'Некорректный Origin.'}); }
-  if (originHost && originHost !== host && !allowedHosts.has(originHost)) return res.status(403).json({message:'Запрос с другого сайта запрещён.'});
+  const allowedProxyOrigin = origin && ['sens-minsk.vercel.app', 'sens-minsk-o0e1l62bu-ulianatsvirko-bits-projects.vercel.app'].includes(new URL(origin).host);
+  if (origin && new URL(origin).host !== host && !allowedProxyOrigin) return res.status(403).json({message:'Запрос с другого сайта запрещён.'});
   next();
 }
 
@@ -92,15 +89,15 @@ app.post('/api/admin/upload', sameOrigin, requireAuth, upload.array('images', 16
 function parseEvent(body){const type=clean(body.type,30);
 const inputTimes=body.times===undefined?[{time:body.time,age:''}]:body.times;
 if(!Array.isArray(inputTimes)||!inputTimes.length||inputTimes.length>100)throw new Error('Добавьте от 1 до 100 вариантов времени.');
-const times=inputTimes.map(slot=>{if(!slot||typeof slot.time!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(slot.time))throw new Error('Укажите корректное время для каждого варианта.');return {time:slot.time,age:clean(slot.age,100)};}).sort((a,b)=>a.time.localeCompare(b.time));
-const data={title:clean(body.title,160),date:clean(body.date,10),time:times[0].time,times,type:['performances','talks','practice'].includes(type)?type:'practice',price:clean(body.price,80),places:Math.max(0,Number(body.places)||0),description:String(body.description||'').trim().slice(0,2000).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,'' ),form:clean(body.form,500),image:clean(body.image,500),gallery:Array.isArray(body.gallery)?body.gallery.filter(item=>/^\/uploads\//.test(item)).slice(0,15):[],published:body.published?1:0};if(!data.image&&data.gallery.length)data.image=data.gallery[0];if(!data.title||!/^\d{4}-\d{2}-\d{2}$/.test(data.date)||!/^\d{2}:\d{2}$/.test(data.time))throw new Error('Заполните название, дату и время.');if(data.form&&!/^https:\/\//.test(data.form))throw new Error('Ссылка записи должна начинаться с https://');return data}
+const times=inputTimes.map(slot=>{if(!slot||typeof slot.time!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(slot.time))throw new Error('Укажите корректное время для каждого варианта.');const endTime=slot.endTime??'';if(typeof endTime!=='string'||(endTime&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(endTime)))throw new Error('Укажите корректное время окончания.');if(endTime&&endTime<=slot.time)throw new Error('Время окончания должно быть позже времени начала.');return {time:slot.time,endTime,age:clean(slot.age,100)};}).sort((a,b)=>a.time.localeCompare(b.time));
+const data={title:clean(body.title,160),date:clean(body.date,10),time:times[0].time,times,type:type||'practice',price:clean(body.price,80),places:Math.max(0,Number(body.places)||0),description:String(body.description||'').trim().slice(0,2000).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,'' ),form:clean(body.form,500),image:clean(body.image,500),gallery:Array.isArray(body.gallery)?body.gallery.filter(item=>/^\/uploads\//.test(item)).slice(0,15):[],published:body.published?1:0};if(!data.image&&data.gallery.length)data.image=data.gallery[0];if(!data.title||!/^\d{4}-\d{2}-\d{2}$/.test(data.date)||!/^\d{2}:\d{2}$/.test(data.time))throw new Error('Заполните название, дату и время.');if(data.form&&!/^https:\/\//.test(data.form))throw new Error('Ссылка записи должна начинаться с https://');return data}
 app.post('/api/admin/events', sameOrigin, requireAuth, (req,res)=>{try{const e=parseEvent(req.body);const out=db.prepare('INSERT INTO events(title,date,time,type,price,places,description,form_url,image_url,gallery_json,times_json,published) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)').run(e.title,e.date,e.time,e.type,e.price,e.places,e.description,e.form,e.image,JSON.stringify(e.gallery),JSON.stringify(e.times),e.published);res.status(201).json(eventFromRow(db.prepare('SELECT * FROM events WHERE id=?').get(out.lastInsertRowid)))}catch(e){res.status(400).json({message:e.message})}});
 app.put('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{try{const e=parseEvent(req.body);const out=db.prepare('UPDATE events SET title=?,date=?,time=?,type=?,price=?,places=?,description=?,form_url=?,image_url=?,gallery_json=?,times_json=?,published=?,updated_at=CURRENT_TIMESTAMP WHERE id=?').run(e.title,e.date,e.time,e.type,e.price,e.places,e.description,e.form,e.image,JSON.stringify(e.gallery),JSON.stringify(e.times),e.published,req.params.id);if(!out.changes)return res.status(404).json({message:'Событие не найдено.'});res.json(eventFromRow(db.prepare('SELECT * FROM events WHERE id=?').get(req.params.id)))}catch(e){res.status(400).json({message:e.message})}});
 app.delete('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{const out=db.prepare('DELETE FROM events WHERE id=?').run(req.params.id);res.status(out.changes?200:404).json(out.changes?{ok:true}:{message:'Событие не найдено.'})});
 
-app.get('/', (req, res) => res.sendFile(path.join(root, 'index.html')));
-app.get('/space', (req, res) => res.sendFile(path.join(root, 'space.html')));
-app.get(['/index.html', '/space.html'], (req, res) => res.redirect(302, req.path === '/index.html' ? '/' : '/space'));
+app.get(['/', '/index.html', '/space', '/space.html'], (req,res) => {
+  res.redirect(302, '/rent.html');
+});
 app.use(express.static(root, { extensions:['html'] }));
 app.use((error,req,res,next)=>{console.error(error);res.status(error.code==='LIMIT_FILE_SIZE'?413:500).json({message:error.code==='LIMIT_FILE_SIZE'?'Файл больше 8 МБ.':'Ошибка сервера.'})});
 app.listen(port,()=>console.log(`SENS started on http://127.0.0.1:${port}`));

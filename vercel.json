@@ -1,15 +1,31 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/space", "destination": "/space.html" },
-    { "source": "/api/events", "destination": "https://sens.109.199.105.77.nip.io/api/events" },
-    { "source": "/api/events/:id", "destination": "https://sens.109.199.105.77.nip.io/api/events/:id" },
-    { "source": "/api/auth/:path*", "destination": "https://sens.109.199.105.77.nip.io/api/auth/:path*" },
-    { "source": "/api/admin/:path*", "destination": "https://sens.109.199.105.77.nip.io/api/admin/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://sens.109.199.105.77.nip.io/uploads/:path*" }
-  ],
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": false },
-    { "source": "/space.html", "destination": "/space", "permanent": false }
+    {
+      "source": "/space",
+      "destination": "/space.html",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/events",
+      "destination": "https://sens.109.199.105.77.nip.io/api/events"
+    },
+    {
+      "source": "/api/events/:id",
+      "destination": "https://sens.109.199.105.77.nip.io/api/events/:id"
+    },
+    {
+      "source": "/api/auth/:path*",
+      "destination": "https://sens.109.199.105.77.nip.io/api/auth/:path*"
+    },
+    {
+      "source": "/api/admin/:path*",
+      "destination": "https://sens.109.199.105.77.nip.io/api/admin/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://sens.109.199.105.77.nip.io/uploads/:path*"
+    }
   ]
 }

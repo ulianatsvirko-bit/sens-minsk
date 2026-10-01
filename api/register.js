@@ -7,9 +7,7 @@ export default async function handler(request, response) {
   if (request.method !== 'POST') { response.setHeader('Allow','POST'); return send(response,405,{message:'Метод не поддерживается.'}); }
   const origin=request.headers.origin, host=request.headers['x-forwarded-host']||request.headers.host;
   try { if(origin&&host&&new URL(origin).host!==host)return send(response,403,{message:'Отправка с другого сайта запрещена.'}); } catch { return send(response,400,{message:'Некорректный запрос.'}); }
-  let body;
-  try { body=typeof request.body==='string'?JSON.parse(request.body||'{}'):(request.body||{}); }
-  catch { return send(response,400,{message:'Некорректный JSON в теле запроса.'}); }
+  const body=typeof request.body==='string'?JSON.parse(request.body||'{}'):(request.body||{});
   if(clean(body.website,200))return send(response,200,{ok:true});
   if(Date.now()-Number(body.form_started_at)<1500)return send(response,429,{message:'Подождите секунду и отправьте ещё раз.'});
   const eventId=clean(body.event_id,40), name=clean(body.name,100), phone=clean(body.phone,40), social=clean(body.social,100), comment=clean(body.comment,500), guests=Math.min(10,Math.max(1,Number(body.guests)||1));

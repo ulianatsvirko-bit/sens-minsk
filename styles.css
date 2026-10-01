@@ -325,14 +325,19 @@ button, summary { font: inherit; }
   margin-top: var(--space-4);
   display: grid;
   gap: var(--space-3);
+  max-width: 54rem;
 }
 
 .hero-bottom p {
-  max-width: 48ch;
+  max-width: 52ch;
   margin: 0;
-  font-size: clamp(1rem, 3.4vw, 1.3rem);
-  line-height: 1.42;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.35;
 }
+.hero-actions { display:flex; flex-wrap:wrap; gap:.55rem; }
+.hero-actions .button { width:auto; }
+.hero-stats { margin-top:var(--space-3); padding-top:var(--space-2); display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; border-top:1px solid #ffffff45; color:#d7d7d1; font-size:var(--font-label); font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.hero-stats span + span::before { content:'·'; margin-right:1.25rem; color:var(--signal); }
 
 .button {
   width: fit-content;
@@ -750,6 +755,21 @@ button, summary { font: inherit; }
 
 .transform-note p strong { color: transparent; font-weight: 700; -webkit-text-stroke: 1px var(--ink); }
 .transform-note small { max-width: 38ch; padding-top: var(--space-2); border-top: 1px solid #05050566; font-size: .9rem; line-height: 1.45; }
+
+.seating-showcase { margin-top: var(--space-7); }
+.seating-showcase .section-heading { margin-top: var(--space-5); }
+.seating-grid { display:grid; grid-template-columns:1fr; gap:.65rem; margin-top:var(--space-5); }
+.seating-card { position:relative; min-height:14rem; margin:0; overflow:hidden; background:var(--ink-raised); }
+.seating-card-wide { min-height:20rem; }
+.seating-card img { display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(.15); transition:transform .7s var(--ease),filter .4s; }
+.seating-card:hover img { transform:scale(1.04); filter:grayscale(0); }
+.seating-card figcaption { position:absolute; right:.7rem; bottom:.7rem; left:.7rem; display:flex; flex-direction:column; gap:.2rem; padding:.65rem .75rem; background:#050505d9; }
+.seating-card figcaption strong { font-size:var(--font-label); text-transform:uppercase; letter-spacing:.08em; }
+.seating-card figcaption span { color:#d0d0ca; font-size:.8rem; }
+.seating-future { margin-top:var(--space-4); padding:var(--space-3); border:1px solid var(--signal); background:#ff14930d; }
+.seating-future span { color:var(--signal); font-size:var(--font-label); font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.seating-future p { margin:.7rem 0 .5rem; font-family:var(--font-display); font-size:clamp(2rem,6vw,4rem); line-height:.9; }
+.seating-future small { display:block; max-width:42ch; color:#c8c8c3; font-size:.95rem; }
 
 .features {
   margin: var(--space-6) 0 0;
@@ -1308,8 +1328,7 @@ button, summary { font: inherit; }
   html { font-size: 96.875%; }
   :root { --frame: min(100% - 3rem, 90rem); }
   .hero-meta { right: 1.5rem; left: 1.5rem; }
-  .hero-bottom { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
-  .hero-bottom .button { min-width: 15rem; }
+  .hero-bottom { grid-template-columns:1fr; align-items:start; }
   .about-grid { grid-template-columns: 1.2fr .8fr; align-items: stretch; }
   .split-heading { grid-template-columns: 1.2fr .8fr; align-items: end; }
   .format-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1372,6 +1391,9 @@ button, summary { font: inherit; }
   .format-card h3 { font-size: clamp(3.6rem, 4.1vw, 5.1rem); }
   .space-showcase { grid-template-columns: 1.55fr .45fr; }
   .space-gallery, .transform-note { min-height: 36rem; }
+  .seating-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .seating-card-wide { grid-column:span 2; grid-row:span 2; min-height:28rem; }
+  .seating-card { min-height:13rem; }
   .features { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .features li { min-height: 11rem; }
   .price-grid { grid-template-columns: 1fr 1fr; align-items: start; }
@@ -1397,3 +1419,20 @@ button, summary { font: inherit; }
   }
   .reveal { opacity: 1; clip-path: none; transform: none; }
 }
+
+@media (max-width: 39.99rem) {
+  .hero-actions { display:grid; }
+  .hero-stats { display:grid; gap:.35rem; }
+  .hero-stats span + span::before { display:none; }
+}
+
+/* Keep the wide hero headline inside the viewport. The outlined final glyph has
+   a slight font overhang, which was clipped by the hero's overflow boundary. */
+@media (min-width: 64rem) {
+  .hero h1 {
+    font-size: clamp(6rem, 11vw, 13rem);
+    padding-right: .12em;
+  }
+}
+
+@media (min-width: 64rem) { .hero-kicker { max-width: 34ch; } }

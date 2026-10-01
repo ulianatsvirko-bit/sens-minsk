@@ -42,10 +42,12 @@
 .poster-actions{opacity:1!important;transform:none!important}
 .poster-card[data-detail-url]{cursor:pointer}.poster-card[data-detail-url]:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
 /* calendar hero: paper grid becomes a quiet, dark editorial texture */
-.hero{isolation:isolate;background-image:linear-gradient(105deg,#050505f5 0%,#050505e6 48%,#050505d6 100%),url('assets/calendar-paper.jpeg');background-size:cover;background-position:center 42%;background-blend-mode:multiply}
+.hero{isolation:isolate;background:#050505}
 .hero:after{display:none}
 .hero h1,.hero h1 span{color:transparent;-webkit-text-stroke:1.5px var(--paper);text-shadow:0 1rem 4rem #000;paint-order:stroke fill}
 .hero-note{padding:1rem 1rem 1rem 1.25rem;background:#05050599;backdrop-filter:blur(.2rem)}
-@media(max-width:47.99rem){.hero{background-position:60% center}.hero h1,.hero h1 span{-webkit-text-stroke:1px var(--paper)}.hero-note{background:#050505bf}}
+@media(max-width:47.99rem){.hero h1,.hero h1 span{-webkit-text-stroke:1px var(--paper)}.hero-note{background:#050505bf}}
 
 .registration-form select{width:100%;min-width:0;min-height:3rem;padding:.75rem;border:1px solid #aaa;background:var(--paper);color:var(--ink);font:inherit;font-size:1rem}.registration-form select:focus{outline:2px solid var(--pink);outline-offset:2px}
+
+.past-events-link{display:inline-flex;margin:0 0 1.5rem;color:var(--paper);font-size:.85rem;font-weight:800;text-decoration:none}.past-events-link:hover{color:var(--pink)}

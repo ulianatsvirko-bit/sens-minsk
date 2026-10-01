@@ -1,26 +1,29 @@
 const registrationEvents = new Map();
 import {addSlotChoice} from './lib/event-slots.js';
-const filters = document.querySelectorAll('.filter');
-filters.forEach((filter) => filter.addEventListener('click', () => {
-  filters.forEach((item) => item.classList.toggle('is-active', item === filter));
-  const selected = filter.dataset.filter;
-  document.querySelectorAll('.event-card').forEach((card) => { card.hidden = selected !== 'all' && card.dataset.type !== selected; });
-}));
-
-fetch('/api/events').then((response) => response.ok ? response.json() : []).then((savedEvents) => {
-  savedEvents.forEach(event => registrationEvents.set(String(event.id), event));
-  const monthNames = ['ЯНВ', 'ФЕВ', 'МАР', 'АПР', 'МАЙ', 'ИЮН', 'ИЮЛ', 'АВГ', 'СЕН', 'ОКТ', 'НОЯ', 'ДЕК'];
-  const weekdayNames = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
-  const typeNames = { performances: 'Спектакль · Показ', talks: 'Публичный разговор', practice: 'Воркшоп · Практика' };
-  const fallbackImages = ['assets/premiere-stage.jpg', 'assets/space/blocks.jpg', 'assets/space-rehearsal.jpg'];
-  const visibleEvents = savedEvents.filter((event) => event.published).sort((a, b) => `${a.date}${a.time}`.localeCompare(`${b.date}${b.time}`));
-  const list = document.querySelector('.events-list');
-  list.innerHTML = visibleEvents.length ? visibleEvents.map((event, index) => {
-    const date = new Date(`${event.date}T12:00:00`);
-    const image = event.image || fallbackImages[index % fallbackImages.length];
-    return `<article class="event-card poster-card" data-type="${event.type}" data-detail-url="event.html?id=${event.id}" tabindex="0" role="link" aria-label="${event.title.replace(/&/g,'&amp;').replace(/\"/g,'&quot;')}"><div class="event-image" style="background-image:linear-gradient(180deg,#0000 48%,#000b 100%),url('${image}')"><span>${String(index + 1).padStart(2, '0')}</span><div class="poster-actions"><a class="button secondary-button" href="event.html?id=${event.id}">Подробнее</a><button class="button" type="button" data-register data-event-id="${event.id}" data-event-title="${event.title.replace(/&/g,'&amp;').replace(/\"/g,'&quot;')}" data-event-date="${String(date.getDate()).padStart(2,'0')} ${monthNames[date.getMonth()]} · ${scheduleText(event).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}">Записаться</button></div></div></article>`;
-  }).join('') : '<p class="calendar-note">Скоро здесь появятся новые события.</p>';
-}).catch(() => {});
+import {upcomingEvents} from './lib/upcoming.js';
+const esc=value=>String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const filters=document.querySelectorAll('.filter');
+const isPastView=new URLSearchParams(location.search).get('view')==='past';
+if(isPastView){
+ document.querySelector('#events-title').textContent='Прошедшие';
+ const link=document.querySelector('[data-past-link]');
+ link.textContent='Вернуться к ближайшим мероприятиям →';
+ link.href='events.html';
+}
+function applyFilter(selected='all'){
+ filters.forEach(item=>{const active=item.dataset.filter===selected;item.classList.toggle('is-active',active);item.setAttribute('aria-pressed',String(active))});
+ const cards=[...document.querySelectorAll('.listing-card')];cards.forEach(card=>card.hidden=selected!=='all'&&card.dataset.type!==selected);
+ document.querySelector('.filter-empty').hidden=!cards.length||cards.some(card=>!card.hidden);
+}
+filters.forEach(filter=>filter.addEventListener('click',()=>applyFilter(filter.dataset.filter)));applyFilter();
+fetch('/api/events').then(response=>{if(!response.ok)throw new Error();return response.json()}).then(events=>{
+ const visible=isPastView?events.filter(event=>event.date < new Date().toISOString().slice(0,10)).sort((a,b)=>b.date.localeCompare(a.date)):upcomingEvents(events);visible.forEach(event=>registrationEvents.set(String(event.id),event));
+ document.querySelector('.events-list').innerHTML=visible.length?visible.map(event=>{
+ const date=new Date(event.date+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}),url='event.html?id='+encodeURIComponent(event.id);
+ return `<article class="listing-card" data-type="${esc(event.type)}"><a class="listing-image" href="${url}" aria-label="${esc(event.title)}"><img src="${esc(event.image||'assets/premiere-stage.jpg')}" alt="" loading="lazy"></a><div class="listing-copy"><p class="listing-meta">${esc(date)} · ${esc(scheduleText(event))}</p><h3><a href="${url}">${esc(event.title)}</a></h3><p class="listing-price">${esc(event.price||'Стоимость уточняется')}</p><div class="listing-actions"><a class="button" href="${url}">Подробнее</a><button class="button" type="button" data-register data-event-id="${esc(event.id)}" data-event-title="${esc(event.title)}" data-event-date="${esc(date+' · '+scheduleText(event))}">Записаться →</button></div></div></article>`;
+ }).join(''):'<p class="calendar-note">Готовим новые события. Следите за анонсами в <a href="https://www.instagram.com/senseminsk/">Instagram ↗</a>.</p>';
+ applyFilter(document.querySelector('.filter.is-active')?.dataset.filter);
+}).catch(()=>{document.querySelector('.events-list').innerHTML='<p class="calendar-note">Не удалось загрузить афишу. <a href="events.html">Попробовать снова</a> или <a href="https://www.instagram.com/senseminsk/">посмотреть анонсы в Instagram ↗</a>.</p>'});
 
 const registrationDialog = document.querySelector('[data-registration-dialog]');
 const registrationForm = document.querySelector('[data-registration-form]');
@@ -56,4 +59,4 @@ registrationForm.addEventListener('submit', async (event) => {
 
 document.addEventListener('keydown',(event)=>{const poster=event.target.closest('[data-detail-url]');if(poster&&(event.key==='Enter'||event.key===' ')){event.preventDefault();location.href=poster.dataset.detailUrl;}});
 
-function scheduleText(event){return (event.times?.length?event.times:[{time:event.time}]).map(slot=>slot.time+(slot.age?' · '+slot.age:'')).join(' / ');}
+function scheduleText(event){return (event.times?.length?event.times:[{time:event.time}]).map(slot=>slot.time+(slot.endTime?'–'+slot.endTime:'')+(slot.age?' · '+slot.age:'')).join(' / ');}
