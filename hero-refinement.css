@@ -86,3 +86,8 @@
   .company h2,
   .final h2 { line-height: 0.96; }
 }
+
+/* Keep Елизавета Есипова's troupe portrait monochrome. */
+.troupe-member img[src*="elizaveta-esipova"] {
+  filter: grayscale(1);
+}
