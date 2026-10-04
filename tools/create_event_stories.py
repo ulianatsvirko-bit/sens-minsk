@@ -4,7 +4,7 @@ import random
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent.parent
 SOURCE = Path("/Users/ulianatsvirko/Downloads/Кулисы — PNG")
 OUT = ROOT / "output" / "event-stories"
 OUT.mkdir(parents=True, exist_ok=True)

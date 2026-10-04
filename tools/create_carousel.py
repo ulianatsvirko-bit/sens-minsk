@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from pathlib import Path
 import random
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'output' / 'carousel'
 OUT.mkdir(parents=True, exist_ok=True)
 W,H = 1080,1350
