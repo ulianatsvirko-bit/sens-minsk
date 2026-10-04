@@ -95,9 +95,9 @@ app.post('/api/admin/events', sameOrigin, requireAuth, (req,res)=>{try{const e=p
 app.put('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{try{const e=parseEvent(req.body);const out=db.prepare('UPDATE events SET title=?,date=?,time=?,type=?,price=?,places=?,description=?,form_url=?,image_url=?,gallery_json=?,times_json=?,published=?,updated_at=CURRENT_TIMESTAMP WHERE id=?').run(e.title,e.date,e.time,e.type,e.price,e.places,e.description,e.form,e.image,JSON.stringify(e.gallery),JSON.stringify(e.times),e.published,req.params.id);if(!out.changes)return res.status(404).json({message:'Событие не найдено.'});res.json(eventFromRow(db.prepare('SELECT * FROM events WHERE id=?').get(req.params.id)))}catch(e){res.status(400).json({message:e.message})}});
 app.delete('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{const out=db.prepare('DELETE FROM events WHERE id=?').run(req.params.id);res.status(out.changes?200:404).json(out.changes?{ok:true}:{message:'Событие не найдено.'})});
 
-app.get(['/', '/index.html', '/space', '/space.html'], (req,res) => {
-  res.redirect(302, '/rent.html');
-});
+app.get('/', (req,res) => res.sendFile(path.join(root, 'index.html')));
+app.get('/index.html', (req,res) => res.sendFile(path.join(root, 'index.html')));
+app.get(['/space', '/space.html'], (req,res) => res.sendFile(path.join(root, 'space.html')));
 app.use(express.static(root, { extensions:['html'] }));
 app.use((error,req,res,next)=>{console.error(error);res.status(error.code==='LIMIT_FILE_SIZE'?413:500).json({message:error.code==='LIMIT_FILE_SIZE'?'Файл больше 8 МБ.':'Ошибка сервера.'})});
 app.listen(port,()=>console.log(`SENS started on http://127.0.0.1:${port}`));

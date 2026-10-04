@@ -19,8 +19,8 @@ filters.forEach(filter=>filter.addEventListener('click',()=>applyFilter(filter.d
 fetch('/api/events').then(response=>{if(!response.ok)throw new Error();return response.json()}).then(events=>{
  const visible=isPastView?events.filter(event=>event.date < new Date().toISOString().slice(0,10)).sort((a,b)=>b.date.localeCompare(a.date)):upcomingEvents(events);visible.forEach(event=>registrationEvents.set(String(event.id),event));
  document.querySelector('.events-list').innerHTML=visible.length?visible.map(event=>{
- const date=new Date(event.date+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}),url='event.html?id='+encodeURIComponent(event.id);
- return `<article class="listing-card" data-type="${esc(event.type)}"><a class="listing-image" href="${url}" aria-label="${esc(event.title)}"><img src="${esc(event.image||'assets/premiere-stage.jpg')}" alt="" loading="lazy"></a><div class="listing-copy"><p class="listing-meta">${esc(date)} · ${esc(scheduleText(event))}</p><h3><a href="${url}">${esc(event.title)}</a></h3><p class="listing-price">${esc(event.price||'Стоимость уточняется')}</p><div class="listing-actions"><a class="button" href="${url}">Подробнее</a><button class="button" type="button" data-register data-event-id="${esc(event.id)}" data-event-title="${esc(event.title)}" data-event-date="${esc(date+' · '+scheduleText(event))}">Записаться →</button></div></div></article>`;
+ const date=new Date(event.date+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}),url='event.html?id='+encodeURIComponent(event.id),times=eventTimes(event),start=times.map(slot=>slot.time).filter(Boolean).join(' / ')||'—',end=times.map(slot=>slot.endTime).filter(Boolean).join(' / ')||'—',price=formatPrice(event.price),scheduleLabel=`Начало: ${start}; Конец: ${end}`;
+ return `<article class="listing-card" data-type="${esc(event.type)}"><a class="listing-image" href="${url}" aria-label="${esc(event.title)}"><img src="${esc(event.image||'assets/premiere-stage.jpg')}" alt="" loading="lazy"></a><div class="listing-copy"><p class="listing-meta">${esc(date)}</p><div class="listing-schedule" aria-label="${esc(scheduleLabel)}"><span><small>Начало</small><strong>${esc(start)}</strong></span><span><small>Конец</small><strong>${esc(end)}</strong></span></div><h3><a href="${url}">${esc(event.title)}</a></h3><p class="listing-price"><span>Стоимость</span> ${esc(price)}</p><div class="listing-actions"><a class="button" href="${url}">Подробнее</a><button class="button" type="button" data-register data-event-id="${esc(event.id)}" data-event-title="${esc(event.title)}" data-event-date="${esc(date+' · '+scheduleLabel)}">Записаться →</button></div></div></article>`;
  }).join(''):'<p class="calendar-note">Готовим новые события. Следите за анонсами в <a href="https://www.instagram.com/senseminsk/">Instagram ↗</a>.</p>';
  applyFilter(document.querySelector('.filter.is-active')?.dataset.filter);
 }).catch(()=>{document.querySelector('.events-list').innerHTML='<p class="calendar-note">Не удалось загрузить афишу. <a href="events.html">Попробовать снова</a> или <a href="https://www.instagram.com/senseminsk/">посмотреть анонсы в Instagram ↗</a>.</p>'});
@@ -59,4 +59,11 @@ registrationForm.addEventListener('submit', async (event) => {
 
 document.addEventListener('keydown',(event)=>{const poster=event.target.closest('[data-detail-url]');if(poster&&(event.key==='Enter'||event.key===' ')){event.preventDefault();location.href=poster.dataset.detailUrl;}});
 
-function scheduleText(event){return (event.times?.length?event.times:[{time:event.time}]).map(slot=>slot.time+(slot.endTime?'–'+slot.endTime:'')+(slot.age?' · '+slot.age:'')).join(' / ');}
+function eventTimes(event){return event.times?.length?event.times:[{time:event.time,endTime:event.endTime||''}];}
+function scheduleText(event){return eventTimes(event).map(slot=>slot.time+(slot.endTime?'–'+slot.endTime:'')+(slot.age?' · '+slot.age:'')).join(' / ');}
+function formatPrice(value){
+ const price=String(value??'').trim();
+ if(!price)return 'Уточняется';
+ if(/[₽]|\bруб(?:\.|лей)?\b/i.test(price)||/бесплат|free|регистрац/i.test(price))return price;
+ return `${price} руб.`;
+}

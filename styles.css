@@ -1387,7 +1387,11 @@ button, summary { font: inherit; }
   .formats .split-heading { grid-template-columns: 1.45fr .55fr; }
   .format-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .format-card { min-height: 42rem; padding: var(--space-4); }
-  .format-card:nth-child(3) { grid-column: auto; }
+.format-card:nth-child(3) { grid-column: auto; }
+.rental-compare{padding:3rem 0 0}.rental-compare h2{max-width:12ch;margin:.75rem 0 1.5rem;font-family:Beni,sans-serif;font-size:clamp(3rem,7vw,6rem);line-height:.82}.compare-grid{display:grid;gap:.75rem}.compare-grid article{display:flex;flex-direction:column;gap:.45rem;padding:1.25rem;background:#111;border:1px solid var(--line)}.compare-grid strong{font-family:Beni,sans-serif;font-size:2.5rem;line-height:.85}.compare-grid span,.compare-grid b{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--signal)}.compare-grid p{max-width:34ch;margin:.5rem 0 1rem;color:#d1d1cc}.compare-grid b{margin-top:auto;color:var(--paper)}
+@media(min-width:48rem){.rental-compare{padding-top:4.5rem}.compare-grid{grid-template-columns:repeat(3,1fr)}.compare-grid article{min-height:15rem;padding:1.5rem}}
+.hero h1{font-size:clamp(3.5rem,10.5vw,10rem)}
+@media(max-width:47.99rem){.hero h1{font-size:clamp(3rem,15vw,5.5rem)}}
   .format-card h3 { font-size: clamp(3.6rem, 4.1vw, 5.1rem); }
   .space-showcase { grid-template-columns: 1.55fr .45fr; }
   .space-gallery, .transform-note { min-height: 36rem; }
