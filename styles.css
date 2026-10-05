@@ -1445,3 +1445,8 @@ button, summary { font: inherit; }
 .page-index a{min-height:2.75rem;display:inline-flex;align-items:center;padding:.55rem .8rem;border:1px solid #343432;text-decoration:none;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .page-index a:hover,.page-index a:focus-visible{background:#ff1493;color:#050505;border-color:#ff1493}
 @media(max-width:47.99rem){.page-index{top:5rem;overflow-x:auto;flex-wrap:nowrap}.page-index a{white-space:nowrap}}
+.rider-link{margin-top:2rem}.rider-link .button{margin:0}
+.faq{background:var(--paper);color:var(--ink)}
+.faq-grid{display:grid;gap:2.5rem}.faq-list{border-top:1px solid #aaa}
+.faq-list details{border-bottom:1px solid #aaa}.faq-list summary{min-height:3.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0;font-weight:800;cursor:pointer;list-style:none}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary::after{content:'＋';color:var(--signal);font-size:1.3rem}.faq-list details[open] summary::after{content:'−'}.faq-list p{max-width:58ch;margin:0;padding:0 2rem 1.25rem 0;color:#4f4f4b;line-height:1.6}
+@media(min-width:48rem){.faq-grid{grid-template-columns:minmax(15rem,.8fr) minmax(0,1.2fr);align-items:start}.faq-list{margin-top:3.5rem}}

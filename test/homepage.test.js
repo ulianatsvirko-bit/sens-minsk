@@ -18,7 +18,7 @@ test('homepage follows the required section order', async () => {
     'class="company"',
     'class="section together"',
     'class="final"',
-    '<footer>'
+    '<footer'
   ];
   const positions = markers.map((marker) => html.indexOf(marker));
   assert.ok(positions.every((position) => position >= 0), `missing section marker: ${positions}`);
@@ -40,11 +40,12 @@ test('homepage event client uses the shared renderer and API source', async () =
   assert.match(script, /renderUpcomingEvents\(events\)/);
 });
 
-test('Vercel routes homepage and space while leaving rent untouched', async () => {
+test('Vercel keeps public pages static and proxies the event API', async () => {
   const config = JSON.parse(await read('vercel.json'));
-  assert.deepEqual(config.rewrites.slice(0, 2), [
-    { source: '/', destination: '/index.html' },
-    { source: '/space', destination: '/space.html' }
+  assert.deepEqual(config.redirects.slice(0, 1), [
+    { source: '/space', destination: '/space.html', permanent: false }
   ]);
+  assert.equal(config.rewrites.some(({ source, destination }) => source === '/api/events' && destination.includes('/api/events')), true);
+  assert.equal(config.rewrites.some(({ source }) => source === '/api/admin/:path*'), true);
   assert.equal(config.redirects.some(({ source, destination }) => source === '/rent.html' || destination === '/rent.html'), false);
 });

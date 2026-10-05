@@ -11,3 +11,4 @@
 @media(min-width:48rem){.time-slot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 
 .crop-toggle{display:flex!important;align-items:center;gap:.55rem;font-size:.85rem!important;text-transform:none!important;letter-spacing:0!important}.crop-toggle input{width:1.1rem;min-height:1.1rem;accent-color:var(--pink)}
+.dialog-foot button{min-height:2.75rem}
