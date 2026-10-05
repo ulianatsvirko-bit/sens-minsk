@@ -22,3 +22,7 @@
 @media(prefers-reduced-motion:reduce){.detail-gallery.is-hinting .gallery-arrow.next{animation:none}}
 
 .detail-register select{width:100%;min-width:0;min-height:3rem;padding:.75rem;border:1px solid #aaa;background:var(--paper);color:var(--ink);font:inherit;font-size:1rem}.detail-register select:focus{outline:2px solid var(--pink);outline-offset:2px}
+.detail-empty{min-height:calc(100svh - 16rem);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding-block:clamp(4rem,10vw,8rem)}
+.detail-empty h1{font-family:Beni,sans-serif;font-size:clamp(3.5rem,10vw,8rem);line-height:.9;margin:1rem 0}
+.detail-empty p:not(.detail-kicker){max-width:38rem;color:#c7c6c1;font-size:1rem;line-height:1.6}
+.detail-empty .button{margin:1.5rem 0 0}

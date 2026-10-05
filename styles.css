@@ -1440,3 +1440,8 @@ button, summary { font: inherit; }
 }
 
 @media (min-width: 64rem) { .hero-kicker { max-width: 34ch; } }
+
+.page-index{display:flex;gap:.5rem;flex-wrap:wrap;padding-block:1rem;border-bottom:1px solid #ffffff30;position:sticky;top:5.25rem;z-index:20;background:#050505;color:#f4f3ef}
+.page-index a{min-height:2.75rem;display:inline-flex;align-items:center;padding:.55rem .8rem;border:1px solid #343432;text-decoration:none;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.page-index a:hover,.page-index a:focus-visible{background:#ff1493;color:#050505;border-color:#ff1493}
+@media(max-width:47.99rem){.page-index{top:5rem;overflow-x:auto;flex-wrap:nowrap}.page-index a{white-space:nowrap}}

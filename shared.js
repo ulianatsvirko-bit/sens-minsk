@@ -7,7 +7,16 @@ if(menu){
  document.addEventListener('click',event=>{if(!wide.matches&&!menu.contains(event.target))menu.open=false});
  menu.addEventListener('toggle',()=>menu.querySelector('summary').setAttribute('aria-label',menu.open?'Закрыть навигацию':'Открыть навигацию'));
  const current=location.pathname.split('/').pop()||'index.html';
- menu.querySelectorAll('a').forEach(link=>{if(link.getAttribute('href')===current)link.setAttribute('aria-current','page')});
+ const links=[...menu.querySelectorAll('a')];
+ const currentLink=links.find(link=>{
+  const target=new URL(link.href,location.href);
+  const targetPage=target.pathname.split('/').pop()||'index.html';
+  return targetPage===current&&!target.hash;
+ })||links.find(link=>{
+  const target=new URL(link.href,location.href);
+  return (target.pathname.split('/').pop()||'index.html')===current;
+ });
+ if(currentLink)currentLink.setAttribute('aria-current','page');
 }
 
 const pageProgress=document.querySelector('[data-sens-progress]');

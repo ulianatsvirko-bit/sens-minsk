@@ -8,3 +8,8 @@ html{scroll-padding-top:7rem}img{max-width:100%}button,input,select,textarea{fon
 @media(min-width:64rem){.events-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}.sens-brand img{width:10.5rem}}
 @media(max-width:47.99rem){.hero h1{font-size:clamp(4rem,20vw,6rem)}.hero-bottom>p{font-size:1rem}.company-image{min-height:23rem}.space-mosaic img{height:16rem}.space-mosaic img:last-child{display:none}.route-grid article{min-height:22rem}.concept-grid p{line-height:1.6}.hero.frame{min-height:22rem}.dialog-event{padding-top:4rem}.space-hero{min-height:34rem}.sens-footer{padding-bottom:2rem}.listing-schedule{gap:.85rem}.listing-schedule span{min-width:calc(50% - .5rem)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+.calendar-empty{padding:2rem 0 1rem;border-top:1px solid #555;border-bottom:1px solid #555}
+.calendar-empty h3{font-family:Beni,sans-serif;font-size:clamp(2.2rem,5vw,4rem);line-height:.9;margin:.75rem 0 1rem}
+.calendar-empty p{max-width:42rem;color:#c7c6c1}
+.calendar-empty .button{display:inline-flex;margin:.5rem .5rem 0 0}
