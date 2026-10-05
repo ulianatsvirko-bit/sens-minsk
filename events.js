@@ -64,6 +64,7 @@ function scheduleText(event){return eventTimes(event).map(slot=>slot.time+(slot.
 function formatPrice(value){
  const price=String(value??'').trim();
  if(!price)return 'Уточняется';
- if(/[₽]|\bруб(?:\.|лей)?\b/i.test(price)||/бесплат|free|регистрац/i.test(price))return price;
- return `${price} руб.`;
+ if(/\bBYN\b/i.test(price)||/бесплат|free|регистрац/i.test(price))return price;
+ if(/\bруб(?:\.|лей)?\b/i.test(price))return price.replace(/\s*руб(?:\.|лей)?\b/ig,' BYN');
+ return `${price} BYN`;
 }
