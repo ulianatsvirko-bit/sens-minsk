@@ -65,3 +65,39 @@ test('renderUpcomingEvents escapes API content and URL identifiers', () => {
   assert.match(html, /A &amp; B &lt; C/);
   assert.match(html, /src="assets\/premiere-stage\.jpg"/);
 });
+
+test('selectPastEvents keeps published events before today, newest first, limited', async () => {
+  const { selectPastEvents } = await import('../lib/home-events.js');
+  const events = [
+    { id: 'old', published: true, date: '2026-09-01', time: '12:00' },
+    { id: 'draft', published: false, date: '2026-09-10', time: '12:00' },
+    { id: 'recent', published: true, date: '2026-10-10', time: '18:00' },
+    { id: 'today', published: true, date: '2026-10-12', time: '18:00' },
+    { id: 'mid', published: true, date: '2026-09-20', time: '18:00' }
+  ];
+  assert.deepEqual(selectPastEvents(events, '2026-10-12', 2).map((event) => event.id), ['recent', 'mid']);
+  assert.deepEqual(selectPastEvents(null, '2026-10-12'), []);
+});
+
+test('renderPastEvents escapes content and links to the event page', async () => {
+  const { renderPastEvents } = await import('../lib/home-events.js');
+  const html = renderPastEvents([{ id: '7', published: true, date: '2026-09-25', title: '<b>Вечер</b>', image: 'javascript:x' }]);
+  assert.match(html, /<li><a href="event\.html\?id=7">/);
+  assert.match(html, /&lt;b&gt;Вечер&lt;\/b&gt;/);
+  assert.match(html, /src="assets\/premiere-stage\.jpg"/);
+  assert.match(html, /25 сентября/);
+});
+
+test('renderUpcomingEvents returns an empty string when nothing is planned', () => {
+  assert.equal(renderUpcomingEvents([], '2026-10-12'), '');
+});
+
+test('impossible calendar dates are ignored everywhere', async () => {
+  const { isValidDateKey, selectPastEvents } = await import('../lib/home-events.js');
+  assert.equal(isValidDateKey('2026-13-45'), false);
+  assert.equal(isValidDateKey('2026-02-30'), false);
+  assert.equal(isValidDateKey('2026-10-12'), true);
+  const events = [{ id: 'bad', published: true, date: '2026-13-45' }];
+  assert.deepEqual(selectUpcomingEvents(events, '2026-01-01'), []);
+  assert.deepEqual(selectPastEvents(events, '2027-01-01'), []);
+});

@@ -57,7 +57,12 @@ export default async function handler(request, response) {
   const startedAt = Number(body.form_started_at);
 
   if (website) return sendJson(response, 200, { ok: true });
-  if (Number.isFinite(startedAt) && Date.now() - startedAt < 1500) {
+  // Bots tend to omit the timestamp or submit instantly; a skewed client clock (negative delta) is not penalised.
+  if (!Number.isFinite(startedAt)) {
+    return sendJson(response, 400, { message: 'Обновите страницу и отправьте форму ещё раз.' });
+  }
+  const elapsed = Date.now() - startedAt;
+  if (elapsed >= 0 && elapsed < 1500) {
     return sendJson(response, 429, { message: 'Слишком быстрая отправка.' });
   }
 
@@ -71,8 +76,11 @@ export default async function handler(request, response) {
     return sendJson(response, 400, { message: 'Заполните обязательные поля и подтвердите согласие на обработку данных.' });
   }
 
+  const heading = format.startsWith('Пожелание к афише')
+    ? '<b>Новое пожелание к афише · СЭНС</b>'
+    : '<b>Новая заявка на сотрудничество · СЭНС</b>';
   const text = [
-    '<b>Новая заявка на сотрудничество · СЭНС</b>',
+    heading,
     '',
     `<b>Имя:</b> ${escapeHtml(name)}`,
     `<b>Контакт:</b> ${escapeHtml(contact)}`,

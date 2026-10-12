@@ -3,66 +3,319 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="СЭНС — открытый культурный хаб в Минске: события, пространство, театральная труппа, аренда и сотрудничество.">
-  <meta name="theme-color" content="#050505">
-  <title>СЭНС · Культурный хаб в Минске</title>
+  <title>СЭНС — театр и зал-трансформер в центре Минска</title>
+  <meta name="description" content="СЭНС — культурный хаб на Кульман 1/2 в Минске: спектакли труппы современной хореографии, практики и аренда зала-трансформера 221 м² до 100 гостей.">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="canonical" href="https://sens-minsk.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="СЭНС">
+  <meta property="og:title" content="СЭНС — театр и зал-трансформер в центре Минска">
+  <meta property="og:description" content="Спектакли, практики и аренда зала 221 м² на Кульман 1/2.">
+  <meta property="og:url" content="https://sens-minsk.vercel.app/">
+  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="СЭНС — театр и зал-трансформер в центре Минска">
+  <meta name="twitter:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
-  <link rel="stylesheet" href="home.css?v=20260922-1">
-<link rel="stylesheet" href="shared.css?v=20260923"><link rel="stylesheet" href="redesign.css?v=20260924"><link rel="stylesheet" href="navigation.css?v=20260925"><link rel="stylesheet" href="hero-refinement.css?v=20260928-6"></head>
+  <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="sens.css?v=20261012-4">
+  <link rel="stylesheet" href="home-page.css?v=20261012-4">
+  <script>document.documentElement.classList.add('js')</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["PerformingArtsTheater", "EventVenue"],
+    "name": "СЭНС",
+    "description": "Культурный хаб: театр современной хореографии, практики и аренда зала-трансформера.",
+    "url": "https://sens-minsk.vercel.app/",
+    "image": "https://sens-minsk.vercel.app/assets/og-sens.jpg",
+    "email": "sensehubminsk@gmail.com",
+    "address": { "@type": "PostalAddress", "streetAddress": "ул. Кульман, 1/2", "addressLocality": "Минск", "addressCountry": "BY" },
+    "maximumAttendeeCapacity": 100,
+    "sameAs": ["https://www.instagram.com/senseminsk/"]
+  }
+  </script>
+</head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
-  <header class="sens-header"><div class="sens-header-inner"><a class="sens-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="168"></a><details class="sens-menu"><summary aria-label="Открыть навигацию">Меню <span aria-hidden="true">☰</span></summary><nav aria-label="Основная навигация"><a href="index.html#about">О СЭНС</a><a href="events.html">Афиша</a><a href="space.html">Пространство</a><a href="index.html#troupe">Труппа</a><a href="rent.html">Аренда</a><a href="rent.html#contact">Связаться ↗</a></nav></details></div><div class="sens-progress" aria-hidden="true"><span data-sens-progress></span></div></header>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="152" height="29"></a>
+      <details class="site-menu">
+        <summary aria-label="Открыть меню"></summary>
+        <nav aria-label="Основная навигация">
+          <a href="events.html">Афиша</a>
+          <a href="#repertoire">Спектакли</a>
+          <a href="#hall">Зал</a>
+          <a href="#troupe">Труппа</a>
+          <a href="rent.html">Аренда</a>
+          <a class="site-menu__cta" href="rent.html#contact">Забронировать зал</a>
+        </nav>
+      </details>
+    </div>
+    <div class="site-progress" aria-hidden="true"><span data-progress></span></div>
+  </header>
 
   <main id="main">
+    <!-- Hero: the name, the body in motion, the address. -->
     <section class="hero" aria-labelledby="hero-title">
-      <picture><source media="(max-width:47.99rem)" srcset="assets/hero-sens-dance.jpg"><img src="assets/hero-sens-dance.jpg" alt="Артисты СЭНС в сценическом движении" fetchpriority="high"></picture>
-      <div class="hero-shade" aria-hidden="true"></div>
-      <div class="hero-content wrap">
-        <p class="eyebrow">СЭНС · Кульман, 1/2</p>
-        <h1 id="hero-title"><span>Открытый</span> <span>культурный хаб</span> <em>в Минске</em></h1>
-        <div class="hero-bottom"><p>Спектакли, танцевальные практики, лаборатории и аренда сцены в центре Минска. Приходите на событие или предложите свой проект.</p><div class="button-row"><a class="button primary" href="events.html">Смотреть события <span>→</span></a><a class="button ghost" href="#about">Познакомиться с СЭНС <span>↓</span></a></div></div>
+      <div class="hero__video">
+        <video data-hero-video autoplay muted loop playsinline preload="metadata" poster="assets/video/hero-loop-poster.jpg" aria-hidden="true">
+          <source src="assets/video/hero-loop.mp4" type="video/mp4">
+        </video>
+        <button class="hero__pause" type="button" data-video-toggle aria-pressed="false">
+          <span class="visually-hidden">Пауза видео</span>
+        </button>
       </div>
-      <a class="next-event" data-next-event href="events.html"><span>Скоро в СЭНС</span><strong>Открыть афишу</strong><span aria-hidden="true">↗</span></a>
+      <div class="hero__copy wrap">
+        <p class="meta meta--signal">Минск · Кульман 1/2</p>
+        <h1 id="hero-title" class="hero__title">СЭНС</h1>
+        <p class="hero__line">Театр современной хореографии и зал, который превращается в&nbsp;сцену под ваш&nbsp;формат.</p>
+        <div class="hero__actions">
+          <a class="btn btn--signal" href="#hall">Подобрать зал под событие <span aria-hidden="true">→</span></a>
+          <a class="btn btn--line" href="#afisha">Что у нас происходит <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <dl class="hero__facts wrap">
+        <div><dt>Зал</dt><dd>221 м²</dd></div>
+        <div><dt>Гостей</dt><dd>до 100</dd></div>
+        <div><dt>Высота</dt><dd>7 м</dd></div>
+        <div><dt>Аренда</dt><dd>от 190 BYN/ч</dd></div>
+      </dl>
     </section>
 
-    <section class="section events" aria-labelledby="events-title"><div class="wrap">
-      <div class="section-head compact"><p class="eyebrow">01 · Афиша</p><h2 id="events-title">Ближайшие <span>события</span></h2></div>
-      <div class="home-events" data-home-events aria-live="polite"><p class="loading">Загружаем события…</p></div>
-      <a class="text-link" href="events.html">Смотреть весь календарь <span>→</span></a>
-    </div></section>
-
-    <section class="section about" id="about" aria-labelledby="about-title"><div class="wrap">
-      <div class="section-head"><p class="eyebrow">02 · Что такое СЭНС</p><h2 id="about-title">Сцена для тех, кто хочет <span>смотреть, пробовать и создавать.</span></h2></div>
-      <div class="concept-grid">
-        <article><span>01</span><h3>Дом</h3><h4>Место для встреч</h4><p>СЭНС открыт для зрителей, артистов, авторов и гостей пространства.</p></article>
-        <article><span>02</span><h3>Сцена</h3><h4>События в Минске</h4><p>Здесь проходят спектакли, показы, разговоры, занятия и другие события.</p></article>
-        <article><span>03</span><h3>Лаборатория</h3><h4>Работа над новыми проектами</h4><p>Пространство для репетиций, исследований, проб и совместной работы.</p></article>
+    <!-- Afisha: upcoming events, or a clear next step plus what already happened. -->
+    <section id="afisha" class="block afisha" aria-labelledby="afisha-title">
+      <div class="wrap">
+        <div class="block-head">
+          <h2 id="afisha-title" class="title">Афиша</h2>
+          <p class="lead" data-afisha-lead>Спектакли, практики, разговоры и вечеринки — всё, что происходит в&nbsp;СЭНС.</p>
+        </div>
+        <div class="afisha__now" data-afisha-now>
+          <p class="afisha__loading">Загружаем афишу…</p>
+        </div>
+        <a class="link-arrow afisha__all" href="events.html">Вся афиша <span aria-hidden="true">→</span></a>
       </div>
-    </div></section>
-
-    <section class="section space-preview" aria-labelledby="space-title"><div class="wrap">
-      <div class="space-copy"><p class="eyebrow">03 · Пространство</p><h2 id="space-title">Один зал. <span>Много сценариев.</span></h2><p>Трансформируемое пространство для событий, показов, встреч, занятий, съёмок и репетиций.</p><a class="button primary" href="space.html">Посмотреть пространство <span>→</span></a></div>
-      <div class="space-mosaic seating-mosaic"><img src="assets/seating/seating-theatre.jpg" alt="Классическая театральная рассадка" loading="lazy"><img src="assets/seating/seating-cabaret.jpg" alt="Рассадка кабаре" loading="lazy"><img src="assets/seating/seating-side.jpg" alt="Свободная рассадка вдоль стены" loading="lazy"><img src="assets/seating/seating-front.jpg" alt="Фронтальная рассадка перед сценой" loading="lazy"></div>
-    </div></section>
-
-    <section class="section home-space-gallery" aria-labelledby="gallery-title"><div class="wrap"><div class="section-head compact"><p class="eyebrow">03.1 · Галерея пространства</p><h2 id="gallery-title">Посмотрите, <span>как живёт зал.</span></h2></div><div class="home-gallery-grid"><figure class="home-gallery-main"><img src="assets/space/hero.jpg" alt="Большой зал СЭНС" loading="lazy"><figcaption>Большой зал · 221,1 м²</figcaption></figure><figure><img src="assets/space/lounge.jpg" alt="Лаунж-зона СЭНС" loading="lazy"><figcaption>Лаунж-зона</figcaption></figure><figure><img src="assets/space/detail.jpg" alt="Детали пространства СЭНС" loading="lazy"><figcaption>Детали пространства</figcaption></figure><figure><img src="assets/space/exterior.jpg" alt="Вход в пространство СЭНС" loading="lazy"><figcaption>Кульман 1/2</figcaption></figure></div><a class="text-link" href="space.html">Все фото пространства <span>→</span></a></div></section>
-
-    <section class="company" id="troupe" aria-labelledby="company-title">
-      <div class="company-image"><img src="assets/sens-collective.jpg" alt="Труппа театра современной хореографии СЭНС" loading="lazy"></div>
-      <div class="company-copy"><p class="eyebrow">04 · Труппа</p><h2 id="company-title">Труппа театра современной хореографии <span>СЭНС</span></h2><p class="lead">Официальная театральная труппа культурного хаба СЭНС.</p><div class="troupe-members"><article class="troupe-member"><img src="assets/troupe/elizaveta-esipova.jpg" alt="Елизавета Есипова" loading="lazy"><div><h3>Елизавета Есипова</h3><p>Артистка</p></div></article><article class="troupe-member"><img src="assets/troupe/maria-mikhaliuk.jpg" alt="Мария Михалюк" loading="lazy"><div><h3>Мария Михалюк</h3><p>Артистка</p></div></article><article class="troupe-member"><img src="assets/troupe/konstantin-matsukevich.jpg" alt="Константин Мацукевич" loading="lazy"><div><h3>Константин Мацукевич</h3><p>Артист</p></div></article><article class="troupe-member"><img src="assets/troupe/alexey-valkovich.jpg" alt="Алексей Валькович" loading="lazy"><div><h3>Алексей Валькович</h3><p>Артист</p></div></article><article class="troupe-member"><img src="assets/troupe/alexandra-kinevich.jpg" alt="Александра Киневич" loading="lazy"><div><h3>Александра Киневич</h3><p>Артистка</p></div></article><article class="troupe-member"><img src="assets/troupe/tatiana-lebedeva.jpg" alt="Татьяна Лебедева" loading="lazy"><div><h3>Татьяна Лебедева</h3><p>Артист · балетмейстер</p></div></article><article class="troupe-member"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="Александра Буяльская" loading="lazy"><div><h3>Александра Буяльская</h3><p>Художественный руководитель</p></div></article><article class="troupe-member"><img src="assets/troupe/anna-arkhipova.jpg" alt="Анна Архипова" loading="lazy"><div><h3>Анна Архипова</h3><p>Артистка</p></div></article><article class="troupe-member"><img src="assets/troupe/nikita-skurat.jpg" alt="Никита Скурат" loading="lazy"><div><h3>Никита Скурат</h3><p>Артист</p></div></article></div><a class="text-link" href="events.html">Смотреть события в афише <span>→</span></a></div>
+      <div class="past" data-past hidden>
+        <div class="wrap past__head">
+          <h3 class="title">Так было</h3>
+          <p class="meta">Прошедшие события · листайте</p>
+        </div>
+        <ol class="past__rail" data-past-rail></ol>
+      </div>
     </section>
 
-    <section class="section together" id="together" aria-labelledby="together-title"><div class="wrap">
-      <div class="section-head compact"><p class="eyebrow">05 · Аренда и сотрудничество</p><h2 id="together-title">Создадим событие <span>вместе.</span></h2></div>
-      <div class="route-grid">
-        <article><p class="eyebrow">Готовый формат</p><h3>Арендовать пространство</h3><p>Для события, съёмки, репетиции, показа или регулярных занятий.</p><a class="button dark" href="rent.html#price">Узнать об аренде <span>→</span></a></article>
-        <article><p class="eyebrow">Идея или проект</p><h3>Предложить сотрудничество</h3><p>Расскажите о своей идее — обсудим возможный формат работы.</p><a class="button light" href="rent.html#contact">Предложить проект <span>→</span></a></article>
-      </div>
-    </div></section>
+    <!-- Signature: the transformer hall. -->
+    <section id="hall" class="block block--rule hall" aria-labelledby="hall-title">
+      <div class="wrap">
+        <div class="block-head">
+          <p class="meta meta--signal">Зал-трансформер · 221 м²</p>
+          <h2 id="hall-title" class="display">Один зал.<br><em>Любой</em> сценарий.</h2>
+          <p class="lead">Сцену можно поставить в любой точке, стулья — переставить под задачу. Выберите формат и посмотрите, как изменится зал.</p>
+        </div>
 
-    <section class="final"><div class="wrap"><p class="eyebrow">Кульман 1/2 · Минск</p><h2>Приходите.<br><span>Будем создавать СЭНС вместе.</span></h2><div class="final-links"><a class="button dark" href="events.html">Выбрать событие <span>→</span></a><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a></div></div></section>
+        <div class="transformer" data-transformer>
+          <div class="transformer__tabs" role="tablist" aria-label="Форматы зала">
+            <button role="tab" id="tab-theatre" aria-controls="panel-format" aria-selected="true" data-layout="theatre">Спектакль</button>
+            <button role="tab" id="tab-lecture" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="lecture">Лекция</button>
+            <button role="tab" id="tab-cabaret" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="cabaret">Концерт · вечер</button>
+            <button role="tab" id="tab-runway" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="runway">Показ вдоль зала</button>
+            <button role="tab" id="tab-free" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="free">Практика · съёмка</button>
+            <button role="tab" id="tab-party" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="party">Праздник</button>
+          </div>
+
+          <div class="transformer__stage" id="panel-format" role="tabpanel" aria-labelledby="tab-theatre">
+            <figure class="transformer__photo">
+              <img data-format-photo src="assets/seating/seating-theatre.jpg" alt="Зал с рядами стульев перед сценой" width="1600" height="1066" loading="lazy" decoding="async">
+            </figure>
+            <figure class="transformer__plan">
+              <svg viewBox="0 0 600 300" role="img" aria-labelledby="plan-caption" data-plan>
+                <rect class="plan__hall" x="1" y="1" width="598" height="298"/>
+                <line class="plan__windows" x1="20" y1="2" x2="580" y2="2"/>
+                <rect class="plan__stage" data-plan-stage x="20" y="40" width="80" height="220"/>
+                <g data-plan-seats></g>
+              </svg>
+              <figcaption id="plan-caption" class="meta">Схема зала, вид сверху · <span data-plan-label>сцена и ряды</span></figcaption>
+            </figure>
+            <div class="transformer__info">
+              <h3 class="transformer__name" data-format-name>Спектакль</h3>
+              <p data-format-text>Классические ряды перед сценой: каждому зрителю видно всё. Для спектаклей, танцевальных показов и премьер.</p>
+              <p class="transformer__cap"><span class="meta">Вместимость</span> <strong data-format-cap>до 100 зрителей</strong></p>
+              <a class="btn btn--signal" href="rent.html#contact">Обсудить моё событие <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repertoire of the troupe. -->
+    <section id="repertoire" class="block block--rule repertoire" aria-labelledby="repertoire-title">
+      <div class="wrap">
+        <div class="block-head">
+          <p class="meta meta--signal">Репертуар труппы СЭНС</p>
+          <h2 id="repertoire-title" class="title">Спектакли</h2>
+          <p class="lead">Билеты пока не продаём — оставьте контакт, и мы напишем первыми, когда откроем показы.</p>
+        </div>
+      </div>
+
+      <article class="play play--back" aria-labelledby="play-back-title">
+        <div class="play__poster">
+          <img src="assets/repertoire/spinoy-k-zavtra-poster.jpg" alt="Афиша спектакля «Спиной к завтра»: затылок и плечи человека, покрытые мхом" width="900" height="1273" loading="lazy" decoding="async">
+        </div>
+        <div class="play__body">
+          <p class="meta">Хореограф-постановщик — Татьяна Лебедева</p>
+          <h3 id="play-back-title" class="play__title">Спиной<br>к завтра</h3>
+          <p class="lead">Спектакль о том, как страх неизбежного финала парализует наше «сейчас».</p>
+          <div class="prose">
+            <p>На границе между мирами оказываются семеро героев, лишённых памяти. Им предстоит заново прожить свои судьбы: замереть в молодости, оцифровать сознание, спрятаться от жизни за тревогой или риском, поискать вечность в детях и наследии — и, наконец, обратиться к собственной душе.</p>
+            <p>Пять историй, которые человечество веками рассказывает себе в погоне за бессмертием. И одна возможность — принять конечность жизни и прожить свой единственный век по-настоящему.</p>
+          </div>
+          <blockquote class="play__quote">Мы стремимся в завтрашний день, но слишком часто стоим к нему спиной.</blockquote>
+          <div class="play__actions">
+            <button class="btn btn--signal" type="button" data-notify="Спектакль «Спиной к завтра»">Сообщить о показе <span aria-hidden="true">→</span></button>
+            <a class="btn btn--quiet" href="rent.html#contact">Показ для компании</a>
+          </div>
+        </div>
+        <ul class="play__strip" aria-label="Фото с репетиций" tabindex="0">
+          <li><img src="assets/repertoire/rehearsal-lift-light.jpg" alt="Поддержка в луче света из окна" width="1000" height="1500" loading="lazy" decoding="async"></li>
+          <li><img src="assets/repertoire/rehearsal-moss-stage.jpg" alt="Артисты лежат на сцене среди мха" width="1600" height="1066" loading="lazy" decoding="async"></li>
+          <li><img src="assets/repertoire/rehearsal-embrace.jpg" alt="Чёрно-белый кадр: объятие двух артистов" width="1000" height="1500" loading="lazy" decoding="async"></li>
+          <li><img src="assets/repertoire/rehearsal-chain-light.jpg" alt="Артисты держатся за руки цепочкой в контровом свете" width="1600" height="1066" loading="lazy" decoding="async"></li>
+        </ul>
+      </article>
+
+      <article class="play play--super" aria-labelledby="play-super-title">
+        <div class="play__body">
+          <p class="meta">Научный спектакль</p>
+          <h3 id="play-super-title" class="play__title">Супер&shy;позиция</h3>
+          <p class="lead">Квантовая физика, рассказанная телом. И история о том, что связь меняет нас навсегда.</p>
+          <div class="prose">
+            <p>До встречи мы — облако возможностей: свободные, бесформенные, невидимые друг для друга. Связь даёт нам плотность и смысл, но забирает автономию: движение одного отзывается болью или радостью в другом. Даже расстояние её не разрушает.</p>
+            <p>А когда нити всё же рвутся, они остаются лежать на сцене — как география нашей памяти. Мы снова одни, но тело уже помнит каждое касание.</p>
+          </div>
+          <ol class="phases" aria-label="Пять частей спектакля">
+            <li><b>Суперпозиция</b><span>Хаос до наблюдения: артисты и клубки в непрерывном движении</span></li>
+            <li><b>Запутанность</b><span>Нити связывают пары — движение одного передаётся другому</span></li>
+            <li><b>Нелокальность</b><span>Пары расходятся, но связь не рвётся</span></li>
+            <li><b>Коллапс</b><span>Одно движение — и вторая группа мгновенно отвечает противоположным</span></li>
+            <li><b>Декогеренция</b><span>Связи распадаются, нити падают на пол</span></li>
+          </ol>
+          <div class="play__actions">
+            <button class="btn btn--signal" type="button" data-notify="Спектакль «Суперпозиция»">Сообщить о показе <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div class="play__visual">
+          <img src="assets/repertoire/rehearsal-hands.jpg" alt="Две руки тянутся друг к другу на чёрном фоне" width="1000" height="1500" loading="lazy" decoding="async">
+          <svg class="threads" viewBox="0 0 400 600" aria-hidden="true" data-threads>
+            <path d="M40 80 C 160 140, 120 300, 360 260"/>
+            <path d="M20 300 C 140 220, 260 420, 380 340"/>
+            <path d="M60 520 C 160 420, 260 560, 340 460"/>
+          </svg>
+        </div>
+      </article>
+    </section>
+
+    <!-- Troupe -->
+    <section id="troupe" class="block block--rule troupe" aria-labelledby="troupe-title">
+      <div class="wrap">
+        <div class="block-head">
+          <p class="meta meta--signal">Труппа</p>
+          <h2 id="troupe-title" class="title">Труппа театра современной хореографии <em>СЭНС</em></h2>
+          <p class="lead">Официальная театральная труппа культурного хаба СЭНС.</p>
+        </div>
+        <ul class="troupe__grid">
+          <li class="troupe__lead"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Буяльская</b><span>Художественный руководитель</span></li>
+          <li><img src="assets/troupe/tatiana-lebedeva.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Татьяна Лебедева</b><span>Артистка · балетмейстер</span></li>
+          <li><img src="assets/troupe/elizaveta-esipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Елизавета Есипова</b><span>Артистка</span></li>
+          <li><img src="assets/troupe/maria-mikhaliuk.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Мария Михалюк</b><span>Артистка</span></li>
+          <li><img src="assets/troupe/konstantin-matsukevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Константин Мацукевич</b><span>Артист</span></li>
+          <li><img src="assets/troupe/alexey-valkovich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Алексей Валькович</b><span>Артист</span></li>
+          <li><img src="assets/troupe/alexandra-kinevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Киневич</b><span>Артистка</span></li>
+          <li><img src="assets/troupe/anna-arkhipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Анна Архипова</b><span>Артистка</span></li>
+          <li><img src="assets/troupe/nikita-skurat.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Никита Скурат</b><span>Артист</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Rent: price up front, three ways to work together. -->
+    <section id="rent" class="block rent" aria-labelledby="rent-title">
+      <div class="wrap rent__inner">
+        <div class="rent__price">
+          <p class="meta">Аренда зала</p>
+          <h2 id="rent-title" class="rent__figure">190<small>BYN/час</small></h2>
+          <p>В будни. В выходные — 250 BYN/час. Минимум 3 часа, оборудование включено.</p>
+        </div>
+        <ul class="rent__ways">
+          <li><b>Разовое событие</b><span>Спектакль, лекция, концерт, мастер-класс, съёмка или частный праздник.</span></li>
+          <li><b>Постоянный слот</b><span>Закрепим за вами время на сезон — например, выходные для детской студии или модельной школы.</span></li>
+          <li><b>Под ключ</b><span>Организуем событие целиком, в том числе со спектаклем нашей труппы. От 3 500 BYN.</span></li>
+        </ul>
+        <div class="rent__actions">
+          <a class="btn btn--signal" href="rent.html#contact">Оставить заявку <span aria-hidden="true">→</span></a>
+          <a class="btn btn--line" href="rent.html">Все условия аренды</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visit -->
+    <section class="block visit" aria-labelledby="visit-title">
+      <div class="wrap visit__inner">
+        <h2 id="visit-title" class="title">Кульман<br><em>1/2</em></h2>
+        <div class="visit__info">
+          <p class="lead">Центр Минска. Приходите на событие или договоритесь о просмотре зала — покажем всё за 30–45 минут.</p>
+          <ul class="visit__links">
+            <li><a class="link-arrow" href="https://yandex.by/maps/?text=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA%20%D0%9A%D1%83%D0%BB%D1%8C%D0%BC%D0%B0%D0%BD%201%2F2" target="_blank" rel="noopener">Построить маршрут <span aria-hidden="true">↗</span></a></li>
+            <li><a class="link-arrow" href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram @senseminsk <span aria-hidden="true">↗</span></a></li>
+            <li><a class="link-arrow" href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="sens-footer"><a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="144"></a><div>Минск · Кульман 1/2<br><a href="https://yandex.by/maps/?text=Минск%20Кульман%201%2F2" target="_blank" rel="noreferrer">Построить маршрут ↗</a></div><div><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a><br><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a></div></footer>
-  <script type="module" src="home.js?v=20260922-1"></script>
-<script src="shared.js?v=20260925" defer></script></body>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="128" height="24" loading="lazy"></a>
+      <ul><li><a href="events.html">Афиша</a></li><li><a href="#repertoire">Спектакли</a></li><li><a href="#troupe">Труппа</a></li></ul>
+      <ul><li><a href="space.html">Пространство</a></li><li><a href="rent.html">Аренда</a></li><li><a href="rent.html#contact">Заявка</a></li></ul>
+      <ul><li>Минск, Кульман 1/2</li><li><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a></li><li><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a></li></ul>
+    </div>
+  </footer>
+
+  <nav class="action-bar" aria-label="Быстрые действия" data-action-bar>
+    <a href="rent.html#contact">Забронировать зал</a>
+    <a href="#afisha">Афиша</a>
+  </nav>
+
+  <dialog class="notify" data-notify-dialog aria-labelledby="notify-title">
+    <form class="notify__form" data-notify-form novalidate>
+      <button class="notify__close" type="button" data-notify-close aria-label="Закрыть">×</button>
+      <p class="meta meta--signal" data-notify-topic>Афиша СЭНС</p>
+      <h2 id="notify-title" class="title">Напишем первыми</h2>
+      <p class="notify__intro">Оставьте контакт — напишем, как только откроем показы или в афише появится то, что вам интересно.</p>
+      <fieldset class="chips" data-notify-chips>
+        <legend>Что вам интересно</legend>
+        <label class="chip"><input type="checkbox" name="interest" value="Спектакли"><span>Спектакли</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Танцевальные практики"><span>Танцевальные практики</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Лекции и разговоры"><span>Лекции и разговоры</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Вечеринки"><span>Вечеринки</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Детские занятия"><span>Для детей</span></label>
+      </fieldset>
+      <label class="field"><span>Ваше пожелание</span><textarea name="idea" maxlength="1200" placeholder="Например: хочу вечер контактной импровизации по пятницам"></textarea></label>
+      <label class="field"><span>Имя *</span><input name="name" required maxlength="100" autocomplete="name"></label>
+      <label class="field"><span>Telegram, телефон или email *</span><input name="contact" required maxlength="160" autocomplete="tel"></label>
+      <label class="honeypot" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="consent"><input type="checkbox" name="consent" value="accepted" required><span>Согласен(на) на обработку персональных данных *</span></label>
+      <button class="btn btn--signal" type="submit">Отправить <span aria-hidden="true">→</span></button>
+      <p class="form-status" role="status" data-notify-status></p>
+    </form>
+  </dialog>
+
+  <script type="module" src="home-page.js?v=20261012-4"></script>
+  <script src="sens.js?v=20261012-4" defer></script>
+</body>
 </html>

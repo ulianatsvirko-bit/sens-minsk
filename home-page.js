@@ -1,0 +1,243 @@
+import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
+import { LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js';
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+/* ---------- Hero video ---------- */
+function initHeroVideo() {
+  const video = document.querySelector('[data-hero-video]');
+  const toggle = document.querySelector('[data-video-toggle]');
+  if (!video || !toggle) return;
+
+  let paused = false;
+  const setPaused = (value) => {
+    paused = value;
+    toggle.setAttribute('aria-pressed', String(paused));
+    if (paused) video.pause();
+    else video.play().catch(() => setPaused(true));
+  };
+
+  if (reducedMotion.matches) setPaused(true);
+  toggle.addEventListener('click', () => setPaused(!paused));
+
+  // Stop decoding while the hero is off screen.
+  new IntersectionObserver(([entry]) => {
+    if (paused) return;
+    if (entry.isIntersecting) video.play().catch(() => setPaused(true));
+    else video.pause();
+  }).observe(video);
+}
+
+/* ---------- Afisha ---------- */
+const EMPTY_STATE = `
+  <div class="afisha-empty">
+    <div>
+      <h3>Собираем афишу на ближайшие недели</h3>
+      <p>Новые события появятся здесь и в Instagram. Расскажите, что хотите увидеть в СЭНС, — напишем, когда это случится.</p>
+    </div>
+    <div class="afisha-empty__actions">
+      <button class="btn btn--signal" type="button" data-notify="Афиша СЭНС">Оставить пожелание <span aria-hidden="true">→</span></button>
+      <a class="btn btn--quiet" href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>`;
+
+async function initAfisha() {
+  const now = document.querySelector('[data-afisha-now]');
+  const past = document.querySelector('[data-past]');
+  const rail = document.querySelector('[data-past-rail]');
+  if (!now) return;
+
+  now.setAttribute('aria-busy', 'true');
+  try {
+    const response = await fetch('/api/events');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const events = await response.json();
+    const today = localDateKey();
+
+    now.innerHTML = renderUpcomingEvents(events) || EMPTY_STATE;
+
+    const pastEvents = selectPastEvents(events, today);
+    if (pastEvents.length && rail && past) {
+      rail.innerHTML = renderPastEvents(pastEvents);
+      past.hidden = false;
+    }
+  } catch {
+    now.innerHTML = '<p class="afisha__loading">Афиша не загрузилась. Обновите страницу или откройте <a href="events.html">полный календарь</a>.</p>';
+  } finally {
+    now.removeAttribute('aria-busy');
+  }
+}
+
+/* ---------- Transformer ---------- */
+function initTransformer() {
+  const root = document.querySelector('[data-transformer]');
+  if (!root) return;
+
+  const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const panel = root.querySelector('[role="tabpanel"]');
+  const seatLayer = root.querySelector('[data-plan-seats]');
+  const stage = root.querySelector('[data-plan-stage]');
+  const photo = root.querySelector('[data-format-photo]');
+  const fields = {
+    name: root.querySelector('[data-format-name]'),
+    text: root.querySelector('[data-format-text]'),
+    cap: root.querySelector('[data-format-cap]'),
+    label: root.querySelector('[data-plan-label]')
+  };
+
+  const seats = Array.from({ length: SEAT_COUNT }, (_, i) => {
+    const circle = document.createElementNS(SVG_NS, 'circle');
+    circle.setAttribute('r', '5');
+    circle.setAttribute('class', 'plan__seat');
+    circle.style.setProperty('--d', `${(i % 12) * 18}ms`);
+    seatLayer.append(circle);
+    return circle;
+  });
+  let lastPosition = seats.map(() => ({ x: 560, y: 280 }));
+  let currentPhoto = photo.getAttribute('src');
+  let swapTimer = 0;
+
+  const preload = (src) => { const img = new Image(); img.src = src; };
+  Object.values(LAYOUTS).forEach((layout) => preload(layout.photo));
+
+  function drawPlan(name) {
+    const layout = LAYOUTS[name];
+    const positions = seatPositions(name);
+    // Removed seats stay where they were and fade out, so they can fly back from there.
+    lastPosition = positions.map((point, i) => point || lastPosition[i]);
+    seats.forEach((seat, i) => {
+      seat.style.transform = `translate(${lastPosition[i].x}px, ${lastPosition[i].y}px)`;
+      seat.classList.toggle('is-off', !positions[i]);
+    });
+    if (layout.stage) {
+      Object.entries(layout.stage).forEach(([key, value]) => stage.setAttribute(key, String(value)));
+      stage.style.opacity = '1';
+    } else {
+      stage.style.opacity = '0';
+    }
+  }
+
+  function select(tab, { focus = false } = {}) {
+    const name = tab.dataset.layout;
+    const layout = LAYOUTS[name];
+    if (!layout) return;
+
+    tabs.forEach((other) => {
+      const isActive = other === tab;
+      other.setAttribute('aria-selected', String(isActive));
+      other.tabIndex = isActive ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', tab.id);
+    if (focus) tab.focus();
+
+    fields.name.textContent = layout.name;
+    fields.text.textContent = layout.text;
+    fields.cap.textContent = layout.capacity;
+    fields.label.textContent = layout.label;
+    drawPlan(name);
+
+    clearTimeout(swapTimer);
+    if (currentPhoto === layout.photo) { photo.classList.remove('is-swapping'); return; }
+    currentPhoto = layout.photo;
+    const swap = () => { photo.src = layout.photo; photo.alt = layout.alt; photo.classList.remove('is-swapping'); };
+    if (reducedMotion.matches) swap();
+    else { photo.classList.add('is-swapping'); swapTimer = setTimeout(swap, 300); }
+  }
+
+  root.querySelector('[role="tablist"]').addEventListener('click', (event) => {
+    const tab = event.target.closest('[role="tab"]');
+    if (tab) select(tab);
+  });
+  root.querySelector('[role="tablist"]').addEventListener('keydown', (event) => {
+    const index = tabs.indexOf(document.activeElement);
+    if (index < 0) return;
+    const moves = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    let next = null;
+    if (event.key in moves) next = tabs[(index + moves[event.key] + tabs.length) % tabs.length];
+    if (event.key === 'Home') next = tabs[0];
+    if (event.key === 'End') next = tabs[tabs.length - 1];
+    if (!next) return;
+    event.preventDefault();
+    select(next, { focus: true });
+  });
+
+  // Seats fly in from the storage corner the first time the plan is seen.
+  drawPlan('free');
+  new IntersectionObserver(([entry], observer) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    select(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+  }, { threshold: 0.35 }).observe(seatLayer.closest('svg'));
+}
+
+/* ---------- Notify dialog ---------- */
+function initNotify() {
+  const dialog = document.querySelector('[data-notify-dialog]');
+  const form = document.querySelector('[data-notify-form]');
+  if (!dialog || !form) return;
+
+  const topic = dialog.querySelector('[data-notify-topic]');
+  const status = dialog.querySelector('[data-notify-status]');
+  const submit = form.querySelector('[type="submit"]');
+  let openedAt = 0;
+  let opener = null;
+
+  const setStatus = (text, state = '') => { status.textContent = text; status.dataset.state = state; };
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-notify]');
+    if (!trigger) return;
+    opener = trigger;
+    topic.textContent = trigger.dataset.notify;
+    const isPlay = trigger.dataset.notify.startsWith('Спектакль');
+    form.querySelectorAll('input[name="interest"]').forEach((box) => { box.checked = isPlay && box.value === 'Спектакли'; });
+    setStatus('');
+    openedAt = Date.now();
+    dialog.showModal();
+  });
+
+  dialog.querySelector('[data-notify-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => opener?.focus());
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const interests = data.getAll('interest').join(', ');
+    const payload = {
+      name: data.get('name'),
+      contact: data.get('contact'),
+      format: `Пожелание к афише · ${topic.textContent}`,
+      idea: [interests && `Интересно: ${interests}`, data.get('idea')].filter(Boolean).join('\n'),
+      consent: data.get('consent'),
+      website: data.get('website'),
+      form_started_at: openedAt
+    };
+
+    submit.disabled = true;
+    setStatus('Отправляем…');
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || 'Не удалось отправить. Напишите нам в Instagram или на почту.');
+      form.reset();
+      setStatus('Готово! Напишем, когда событие появится в афише.', 'ok');
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Не удалось отправить.', 'error');
+    } finally {
+      submit.disabled = false;
+    }
+  });
+}
+
+initHeroVideo();
+initAfisha();
+initTransformer();
+initNotify();

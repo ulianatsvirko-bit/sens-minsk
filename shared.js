@@ -1,3 +1,4 @@
+(() => {
 const menu=document.querySelector('.sens-menu');
 if(menu){
  const wide=matchMedia('(min-width:64rem)');
@@ -34,3 +35,5 @@ if(pageProgress){
  new ResizeObserver(queueProgress).observe(document.body);
  updateProgress();
 }
+
+})();
