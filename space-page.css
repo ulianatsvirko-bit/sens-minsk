@@ -51,8 +51,10 @@
 .tour__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 @media (max-width: 55.99rem) { .tour__copy { order: -1; } }
 @media (min-width: 56rem) {
-  .tour__inner { grid-template-columns: auto 1fr; column-gap: clamp(3rem, 6vw, 7rem); }
-  .tour__video { width: 24rem; }
+  .tour { padding-block: 0; }
+  .tour__inner { width: 100%; grid-template-columns: 1fr 1fr; column-gap: 0; align-items: stretch; }
+  .tour__video { width: 100%; height: min(88vh, 54rem); aspect-ratio: auto; border: 0; }
+  .tour__copy { align-content: center; max-width: 38rem; padding: var(--block) var(--gutter) var(--block) clamp(2.5rem, 6vw, 7rem); }
 }
 
 /* ---------- Floor plan ---------- */
