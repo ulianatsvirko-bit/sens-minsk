@@ -196,7 +196,6 @@
 
 @media (min-width: 56rem) {
   .play--back { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: start; }
-  .play--back .play__poster { position: sticky; top: calc(var(--header-h) + 1.5rem); }
   .play__strip-wrap { grid-column: 1 / -1; }
   .play--super { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); column-gap: clamp(2rem, 5vw, 6rem); align-items: center; }
 }
