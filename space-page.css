@@ -49,9 +49,23 @@
 .tour__copy { display: grid; gap: 1.25rem; }
 .tour__copy .lead { color: var(--paper-dim); }
 .tour__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.tour__route { display: none; width: min(100%, 24rem); height: auto; margin-bottom: clamp(1rem, 3vh, 2.5rem); overflow: visible; }
+.tour__room { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.tour__path { fill: none; stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 2 5; stroke-linecap: round; opacity: 0.45; }
+.tour__path--live { stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 1; animation: tour-draw 6s linear infinite; }
+.tour__dot { fill: var(--signal); offset-path: path('M6 112 H56 V82 H96 V56 H296'); offset-rotate: 0deg; animation: tour-walk 6s linear infinite; }
+.tour__label { fill: var(--paper); font-family: var(--font-text); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.tour__label--dim { fill: var(--paper-dim); font-weight: 500; letter-spacing: 0.04em; }
+@keyframes tour-draw { 0% { stroke-dashoffset: 1; opacity: 1; } 70%, 85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes tour-walk { 0% { offset-distance: 0%; opacity: 1; } 70%, 85% { offset-distance: 100%; opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .tour__path--live { animation: none; stroke-dashoffset: 0; }
+  .tour__dot { animation: none; offset-distance: 100%; }
+}
 @media (max-width: 55.99rem) { .tour__copy { order: -1; } }
 @media (min-width: 56rem) {
   .tour { padding-block: 0; }
+  .tour__route { display: block; }
   .tour__inner { width: 100%; grid-template-columns: 1fr 1fr; column-gap: 0; align-items: stretch; }
   .tour__video { width: 100%; height: min(88vh, 54rem); aspect-ratio: auto; border: 0; }
   .tour__copy { align-content: center; max-width: 38rem; padding: var(--block) var(--gutter) var(--block) clamp(2.5rem, 6vw, 7rem); }
