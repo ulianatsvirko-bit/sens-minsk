@@ -102,4 +102,43 @@ function initFloor() {
   select('hall');
 }
 
+const SLIDE_MS = 5000;
+
+function initSlideshow() {
+  const root = document.querySelector('[data-slideshow]');
+  if (!root) return;
+  const slides = [...root.querySelectorAll('.slides img')];
+  const dots = [...root.querySelectorAll('.slides__dots i')];
+  const caption = root.querySelector('[data-slide-caption]');
+  const toggle = root.querySelector('[data-slide-toggle]');
+  if (slides.length < 2) return;
+
+  let index = 0;
+  let timer = 0;
+  let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let visible = true;
+
+  const show = (next) => {
+    index = (next + slides.length) % slides.length;
+    slides.forEach((img, i) => img.classList.toggle('is-on', i === index));
+    dots.forEach((dot, i) => dot.classList.toggle('is-on', i === index));
+    caption.textContent = slides[index].dataset.caption;
+  };
+  const schedule = () => {
+    clearInterval(timer);
+    if (!paused && visible) timer = setInterval(() => show(index + 1), SLIDE_MS);
+  };
+  const setPaused = (value) => {
+    paused = value;
+    toggle.setAttribute('aria-pressed', String(paused));
+    schedule();
+  };
+
+  toggle.addEventListener('click', () => setPaused(!paused));
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; schedule(); }).observe(root);
+  show(0);
+  setPaused(paused);
+}
+
 initFloor();
+initSlideshow();

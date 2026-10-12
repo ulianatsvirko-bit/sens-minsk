@@ -20,7 +20,7 @@
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261012-5">
-  <link rel="stylesheet" href="space-page.css?v=20261012-3">
+  <link rel="stylesheet" href="space-page.css?v=20261012-5">
   <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -51,8 +51,19 @@
         <h1 id="space-title" class="display">Пространство</h1>
         <p class="lead">Зал-трансформер с окнами во всю стену, welcome-зона, гримёрка и выход во двор. Всё, что нужно, чтобы собрать событие под ключ.</p>
       </div>
-      <figure class="space-hero__photo">
-        <img src="assets/space/hall-stage-chairs.jpg" alt="Главный зал СЭНС: стулья вдоль стен, фермы со светом, шторы и сцена в торце" width="1600" height="1066" fetchpriority="high">
+      <figure class="space-hero__photo" data-slideshow aria-roledescription="слайд-шоу" aria-label="Фото пространства">
+        <div class="slides">
+          <img class="is-on" src="assets/space/hall-stage-chairs.jpg" alt="Главный зал: стулья вдоль стен, фермы со светом и сцена в торце" width="1600" height="1066" fetchpriority="high" data-caption="Показ вдоль зала">
+          <img src="assets/space/hall-semicircle.jpg" alt="Ряды стульев полукругом перед сценой" width="1600" height="1066" loading="lazy" decoding="async" data-caption="Театральная рассадка">
+          <img src="assets/space/welcome-cubes.jpg" alt="Welcome-зона с розовыми кубами и пуфами у окон" width="1600" height="1066" loading="lazy" decoding="async" data-caption="Welcome-зона">
+          <img src="assets/space/hall-empty.jpg" alt="Пустой зал с окнами во всю стену" width="1600" height="1066" loading="lazy" decoding="async" data-caption="Свободный зал 221 м²">
+          <img src="assets/space/welcome-long.jpg" alt="Лаунж с белыми пуфами, в глубине — зал" width="1600" height="1066" loading="lazy" decoding="async" data-caption="Лаунж и гардероб">
+        </div>
+        <figcaption class="slides__bar">
+          <span class="slides__caption" data-slide-caption aria-live="off">Показ вдоль зала</span>
+          <span class="slides__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <button class="slides__toggle" type="button" data-slide-toggle aria-pressed="false"><span class="visually-hidden">Пауза слайд-шоу</span></button>
+        </figcaption>
       </figure>
       <dl class="wrap space-specs">
         <div><dt>Главный зал</dt><dd>221 м²</dd></div>
@@ -60,6 +71,25 @@
         <div><dt>Потолки</dt><dd>7 м</dd></div>
         <div><dt>Мест</dt><dd>до 100</dd></div>
       </dl>
+    </section>
+
+    <section class="block block--rule tour" aria-labelledby="tour-title">
+      <div class="wrap tour__inner">
+        <div class="tour__video">
+          <video controls playsinline preload="none" poster="assets/video/space-tour-poster.jpg" width="720" height="1280" aria-describedby="tour-text">
+            <source src="assets/video/space-tour.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="tour__copy">
+          <p class="meta meta--signal">Обзор · 40 секунд</p>
+          <h2 id="tour-title" class="title">Пройдитесь по&nbsp;СЭНС</h2>
+          <p id="tour-text" class="lead">От входа на Кульман через лаунж в главный зал: свет, окна, высота и детали — так, как это видят гости.</p>
+          <div class="tour__actions">
+            <a class="btn btn--signal" href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Посмотреть вживую <span aria-hidden="true">↗</span></a>
+            <a class="btn btn--quiet" href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Больше в Instagram ↗</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Signature: interactive floor plan -->
@@ -106,7 +136,7 @@
           <li><b>Зал, welcome-зона, гримёрка, санузлы</b><span>Вся площадка 373 м² на время аренды.</span></li>
           <li><b>До 100 стульев</b><span>Расставим рядами, кабаре, вдоль зала или уберём совсем.</span></li>
           <li><b>Оборудование зала</b><span>Список дополняется — актуальную версию пришлём по запросу.</span></li>
-          <li><b>Закулисье и выход во двор</b><span>Для декораций, подготовки артистов и встречи гостей на воздухе.</span></li>
+          <li><b>Служебное помещение и выход во двор</b><span>Место для декораций и реквизита, двор — для встречи гостей на воздухе.</span></li>
         </ul>
         <ul class="included__list included__list--extra">
           <li><b>Технический персонал</b><span>Звук, свет, управление — +300 BYN.</span></li>
@@ -174,7 +204,7 @@
     <a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Написать в Telegram</a>
   </nav>
 
-  <script type="module" src="space-page.js?v=20261012-3"></script>
+  <script type="module" src="space-page.js?v=20261012-4"></script>
   <script src="sens.js?v=20261012-5" defer></script>
 </body>
 </html>
