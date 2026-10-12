@@ -47,3 +47,7 @@ test('Nikita Skurat has eight photos, landscape shots marked wide', () => {
 test('Konstantin Matsukevich has a nine-photo gallery', () => {
   assert.equal(memberGallery(findMember('konstantin-matsukevich')).length, 9);
 });
+
+test('Maria Mikhaliuk has a nine-photo gallery', () => {
+  assert.equal(memberGallery(findMember('maria-mikhaliuk')).length, 9);
+});
