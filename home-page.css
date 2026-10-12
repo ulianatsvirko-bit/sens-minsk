@@ -178,11 +178,6 @@
 .play__strip li { scroll-snap-align: start; }
 .play__strip img { width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 
-.phases { display: grid; gap: 0; margin: 0.5rem 0; padding: 0; list-style: none; counter-reset: phase; }
-.phases li { counter-increment: phase; display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.15rem 0.75rem; padding: 0.85rem 0; border-top: 1px solid var(--line); }
-.phases li::before { content: counter(phase, decimal-leading-zero); grid-row: span 2; font-size: var(--t-meta); font-weight: 800; color: var(--signal); padding-top: 0.2rem; }
-.phases b { font-size: 1.05rem; }
-.phases span { color: var(--muted); font-size: var(--t-small); }
 
 .play__visual { position: relative; overflow: hidden; background: #000; }
 .play__visual img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 2 / 3; }
