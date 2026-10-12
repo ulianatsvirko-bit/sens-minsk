@@ -178,14 +178,23 @@
 
 
 .play--super .play__title { font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+.play--super .prose p { max-width: 52ch; }
+.play__collage { position: relative; display: block; aspect-ratio: 5 / 4; }
+.play__collage img { position: absolute; object-fit: cover; box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.45); transition: transform 0.8s var(--ease-out); }
+.play__collage-main { top: 0; left: 0; width: 78%; height: 74%; }
+.play__collage-tall { top: 14%; right: 0; width: 34%; height: 62%; outline: 0.4rem solid var(--ink); }
+.play__collage-small { left: 14%; bottom: 0; width: 44%; height: 34%; outline: 0.4rem solid var(--ink); }
+.play__collage:hover .play__collage-main { transform: translate(-0.4rem, -0.4rem); }
+.play__collage:hover .play__collage-tall { transform: translate(0.4rem, -0.2rem); }
+.play__collage:hover .play__collage-small { transform: translate(-0.2rem, 0.4rem); }
+.play__collage:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.5rem; }
+@media (prefers-reduced-motion: reduce) { .play__collage img { transition: none; } }
 
 @media (min-width: 56rem) {
   .play--back { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: start; }
   .play--back .play__poster { position: sticky; top: calc(var(--header-h) + 1.5rem); }
   .play__strip-wrap { grid-column: 1 / -1; }
-  .play--super .play__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: end; }
-  .play--super .play__body > .meta { grid-column: 1 / -1; }
-  .play--super .play__title { grid-row: 2 / span 2; }
+  .play--super { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); column-gap: clamp(2rem, 5vw, 6rem); align-items: center; }
 }
 
 /* ---------- Troupe ---------- */
