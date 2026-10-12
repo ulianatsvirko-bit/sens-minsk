@@ -246,4 +246,17 @@
 .visit__inner { display: grid; gap: 2rem; }
 .visit__links { display: grid; gap: 0.5rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
 .visit__links .link-arrow { border-bottom-color: var(--line); }
-@media (min-width: 56rem) { .visit__inner { grid-template-columns: 1fr 1fr; align-items: end; } }
+.visit__where { display: grid; gap: 1.25rem; align-content: start; }
+.visit__where .route, .visit__where .visit__links { margin-top: 0; }
+.visit__map { position: relative; display: block; min-height: 22rem; border: 1px solid var(--line); background: var(--graphite); overflow: hidden; color: var(--paper); text-decoration: none; }
+/* Preview only: the map is dimmed to match the page, our own pin marks the building at the centre. */
+.visit__map iframe { display: block; width: 100%; height: 100%; min-height: 22rem; border: 0; pointer-events: none; filter: grayscale(1) invert(0.9) contrast(0.9); }
+.visit__pin {
+  position: absolute; left: 50%; top: 50%; width: 1.5rem; height: 1.5rem; margin: -1.5rem 0 0 -0.75rem;
+  background: var(--signal); border: 3px solid var(--paper); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 0 0 0.5rem color-mix(in srgb, var(--signal) 25%, transparent);
+}
+.visit__map-label { position: absolute; left: 1rem; bottom: 1rem; padding: 0.6rem 0.9rem; background: var(--ink); border: 1px solid var(--line); font-size: var(--t-small); font-weight: 800; transition: background-color 0.2s, color 0.2s; }
+.visit__map:hover .visit__map-label, .visit__map:focus-visible .visit__map-label { background: var(--signal); color: var(--ink); border-color: var(--signal); }
+@media (min-width: 56rem) {
+  .visit__inner { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: stretch; column-gap: clamp(2rem, 4vw, 4rem); }
+}
