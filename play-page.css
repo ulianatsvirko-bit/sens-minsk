@@ -44,10 +44,22 @@
   font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.1rem); font-weight: 800; line-height: 1.25; max-width: 26ch;
 }
 @media (min-width: 60rem) {
-  .story.story--stack { grid-template-columns: 1fr; }
-  .story--stack .story__text { max-width: 52rem; }
+  .story.story--waves { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); }
+  .story--waves .concept { grid-column: 1 / -1; }
   .story { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); column-gap: clamp(2.5rem, 5vw, 6rem); align-items: start; }
   .story__poster { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+}
+
+/* ---------- Superposition threads ---------- */
+.waves { display: none; margin: 0; }
+.waves__svg { display: block; width: 100%; height: auto; max-height: 70svh; overflow: visible; }
+.waves__thread { fill: none; stroke: var(--signal); stroke-width: 1.4; stroke-linecap: round; mix-blend-mode: screen; }
+.waves__knot { fill: var(--paper); transform-box: fill-box; transform-origin: center; animation: knot-pulse 2.8s ease-in-out infinite; }
+.waves__caption { margin-top: 1.25rem; text-align: center; font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.12em; color: var(--paper-dim); }
+@keyframes knot-pulse { 50% { transform: scale(1.8); opacity: 0.4; } }
+@media (prefers-reduced-motion: reduce) { .waves__knot { animation: none; } }
+@media (min-width: 60rem) {
+  .waves { display: block; position: sticky; top: calc(var(--header-h) + 2rem); }
 }
 
 /* ---------- Gallery ---------- */

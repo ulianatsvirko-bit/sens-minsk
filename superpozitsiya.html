@@ -18,7 +18,7 @@
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261012-14">
-  <link rel="stylesheet" href="play-page.css?v=20261012-5">
+  <link rel="stylesheet" href="play-page.css?v=20261012-6">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -83,7 +83,7 @@
     </section>
 
     <section id="story" class="block" aria-labelledby="story-title">
-      <div class="wrap story story--stack">
+      <div class="wrap story story--waves">
         <div class="story__text">
           <p class="meta meta--signal">О спектакле</p>
           <h2 id="story-title" class="title">Физический закон как человеческая драма</h2>
@@ -95,6 +95,10 @@
           <blockquote class="story__quote">Распад связей — это не просто конец.</blockquote>
           <p class="meta">Хореограф-постановщик — Татьяна Лебедева</p>
         </div>
+        <figure class="waves" aria-hidden="true">
+          <svg class="waves__svg" data-waves preserveAspectRatio="xMidYMid meet"></svg>
+          <figcaption class="waves__caption">|ψ⟩ = α|я⟩ + β|ты⟩</figcaption>
+        </figure>
         <div class="concept" aria-label="Философия спектакля">
           <article class="concept__item"><h3>До связи</h3><p>Абсолютная свобода — но без формы. Мы лишь облако возможностей, невидимые друг для друга.</p></article>
           <article class="concept__item"><h3>Связь</h3><p>Плотность, смысл и любовь. Взамен — эгоистичная автономия: движение одного отзывается болью или радостью в другом.</p></article>
@@ -159,6 +163,7 @@
   </dialog>
 
   <script type="module" src="play-page.js?v=20261012-1"></script>
+  <script type="module" src="superposition-waves.js?v=20261012-1"></script>
   <script src="sens.js?v=20261012-14" defer></script>
 </body>
 </html>
