@@ -59,17 +59,15 @@
 }
 
 @media (min-width: 64rem) {
-  .hero { grid-template-columns: 1fr; }
-  .hero__video {
-    inset: calc(var(--header-h) + 1.5rem) var(--gutter) auto auto;
-    height: calc(100svh - var(--header-h) - 9.5rem);
-    aspect-ratio: 9 / 16;
+  /* Full-bleed widescreen loop; darker on the left and bottom where the type sits. */
+  .hero__video::after {
+    background:
+      linear-gradient(90deg, #0b0b0ccc 0%, #0b0b0c66 45%, transparent 75%),
+      linear-gradient(180deg, #0b0b0c80 0%, transparent 25%, transparent 55%, var(--ink) 100%);
   }
-  .hero__video::after { background: linear-gradient(180deg, transparent 60%, #0b0b0c99 100%); }
-  .hero__pause { top: auto; bottom: 1rem; right: 1rem; }
+  .hero__pause { top: auto; bottom: 7.5rem; right: var(--gutter); }
   .hero__copy { padding-top: 0; padding-bottom: 0.5rem; }
-  .hero__title { mix-blend-mode: difference; position: relative; z-index: 1; }
-  .hero__line { max-width: min(30ch, calc(100% - 30rem)); }
+  .hero__line { max-width: 34ch; }
 }
 
 /* ---------- Afisha ---------- */

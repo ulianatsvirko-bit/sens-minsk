@@ -18,6 +18,19 @@ function initHeroVideo() {
     else video.play().catch(() => setPaused(true));
   };
 
+  // Widescreen loop on desktop, vertical loop on phones and tablets.
+  const wide = matchMedia('(min-width: 64rem)');
+  const pickSource = () => {
+    const size = wide.matches ? 'wide' : 'narrow';
+    const src = video.dataset[`src${size === 'wide' ? 'Wide' : 'Narrow'}`];
+    if (video.currentSrc.endsWith(src)) return;
+    video.poster = video.dataset[`poster${size === 'wide' ? 'Wide' : 'Narrow'}`];
+    video.src = src;
+    if (!paused) video.play().catch(() => setPaused(true));
+  };
+  pickSource();
+  wide.addEventListener('change', pickSource);
+
   if (reducedMotion.matches) setPaused(true);
   toggle.addEventListener('click', () => setPaused(!paused));
 
