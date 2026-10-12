@@ -186,7 +186,20 @@ function initTransformer() {
   }, { threshold: 0.35 }).observe(seatLayer.closest('svg'));
 }
 
+/* Videos further down the page load and play only while visible. */
+function initLazyVideos() {
+  if (reducedMotion.matches) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('[data-lazy-video]').forEach((video) => observer.observe(video));
+}
+
 useImageFallback();
+initLazyVideos();
 initHeroVideo();
 initAfisha();
 initTransformer();
