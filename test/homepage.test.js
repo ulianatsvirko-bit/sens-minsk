@@ -62,3 +62,13 @@ test('Vercel keeps public pages static and proxies the event API', async () => {
   assert.equal(config.rewrites.some(({ source }) => source === '/api/admin/:path*'), true);
   assert.equal(config.redirects.some(({ source, destination }) => source === '/rent.html' || destination === '/rent.html'), false);
 });
+
+test('space page is built on the shared foundation and draws the floor plan', async () => {
+  const html = await read('space.html');
+  assert.match(html, /href="sens\.css/);
+  assert.match(html, /data-floor-svg/);
+  assert.match(html, /src="space-page\.js/);
+  assert.match(html, /t\.me\/sensehubminsk/);
+  const images = html.match(/<img\b[^>]*>/g) || [];
+  for (const tag of images) assert.match(tag, /width="\d+" height="\d+"/, tag);
+});

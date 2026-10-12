@@ -170,6 +170,8 @@
   margin: 0.5rem 0; padding-left: 1.25rem; border-left: 3px solid var(--signal);
   font-size: var(--t-lead); font-weight: 700; line-height: 1.35; max-width: 34ch;
 }
+.play__facts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.play__facts li { padding: 0.3rem 0.7rem; border: 1px solid var(--line); font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .play__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .play__strip {
   display: grid; grid-auto-flow: column; grid-auto-columns: 70%; gap: 0.75rem;
