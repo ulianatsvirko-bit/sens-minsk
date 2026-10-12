@@ -51,3 +51,10 @@ test('Konstantin Matsukevich has a nine-photo gallery', () => {
 test('Maria Mikhaliuk has a nine-photo gallery', () => {
   assert.equal(memberGallery(findMember('maria-mikhaliuk')).length, 9);
 });
+
+test('Alexey Valkovich has six photos at their original 1280px size', () => {
+  const gallery = memberGallery(findMember('alexey-valkovich'));
+  assert.equal(gallery.length, 6);
+  assert.deepEqual(gallery[4], { src: 'assets/troupe/alexey-valkovich/05.jpg', alt: 'Алексей Валькович положил голову на руки за столом', width: 1280, height: 853 });
+  assert.equal(gallery[0].height, 1280);
+});

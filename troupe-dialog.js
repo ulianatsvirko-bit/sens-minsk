@@ -1,5 +1,5 @@
 // Troupe member dialog: tap a card → photo gallery, name, role and Instagram.
-import { findMember, instagramUrl, memberGallery } from './lib/troupe.js?v=20261012-5';
+import { findMember, instagramUrl, memberGallery } from './lib/troupe.js?v=20261012-6';
 
 function slide(shot, index) {
   const item = document.createElement('li');
