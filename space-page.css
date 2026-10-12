@@ -76,7 +76,7 @@
 .floor__svg { width: 100%; height: auto; overflow: visible; }
 .room { cursor: pointer; }
 .room polygon { fill: #ffffff08; stroke: var(--paper-dim); stroke-width: 1.5; transition: fill 0.25s, stroke 0.25s; }
-.room--extra polygon { fill: none; stroke: var(--muted); stroke-dasharray: 6 5; }
+.room--extra polygon { fill: transparent; stroke: var(--muted); stroke-dasharray: 6 5; }
 .room:hover polygon { fill: #ffffff1a; stroke: var(--paper); }
 .room.is-active polygon { fill: color-mix(in srgb, var(--signal) 30%, transparent); stroke: var(--signal); stroke-width: 2.5; }
 .room text { fill: var(--paper-dim); font-family: var(--font-text); font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; pointer-events: none; }
