@@ -7,3 +7,10 @@ output/
 tmp/
 лого/
 фото фоны/
+.claude/
+.env
+data/
+uploads/
+node_modules/
+test/
+tools/
