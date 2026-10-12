@@ -58,3 +58,8 @@ test('Alexey Valkovich has six photos at their original 1280px size', () => {
   assert.deepEqual(gallery[4], { src: 'assets/troupe/alexey-valkovich/05.jpg', alt: 'Алексей Валькович положил голову на руки за столом', width: 1280, height: 853 });
   assert.equal(gallery[0].height, 1280);
 });
+
+test('Anna Arkhipova has four photos, two of them landscape', () => {
+  const gallery = memberGallery(findMember('anna-arkhipova'));
+  assert.deepEqual(gallery.map((shot) => shot.width > shot.height), [false, true, false, true]);
+});
