@@ -1,5 +1,5 @@
 import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
-import { HALL, LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js';
+import { HALL, LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js?v=20261012-4';
 import { plural } from './lib/rent-calc.js?v=20261012-2';
 import { initNotify } from './notify.js';
 import { useImageFallback } from './lib/event-view.js';
@@ -9,6 +9,7 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const MOVE_MS = 900;
 const WAVE_MS = 320;
 const AUTOPLAY_MS = 4200;
+const EMPTY_HALL_PHOTO = 'assets/space/hall-empty.jpg';
 
 /* ---------- Hero video ---------- */
 function initHeroVideo() {
@@ -119,7 +120,7 @@ function initTransformer() {
   let swapTimer = 0;
 
   const preload = (src) => { const img = new Image(); img.src = src; };
-  Object.values(LAYOUTS).forEach((layout) => preload(layout.photo));
+  Object.values(LAYOUTS).filter((layout) => layout.photo).forEach((layout) => preload(layout.photo));
 
   let movingTimer = 0;
   let shownCount = 0;
@@ -183,9 +184,13 @@ function initTransformer() {
     drawPlan(name);
 
     clearTimeout(swapTimer);
-    if (currentPhoto === layout.photo) { photo.classList.remove('is-swapping'); return; }
-    currentPhoto = layout.photo;
-    const swap = () => { photo.src = layout.photo; photo.alt = layout.alt; photo.classList.remove('is-swapping'); };
+    // Formats without their own photo show the empty hall, dimmed, so the block keeps its size.
+    root.dataset.mode = layout.photo ? 'photo' : 'plan';
+    const src = layout.photo || EMPTY_HALL_PHOTO;
+    const alt = layout.photo ? layout.alt : '';
+    if (currentPhoto === src) { photo.alt = alt; photo.classList.remove('is-swapping'); return; }
+    currentPhoto = src;
+    const swap = () => { photo.src = src; photo.alt = alt; photo.classList.remove('is-swapping'); };
     if (reducedMotion.matches) swap();
     else { photo.classList.add('is-swapping'); swapTimer = setTimeout(swap, 300); }
   }
@@ -197,9 +202,11 @@ function initTransformer() {
   const startAuto = () => {
     if (isTouched || reducedMotion.matches) return;
     clearInterval(autoTimer);
+    // Only formats with a photo rotate, so the block never changes height on its own.
+    const photoTabs = tabs.filter((tab) => LAYOUTS[tab.dataset.layout]?.photo);
     autoTimer = setInterval(() => {
-      const index = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
-      select(tabs[(index + 1) % tabs.length]);
+      const index = photoTabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+      select(photoTabs[(index + 1) % photoTabs.length]);
     }, AUTOPLAY_MS);
   };
   root.addEventListener('pointerdown', stopAuto);

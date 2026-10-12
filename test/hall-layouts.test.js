@@ -28,6 +28,30 @@ test('free layout clears every seat and unknown layouts fall back to theatre', (
 
 test('every layout carries copy for the info panel', () => {
   for (const layout of Object.values(LAYOUTS)) {
-    assert.ok(layout.name && layout.text && layout.capacity && layout.photo && layout.alt);
+    assert.ok(layout.name && layout.text && layout.capacity && layout.label, layout.name);
+  }
+});
+
+test('photo layouts carry a photo, plan-only layouts do not', () => {
+  for (const [name, layout] of Object.entries(LAYOUTS)) {
+    assert.ok(['photo', 'plan'].includes(layout.group), name);
+    if (layout.group === 'photo') assert.ok(layout.photo && layout.alt, name);
+    else assert.equal(layout.photo, null, name);
+  }
+  assert.ok(Object.values(LAYOUTS).some((layout) => layout.group === 'plan'));
+});
+
+test('photo layouts come before plan-only layouts', () => {
+  const groups = Object.values(LAYOUTS).map((layout) => layout.group);
+  assert.deepEqual(groups, [...groups].sort((a, b) => (a === 'photo' ? 0 : 1) - (b === 'photo' ? 0 : 1)));
+});
+
+test('no layout needs more seats than the plan has, and seats never overlap', () => {
+  for (const [name, layout] of Object.entries(LAYOUTS)) {
+    const seats = layout.seats();
+    assert.ok(seats.length <= SEAT_COUNT, `${name}: ${seats.length} seats`);
+    seats.forEach((a, i) => seats.slice(i + 1).forEach((b) => {
+      assert.ok(Math.hypot(a.x - b.x, a.y - b.y) >= 12, `${name}: seats overlap at ${a.x},${a.y}`);
+    }));
   }
 });
