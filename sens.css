@@ -237,6 +237,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .action-bar a { display: flex; align-items: center; justify-content: center; min-height: 3.5rem; background: var(--ink); font-size: var(--t-small); font-weight: 800; text-decoration: none; }
 .action-bar a:first-child { background: var(--signal); color: var(--ink); }
+.action-bar a[hidden] { display: none; }
+.action-bar:has(a[hidden]) { grid-template-columns: 1fr; }
+.action-bar:has(a[hidden]) a:not([hidden]) { background: var(--signal); color: var(--ink); }
 .action-bar[data-hidden] { transform: translateY(110%); }
 @media (min-width: 64rem) { .action-bar { display: none; } }
 
