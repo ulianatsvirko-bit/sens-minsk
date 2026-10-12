@@ -33,5 +33,8 @@ test('polygonArea, roomCentre and toPoints do the geometry', () => {
 
 test('findRoom falls back to the main hall and entrances sit on the outline', () => {
   assert.equal(findRoom('nope').id, 'hall');
-  for (const door of ENTRANCES) assert.ok(door.y === 0 || door.y === PLAN.height);
+  for (const door of ENTRANCES) {
+    const onEdge = door.x === 0 || door.x === PLAN.width || door.y === 0 || door.y === PLAN.height;
+    assert.ok(onEdge, door.label);
+  }
 });

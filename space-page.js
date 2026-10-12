@@ -13,7 +13,7 @@ function svgEl(name, attrs = {}, text = '') {
 function drawPlan(svg, onPick) {
   const w = PLAN.width * SCALE;
   const h = PLAN.height * SCALE;
-  svg.setAttribute('viewBox', `-24 -34 ${w + 48} ${h + 82}`);
+  svg.setAttribute('viewBox', `-44 -34 ${w + 68} ${h + 82}`);
 
   // Windows: the whole street wall, and the courtyard side of the welcome zone and studio.
   svg.append(svgEl('line', { class: 'floor__window', x1: 0, y1: h, x2: w, y2: h }));
@@ -39,7 +39,10 @@ function drawPlan(svg, onPick) {
     const cx = door.x * SCALE;
     const cy = door.y * SCALE;
     svg.append(svgEl('circle', { class: 'floor__door', cx, cy, r: 7 }));
-    svg.append(svgEl('text', { class: 'floor__door-label', x: cx + 12, y: door.y === 0 ? cy - 12 : cy + 24 }, door.label));
+    const label = door.side === 'left'
+      ? { x: cx - 16, y: cy, 'text-anchor': 'middle', transform: `rotate(-90 ${cx - 16} ${cy})` }
+      : { x: cx + 12, y: door.side === 'top' ? cy - 12 : cy + 24 };
+    svg.append(svgEl('text', { class: 'floor__door-label', ...label }, door.label));
   });
 
   const scaleY = h + 34;
