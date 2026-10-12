@@ -177,16 +177,15 @@
 .play__strip-nav .link-arrow { margin-left: auto; }
 
 
-.play__visual { position: relative; margin: 0; overflow: hidden; background: #000; }
-.play__visual--video { display: block; aspect-ratio: 16 / 9; background: var(--graphite); border: 1px solid var(--line); }
-.play__visual-video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .play--super .play__title { font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
 
 @media (min-width: 56rem) {
   .play--back { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: start; }
   .play--back .play__poster { position: sticky; top: calc(var(--header-h) + 1.5rem); }
   .play__strip-wrap { grid-column: 1 / -1; }
-  .play--super { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: center; }
+  .play--super .play__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 5rem); align-items: end; }
+  .play--super .play__body > .meta { grid-column: 1 / -1; }
+  .play--super .play__title { grid-row: 2 / span 2; }
 }
 
 /* ---------- Troupe ---------- */
