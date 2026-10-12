@@ -1,8 +1,16 @@
+import { validDate } from '../lib/busy-slots.js';
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const CLOCK_SKEW_MS = 5 * 60 * 1000;
+
 const MAX_LENGTH = {
   name: 100,
   contact: 160,
   format: 100,
   idea: 1500,
+  date: 10,
+  guests: 4,
+  estimate: 300,
 };
 
 function clean(value, maxLength) {
@@ -62,6 +70,9 @@ export default async function handler(request, response) {
     return sendJson(response, 400, { message: 'Обновите страницу и отправьте форму ещё раз.' });
   }
   const elapsed = Date.now() - startedAt;
+  if (elapsed < -CLOCK_SKEW_MS || elapsed > DAY_MS) {
+    return sendJson(response, 400, { message: 'Обновите страницу и отправьте форму ещё раз.' });
+  }
   if (elapsed >= 0 && elapsed < 1500) {
     return sendJson(response, 429, { message: 'Слишком быстрая отправка.' });
   }
@@ -71,6 +82,9 @@ export default async function handler(request, response) {
   const format = clean(body.format, MAX_LENGTH.format);
   const idea = clean(body.idea, MAX_LENGTH.idea);
   const consent = clean(body.consent, 20);
+  const date = validDate(clean(body.date, MAX_LENGTH.date)) ? clean(body.date, MAX_LENGTH.date) : '';
+  const guests = /^\d{1,4}$/.test(clean(body.guests, MAX_LENGTH.guests)) ? clean(body.guests, MAX_LENGTH.guests) : '';
+  const estimate = clean(body.estimate, MAX_LENGTH.estimate);
 
   if (!name || !contact || !format || consent !== 'accepted') {
     return sendJson(response, 400, { message: 'Заполните обязательные поля и подтвердите согласие на обработку данных.' });
@@ -85,9 +99,12 @@ export default async function handler(request, response) {
     `<b>Имя:</b> ${escapeHtml(name)}`,
     `<b>Контакт:</b> ${escapeHtml(contact)}`,
     `<b>Формат:</b> ${escapeHtml(format)}`,
+    date ? `<b>Дата:</b> ${escapeHtml(date)}` : null,
+    guests ? `<b>Гостей:</b> ${escapeHtml(guests)}` : null,
+    estimate ? `<b>Расчёт на сайте:</b> ${escapeHtml(estimate)}` : null,
     `<b>Идея:</b> ${escapeHtml(idea || '—')}`,
     '<b>Согласие на обработку данных:</b> получено',
-  ].join('\n');
+  ].filter((line) => line !== null).join('\n');
 
   try {
     const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

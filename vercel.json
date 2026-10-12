@@ -16,6 +16,10 @@
       "destination": "https://sens.109.199.105.77.nip.io/api/events/:id"
     },
     {
+      "source": "/api/busy",
+      "destination": "https://sens.109.199.105.77.nip.io/api/busy"
+    },
+    {
       "source": "/api/auth/:path*",
       "destination": "https://sens.109.199.105.77.nip.io/api/auth/:path*"
     },

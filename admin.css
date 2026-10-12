@@ -12,3 +12,20 @@
 
 .crop-toggle{display:flex!important;align-items:center;gap:.55rem;font-size:.85rem!important;text-transform:none!important;letter-spacing:0!important}.crop-toggle input{width:1.1rem;min-height:1.1rem;accent-color:var(--pink)}
 .dialog-foot button{min-height:2.75rem}
+
+/* Busy dates for the rent calendar */
+.busy-admin{margin-top:3rem;padding-top:2rem;border-top:1px solid #c8c7c0}
+.busy-admin h2{font-family:Beni;font-size:clamp(2.4rem,6vw,4rem);line-height:.85;margin:.5rem 0}
+.busy-admin__head p:last-child{color:#666;max-width:42rem}
+.busy-admin__form{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.75rem;align-items:end;margin:1.5rem 0}
+.busy-admin__form label{display:grid;gap:.35rem;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.busy-admin__form input{min-height:2.9rem;padding:.6rem .7rem;border:1px solid #c8c7c0;background:#f8f7f2;font:inherit;text-transform:none;letter-spacing:0;font-weight:400}
+.busy-admin__note{grid-column:span 2}
+.busy-admin__hint{grid-column:1/-1;margin:0;color:#777;font-size:.85rem}
+.busy-admin__list{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.busy-admin__list li{display:flex;align-items:center;gap:1rem;padding:.8rem 1rem;border:1px solid #c8c7c0;background:#fff}
+.busy-admin__list b{min-width:9rem}
+.busy-admin__list span{flex:1;color:#666}
+.busy-admin__list button{border:1px solid #c8c7c0;background:none;min-height:2.4rem;padding:0 .9rem;cursor:pointer}
+.busy-admin__list button:hover{border-color:#080808}
+@media(max-width:40rem){.busy-admin__note{grid-column:auto}.busy-admin__list li{flex-wrap:wrap}}

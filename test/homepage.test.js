@@ -72,3 +72,21 @@ test('space page is built on the shared foundation and draws the floor plan', as
   const images = html.match(/<img\b[^>]*>/g) || [];
   for (const tag of images) assert.match(tag, /width="\d+" height="\d+"/, tag);
 });
+
+test('rent page keeps the #contact anchor, calculator, calendar and sends extra fields', async () => {
+  const html = await read('rent.html');
+  assert.match(html, /href="sens\.css/);
+  assert.match(html, /id="contact"/);
+  assert.match(html, /data-calc\b/);
+  assert.match(html, /data-calendar\b/);
+  for (const name of ['name', 'contact', 'format', 'date', 'guests', 'estimate', 'consent', 'website', 'form_started_at']) {
+    assert.match(html, new RegExp(`name="${name}"`), name);
+  }
+  const images = html.match(/<img\b[^>]*>/g) || [];
+  for (const tag of images) assert.match(tag, /width="\d+" height="\d+"/, tag);
+});
+
+test('Vercel proxies the public busy-dates API to the VPS', async () => {
+  const config = JSON.parse(await read('vercel.json'));
+  assert.ok(config.rewrites.some(({ source, destination }) => source === '/api/busy' && destination.endsWith('/api/busy')));
+});
