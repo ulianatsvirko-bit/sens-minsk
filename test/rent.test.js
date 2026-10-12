@@ -87,3 +87,13 @@ test('monthGrid starts weeks on Monday', () => {
   assert.ok(weeks.every((week) => week.length === 7));
   assert.equal(weeks.flat().filter(Boolean).length, 31);
 });
+
+test('white hall adds 50 BYN per rented hour to hourly rent only', () => {
+  const base = calculate({ mode: 'hourly', date: '2026-10-12', hours: 4 }).total;
+  const withStudio = calculate({ mode: 'hourly', date: '2026-10-12', hours: 4, studio: true });
+  assert.equal(PRICES.studioPerHour, 50);
+  assert.equal(withStudio.total, base + 4 * 50);
+  assert.ok(withStudio.lines.some((line) => line.label.startsWith('Белый зал')));
+  assert.equal(calculate({ mode: 'daily', date: '2026-10-12', studio: true }).total, PRICES.dayMonThu);
+  assert.equal(calculate({ mode: 'turnkey', guests: 50, studio: true }).total, 3500);
+});

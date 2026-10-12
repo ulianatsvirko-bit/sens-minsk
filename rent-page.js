@@ -1,4 +1,4 @@
-import { calculate, formatByn, isWeekend, PRICES } from './lib/rent-calc.js?v=20261012-2';
+import { calculate, formatByn, isWeekend, PRICES } from './lib/rent-calc.js?v=20261012-3';
 import { busyByDate, monthGrid } from './lib/busy-slots.js';
 import { localDateKey } from './lib/home-events.js';
 
@@ -8,7 +8,7 @@ const WEEKDAYS = ['воскресенье', 'понедельник', 'втор�
 const MONTHS_AHEAD = 12;
 const FORMAT_BY_MODE = { hourly: 'Аренда по часам', daily: 'Аренда на сутки', turnkey: 'Событие под ключ' };
 
-const state = { date: '', mode: 'hourly', hours: PRICES.minHours, guests: 50, tech: false, video: false, busy: new Map() };
+const state = { date: '', mode: 'hourly', hours: PRICES.minHours, guests: 50, tech: false, video: false, studio: false, busy: new Map() };
 
 function humanDate(key) {
   const [y, m, d] = key.split('-').map(Number);
@@ -27,7 +27,7 @@ const calc = {
 };
 
 function currentEstimate() {
-  return calculate({ mode: state.mode, date: state.date, hours: state.hours, guests: state.guests, tech: state.tech, video: state.video });
+  return calculate({ mode: state.mode, date: state.date, hours: state.hours, guests: state.guests, tech: state.tech, video: state.video, studio: state.studio });
 }
 
 function renderCalc() {
@@ -61,6 +61,7 @@ function initCalc() {
     if (event.target.name === 'mode') state.mode = event.target.value;
     if (event.target.matches('[data-tech]')) state.tech = event.target.checked;
     if (event.target.matches('[data-video]')) state.video = event.target.checked;
+    if (event.target.matches('[data-studio]')) state.studio = event.target.checked;
     renderCalc();
   });
   calc.root.querySelector('[data-guests]').addEventListener('input', (event) => { state.guests = Number(event.target.value); renderCalc(); });

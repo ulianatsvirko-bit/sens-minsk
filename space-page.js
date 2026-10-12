@@ -1,4 +1,4 @@
-import { ENTRANCES, PLAN, ROOMS, findRoom, roomCentre, toPoints } from './lib/floor-plan.js';
+import { ENTRANCES, PLAN, ROOMS, findRoom, roomCentre, toPoints } from './lib/floor-plan.js?v=20261012-2';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const SCALE = 20; // svg units per metre
