@@ -1,6 +1,7 @@
 import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
 import { LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js';
 import { initNotify } from './notify.js';
+import { useImageFallback } from './lib/event-view.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -185,6 +186,7 @@ function initTransformer() {
   }, { threshold: 0.35 }).observe(seatLayer.closest('svg'));
 }
 
+useImageFallback();
 initHeroVideo();
 initAfisha();
 initTransformer();

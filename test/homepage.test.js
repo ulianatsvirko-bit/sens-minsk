@@ -90,3 +90,19 @@ test('Vercel proxies the public busy-dates API to the VPS', async () => {
   const config = JSON.parse(await read('vercel.json'));
   assert.ok(config.rewrites.some(({ source, destination }) => source === '/api/busy' && destination.endsWith('/api/busy')));
 });
+
+test('play pages exist, link to each other and are linked from the homepage', async () => {
+  const home = await read('index.html');
+  for (const [slug, other] of [['spinoy-k-zavtra', 'superpozitsiya'], ['superpozitsiya', 'spinoy-k-zavtra']]) {
+    const html = await read(`${slug}.html`);
+    assert.match(home, new RegExp(`href="${slug}\\.html"`));
+    assert.match(html, new RegExp(`href="${other}\\.html"`));
+    assert.match(html, /data-notify="Спектакль/);
+    assert.match(html, /Татьяна Лебедева/);
+    assert.match(html, /"@type": "CreativeWork"/);
+    for (const tag of html.match(/<img\b[^>]*>/g) || []) assert.match(tag, /width="\d+" height="\d+"/, tag);
+  }
+  const sitemap = await read('sitemap.xml');
+  assert.match(sitemap, /spinoy-k-zavtra\.html/);
+  assert.match(sitemap, /superpozitsiya\.html/);
+});
