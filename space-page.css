@@ -49,27 +49,26 @@
 .tour__copy { display: grid; gap: 1.25rem; }
 .tour__copy .lead { color: var(--paper-dim); }
 .tour__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.tour__route { display: none; width: min(100%, 24rem); height: auto; margin-bottom: clamp(1rem, 3vh, 2.5rem); overflow: visible; }
-.tour__room { fill: none; stroke: var(--line); stroke-width: 1.5; }
-.tour__path { fill: none; stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 2 5; stroke-linecap: round; opacity: 0.45; }
-.tour__path--live { stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 1; animation: tour-draw 6s linear infinite; }
-.tour__dot { fill: var(--signal); offset-path: path('M6 112 H56 V82 H96 V56 H296'); offset-rotate: 0deg; animation: tour-walk 6s linear infinite; }
-.tour__label { fill: var(--paper); font-family: var(--font-text); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-.tour__label--dim { fill: var(--paper-dim); font-weight: 500; letter-spacing: 0.04em; }
-@keyframes tour-draw { 0% { stroke-dashoffset: 1; opacity: 1; } 70%, 85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-@keyframes tour-walk { 0% { offset-distance: 0%; opacity: 1; } 70%, 85% { offset-distance: 100%; opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .tour__path--live { animation: none; stroke-dashoffset: 0; }
-  .tour__dot { animation: none; offset-distance: 100%; }
-}
+.tour__lights { display: none; }
+@keyframes tour-flicker { 0%, 100% { opacity: 0.85; } 45% { opacity: 0.35; } 50% { opacity: 0.9; } 53% { opacity: 0.5; } 60% { opacity: 0.95; } }
 @media (max-width: 55.99rem) { .tour__copy { order: -1; } }
 @media (min-width: 56rem) {
   .tour { padding-block: 0; }
-  .tour__route { display: block; }
   .tour__inner { width: 100%; grid-template-columns: 1fr 1fr; column-gap: 0; align-items: stretch; }
-  .tour__video { width: 100%; height: min(88vh, 54rem); aspect-ratio: auto; border: 0; }
-  .tour__copy { align-content: center; max-width: 38rem; padding: var(--block) var(--gutter) var(--block) clamp(2.5rem, 6vw, 7rem); }
+  .tour__video { position: relative; isolation: isolate; overflow: hidden; width: 100%; height: min(88vh, 54rem); aspect-ratio: auto; border: 0; background: var(--ink); }
+  .tour__video::before { content: ''; position: absolute; inset: -2rem; z-index: -1; background: url('assets/video/space-tour-poster.jpg') center / cover; filter: blur(28px) brightness(0.45) saturate(0.9); }
+  .tour__video video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; height: calc(100% - clamp(3rem, 8vh, 6rem)); max-width: 100%; aspect-ratio: 9 / 16; object-fit: contain; box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.5); }
+  .tour__copy { position: relative; isolation: isolate; align-content: center; max-width: 38rem; padding: var(--block) var(--gutter) var(--block) clamp(2.5rem, 6vw, 7rem); }
+  .tour__lights { display: block; position: absolute; z-index: -1; top: 7%; left: clamp(2.5rem, 6vw, 7rem); right: var(--gutter); height: 17%; pointer-events: none; }
+  .tour__lights span { position: absolute; height: 2px; border-radius: 2px; background: var(--signal); box-shadow: 0 0 0.6rem var(--signal), 0 0 1.6rem color-mix(in srgb, var(--signal) 45%, transparent); transform: rotate(-14deg); transform-origin: left center; animation: tour-flicker 5s ease-in-out infinite; }
+  .tour__lights span:nth-child(1) { top: 8%; left: 4%; width: 34%; animation-duration: 6.5s; }
+  .tour__lights span:nth-child(2) { top: 30%; left: 30%; width: 46%; animation-duration: 5.2s; animation-delay: -1.8s; }
+  .tour__lights span:nth-child(3) { top: 58%; left: 10%; width: 26%; animation-duration: 7.4s; animation-delay: -3.1s; opacity: 0.6; }
+  .tour__lights span:nth-child(4) { top: 72%; left: 52%; width: 38%; animation-duration: 6s; animation-delay: -0.6s; }
+  .tour__lights span:nth-child(5) { top: 96%; left: 22%; width: 20%; animation-duration: 8s; animation-delay: -4.4s; opacity: 0.5; }
 }
+
+@media (prefers-reduced-motion: reduce) { .tour__lights span { animation: none; } }
 
 /* ---------- Floor plan ---------- */
 .floor { display: grid; gap: 1.25rem; }
