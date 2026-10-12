@@ -21,7 +21,6 @@
 .play-hero__pause::after { left: calc(50% + 2px); }
 .play-hero__pause[aria-pressed="true"]::before { left: calc(50% - 4px); width: 0; height: 0; background: none; border-style: solid; border-width: 0.45rem 0 0.45rem 0.75rem; border-color: transparent transparent transparent var(--paper); }
 .play-hero__pause[aria-pressed="true"]::after { display: none; }
-@media (min-width: 64rem) { .play-hero__pause { top: auto; bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); } }
 
 .play-facts { display: grid; grid-template-columns: repeat(2, 1fr); margin: 0; border-top: 1px solid var(--line); }
 .play-facts div { padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
@@ -62,6 +61,8 @@
 
 /* ---------- Threads hero (Суперпозиция) ---------- */
 .threads-hero { position: absolute; inset: 0; z-index: -1; background: var(--ink); }
+.threads-hero--over { background: none; }
+.threads-hero--over path { opacity: 0.75; }
 .threads-hero svg { width: 100%; height: 100%; }
 .threads-hero path { fill: none; stroke: var(--signal); stroke-width: 1.5; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: 0.9; }
 .threads-hero circle { fill: var(--paper); }

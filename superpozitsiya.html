@@ -13,12 +13,12 @@
   <meta property="og:title" content="«Суперпозиция» — научный спектакль труппы СЭНС">
   <meta property="og:description" content="Научный спектакль труппы СЭНС: квантовая физика, рассказанная телом, и история о природе человеческих связей. Хореограф-постановщик Татьяна Лебедева, ≈1 час, 12+.">
   <meta property="og:url" content="https://sens-minsk.vercel.app/superpozitsiya.html">
-  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
+  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/video/superposition-loop-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261012-14">
-  <link rel="stylesheet" href="play-page.css?v=20261012-2">
+  <link rel="stylesheet" href="play-page.css?v=20261012-4">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -64,7 +64,12 @@
 
   <main id="main">
     <section class="play-hero" aria-labelledby="play-title">
-      <div class="threads-hero" aria-hidden="true"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><path d="M-50 160 C 300 40, 520 420, 820 300 S 1300 120, 1650 260"/><path d="M-50 520 C 260 380, 600 720, 900 560 S 1350 380, 1650 600"/><path d="M200 -40 C 260 260, 520 360, 700 620 S 980 960, 1080 940"/><path d="M1500 -40 C 1300 240, 1120 300, 1000 520 S 760 880, 640 940"/><path d="M-50 760 C 380 640, 760 860, 1100 700 S 1500 560, 1650 740"/><circle cx="160" cy="128" r="6" style="animation-delay:1.20s"/><circle cx="1240" cy="180" r="6" style="animation-delay:1.32s"/><circle cx="380" cy="520" r="6" style="animation-delay:1.44s"/><circle cx="1180" cy="470" r="6" style="animation-delay:1.56s"/><circle cx="520" cy="360" r="6" style="animation-delay:1.68s"/><circle cx="700" cy="620" r="6" style="animation-delay:1.80s"/><circle cx="1120" cy="300" r="6" style="animation-delay:1.92s"/><circle cx="1000" cy="520" r="6" style="animation-delay:2.04s"/><circle cx="300" cy="690" r="6" style="animation-delay:2.16s"/><circle cx="1350" cy="640" r="6" style="animation-delay:2.28s"/></svg></div>
+      <div class="play-hero__media">
+        <video data-play-video autoplay muted loop playsinline preload="metadata" poster="assets/video/superposition-loop-poster.jpg" aria-hidden="true">
+          <source src="assets/video/superposition-loop.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="threads-hero threads-hero--over" aria-hidden="true"><svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><path d="M-50 160 C 300 40, 520 420, 820 300 S 1300 120, 1650 260"/><path d="M-50 520 C 260 380, 600 720, 900 560 S 1350 380, 1650 600"/><path d="M200 -40 C 260 260, 520 360, 700 620 S 980 960, 1080 940"/><path d="M1500 -40 C 1300 240, 1120 300, 1000 520 S 760 880, 640 940"/><path d="M-50 760 C 380 640, 760 860, 1100 700 S 1500 560, 1650 740"/><circle cx="160" cy="128" r="6" style="animation-delay:1.20s"/><circle cx="1240" cy="180" r="6" style="animation-delay:1.32s"/><circle cx="380" cy="520" r="6" style="animation-delay:1.44s"/><circle cx="1180" cy="470" r="6" style="animation-delay:1.56s"/><circle cx="520" cy="360" r="6" style="animation-delay:1.68s"/><circle cx="700" cy="620" r="6" style="animation-delay:1.80s"/><circle cx="1120" cy="300" r="6" style="animation-delay:1.92s"/><circle cx="1000" cy="520" r="6" style="animation-delay:2.04s"/><circle cx="300" cy="690" r="6" style="animation-delay:2.16s"/><circle cx="1350" cy="640" r="6" style="animation-delay:2.28s"/></svg></div>
       <div class="wrap play-hero__copy">
         <p class="meta meta--signal">Научный спектакль труппы СЭНС</p>
         <h1 id="play-title" class="play-hero__title">Супер&shy;позиция</h1>
@@ -75,6 +80,7 @@
         </div>
         <dl class="play-facts"><div><dt>Длительность</dt><dd>≈ 1 час</dd></div><div><dt>Возраст</dt><dd>12+</dd></div><div><dt>Постановка</dt><dd>Татьяна Лебедева</dd></div><div><dt>Жанр</dt><dd>Научный спектакль</dd></div></dl>
       </div>
+      <button class="play-hero__pause" type="button" data-play-video-toggle aria-pressed="false"><span class="visually-hidden">Пауза видео</span></button>
     </section>
 
     <section id="story" class="block" aria-labelledby="story-title">
