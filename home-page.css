@@ -202,9 +202,11 @@
 
 /* ---------- Troupe ---------- */
 .troupe__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 0.75rem; margin: 0; padding: 0; list-style: none; }
-.troupe__grid li { display: grid; gap: 0.2rem; align-content: start; }
-.troupe__grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: 0.6rem; filter: grayscale(1); transition: filter 0.5s; }
-.troupe__grid li:hover img { filter: none; }
+.troupe__card { display: grid; gap: 0.2rem; align-content: start; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.troupe__grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: 0.6rem; filter: grayscale(1); transition: filter 0.5s, transform 0.6s var(--ease-out); }
+.troupe__card:hover img, .troupe__card:focus-visible img { filter: none; }
+.troupe__card:hover b { color: var(--signal); }
+.troupe__card:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.35rem; }
 .troupe__grid b { font-size: 1rem; line-height: 1.2; }
 .troupe__grid span { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .troupe__lead { grid-column: 1 / -1; }
@@ -216,6 +218,42 @@
   .troupe__lead img { aspect-ratio: 4 / 5; object-position: top; }
 }
 @media (min-width: 72rem) { .troupe__grid { grid-template-columns: repeat(6, 1fr); } }
+
+/* ---------- Member dialog ---------- */
+.member {
+  width: min(100% - 1.5rem, 68rem); max-height: calc(100svh - 1.5rem); padding: 0; overflow: auto;
+  border: 1px solid var(--line); background: var(--graphite); color: var(--paper);
+}
+.member::backdrop { background: #0b0b0cd8; backdrop-filter: blur(6px); }
+.member__inner { position: relative; display: grid; }
+.member__close {
+  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2; width: 2.75rem; height: 2.75rem;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 75%, transparent); font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.member__close:hover { border-color: var(--paper); }
+.member__gallery { display: grid; min-width: 0; background: var(--ink); }
+.member__track { display: flex; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.member__track::-webkit-scrollbar { display: none; }
+.member__track:focus-visible { outline: 2px solid var(--signal); outline-offset: -2px; }
+.member__track li { flex: 0 0 100%; scroll-snap-align: start; }
+.member__track img { display: block; width: 100%; height: min(62svh, 40rem); object-fit: cover; object-position: center 25%; }
+.member__track img.is-wide { object-fit: contain; object-position: center; }
+.member__nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.6rem; border-top: 1px solid var(--line); }
+.member__nav[hidden] { display: none; }
+.member__nav button { width: 2.75rem; height: 2.75rem; border: 1px solid var(--line); background: none; font-size: 1.1rem; cursor: pointer; }
+.member__nav button:hover:not(:disabled) { border-color: var(--paper); }
+.member__nav button:disabled { opacity: 0.3; cursor: default; }
+.member__count { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.1em; color: var(--paper-dim); }
+.member__info { display: grid; gap: 1rem; align-content: end; padding: clamp(1.25rem, 1rem + 2vw, 2.5rem); }
+.member__info .title { font-size: clamp(2.25rem, 1.5rem + 3vw, 4rem); line-height: 0.92; }
+.member__about { margin: 0; color: var(--paper-dim); }
+.member__info .link-arrow { justify-self: start; }
+.member__info .link-arrow[hidden] { display: none; }
+@media (min-width: 56rem) {
+  .member__inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .member__track img { height: min(80svh, 48rem); }
+  .member__info { padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+}
 
 /* ---------- Rent ---------- */
 .rent { background: var(--signal); color: var(--ink); }

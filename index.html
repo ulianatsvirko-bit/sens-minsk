@@ -22,7 +22,7 @@
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261012-20">
-  <link rel="stylesheet" href="home-page.css?v=20261012-26">
+  <link rel="stylesheet" href="home-page.css?v=20261012-29">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -241,15 +241,15 @@
           <p class="lead">Официальная театральная труппа культурного хаба СЭНС.</p>
         </div>
         <ul class="troupe__grid">
-          <li class="troupe__lead"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Буяльская</b><span>Художественный руководитель</span></li>
-          <li><img src="assets/troupe/tatiana-lebedeva.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Татьяна Лебедева</b><span>Артистка · балетмейстер</span></li>
-          <li><img src="assets/troupe/elizaveta-esipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Елизавета Есипова</b><span>Артистка</span></li>
-          <li><img src="assets/troupe/maria-mikhaliuk.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Мария Михалюк</b><span>Артистка</span></li>
-          <li><img src="assets/troupe/konstantin-matsukevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Константин Мацукевич</b><span>Артист</span></li>
-          <li><img src="assets/troupe/alexey-valkovich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Алексей Валькович</b><span>Артист</span></li>
-          <li><img src="assets/troupe/alexandra-kinevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Киневич</b><span>Артистка</span></li>
-          <li><img src="assets/troupe/anna-arkhipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Анна Архипова</b><span>Артистка</span></li>
-          <li><img src="assets/troupe/nikita-skurat.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Никита Скурат</b><span>Артист</span></li>
+          <li class="troupe__lead"><button class="troupe__card" type="button" data-member="alexandra-buyalskaya" aria-haspopup="dialog"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Буяльская</b><span>Художественный руководитель</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="tatiana-lebedeva" aria-haspopup="dialog"><img src="assets/troupe/tatiana-lebedeva.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Татьяна Лебедева</b><span>Артистка · балетмейстер</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="elizaveta-esipova" aria-haspopup="dialog"><img src="assets/troupe/elizaveta-esipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Елизавета Есипова</b><span>Артистка балета</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="maria-mikhaliuk" aria-haspopup="dialog"><img src="assets/troupe/maria-mikhaliuk.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Мария Михалюк</b><span>Артистка</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="konstantin-matsukevich" aria-haspopup="dialog"><img src="assets/troupe/konstantin-matsukevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Константин Мацукевич</b><span>Артист</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="alexey-valkovich" aria-haspopup="dialog"><img src="assets/troupe/alexey-valkovich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Алексей Валькович</b><span>Артист</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="alexandra-kinevich" aria-haspopup="dialog"><img src="assets/troupe/alexandra-kinevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Киневич</b><span>Артистка</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="anna-arkhipova" aria-haspopup="dialog"><img src="assets/troupe/anna-arkhipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Анна Архипова</b><span>Артистка</span></button></li>
+          <li><button class="troupe__card" type="button" data-member="nikita-skurat" aria-haspopup="dialog"><img src="assets/troupe/nikita-skurat.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Никита Скурат</b><span>Артист</span></button></li>
         </ul>
       </div>
     </section>
@@ -315,6 +315,26 @@
     <a href="events.html">Афиша</a>
     <a href="rent.html">Аренда зала</a>
   </nav>
+
+  <dialog class="member" data-member-dialog aria-labelledby="member-name">
+    <div class="member__inner">
+      <button class="member__close" type="button" data-member-close aria-label="Закрыть">×</button>
+      <div class="member__gallery">
+        <ul class="member__track" data-member-track tabindex="0"></ul>
+        <div class="member__nav" data-member-nav>
+          <button type="button" data-member-prev aria-label="Предыдущее фото">←</button>
+          <span class="member__count" data-member-count aria-live="polite"></span>
+          <button type="button" data-member-next aria-label="Следующее фото">→</button>
+        </div>
+      </div>
+      <div class="member__info">
+        <p class="meta meta--signal" data-member-role></p>
+        <h2 id="member-name" class="title" data-member-name></h2>
+        <p class="member__about" data-member-bio></p>
+        <a class="link-arrow" data-member-instagram href="#" target="_blank" rel="noopener" hidden>Instagram <span></span> <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </dialog>
 
   <dialog class="notify" data-notify-dialog aria-labelledby="notify-title">
     <form class="notify__form" data-notify-form novalidate>
