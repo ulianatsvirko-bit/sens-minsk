@@ -56,8 +56,7 @@
   .tour { padding-block: 0; }
   .tour__inner { width: 100%; grid-template-columns: 1fr 1fr; column-gap: 0; align-items: stretch; }
   .tour__video { position: relative; isolation: isolate; overflow: hidden; width: 100%; height: min(88vh, 54rem); aspect-ratio: auto; border: 0; background: var(--ink); }
-  .tour__video::before { content: ''; position: absolute; inset: -2rem; z-index: -1; background: url('assets/video/space-tour-poster.jpg') center / cover; filter: blur(28px) brightness(0.45) saturate(0.9); }
-  .tour__video video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; height: calc(100% - clamp(3rem, 8vh, 6rem)); max-width: 100%; aspect-ratio: 9 / 16; object-fit: contain; box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.5); }
+  .tour__video video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; height: calc(100% - clamp(3rem, 8vh, 6rem)); max-width: 100%; aspect-ratio: 9 / 16; object-fit: contain; background: #000; outline: 1px solid var(--signal); outline-offset: 0.75rem; box-shadow: 0 0 3rem color-mix(in srgb, var(--signal) 22%, transparent); }
   .tour__copy { position: relative; isolation: isolate; align-content: center; max-width: 38rem; padding: var(--block) var(--gutter) var(--block) clamp(2.5rem, 6vw, 7rem); }
   .tour__lights { display: block; position: absolute; z-index: -1; top: 7%; left: clamp(2.5rem, 6vw, 7rem); right: var(--gutter); height: 17%; pointer-events: none; }
   .tour__lights span { position: absolute; height: 2px; border-radius: 2px; background: var(--signal); box-shadow: 0 0 0.6rem var(--signal), 0 0 1.6rem color-mix(in srgb, var(--signal) 45%, transparent); transform: rotate(-14deg); transform-origin: left center; animation: tour-flicker 5s ease-in-out infinite; }
