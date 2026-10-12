@@ -1,0 +1,58 @@
+/* Afisha page layer on top of sens.css */
+
+.afisha-head { padding: calc(var(--header-h) + clamp(2.5rem, 2rem + 3vw, 5rem)) 0 0; }
+.afisha-head .wrap { display: grid; gap: 1.25rem; }
+.afisha-head .lead { color: var(--paper-dim); }
+.afisha-controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.afisha-tabs, .afisha-filters { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.afisha-tabs a, .afisha-filters button {
+  display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1rem; border: 1px solid var(--line);
+  background: none; font-size: var(--t-small); font-weight: 800; text-decoration: none; cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.afisha-tabs a:hover, .afisha-filters button:hover { border-color: var(--paper); }
+.afisha-tabs a[aria-current="page"] { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+.afisha-filters button[aria-pressed="true"] { background: var(--signal); border-color: var(--signal); color: var(--ink); }
+
+/* ---------- Listings ---------- */
+.listings { display: grid; margin: 0; padding: 0; list-style: none; }
+.listing {
+  display: grid; grid-template-columns: 4.5rem 1fr; gap: 1rem 1.25rem; padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+}
+.listing:last-child { border-bottom: 1px solid var(--line); }
+.listing__date { grid-row: span 2; display: grid; align-content: start; margin: 0; }
+.listing__date b { font-family: var(--font-display); font-size: clamp(3rem, 2.5rem + 2vw, 4.5rem); line-height: 0.85; color: var(--signal); }
+.listing__date span { font-weight: 800; letter-spacing: 0.1em; }
+.listing__date small { color: var(--muted); font-size: var(--t-meta); text-transform: uppercase; letter-spacing: 0.08em; }
+.listing__image { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--graphite); }
+.listing__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+.listing:hover .listing__image img { transform: scale(1.04); }
+.listing__body { display: grid; gap: 0.75rem; align-content: start; justify-items: start; }
+.listing__title { margin: 0; font-size: var(--t-h3); line-height: 1.15; }
+.listing__title a { text-decoration: none; }
+.listing__title a:hover { color: var(--signal); }
+.listing__facts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.listing__facts li { padding: 0.3rem 0.65rem; border: 1px solid var(--line); font-size: var(--t-small); font-weight: 700; }
+.listing--past .listing__date b { color: var(--paper-dim); }
+.listing--past .listing__image img { filter: grayscale(1); }
+.listing--past:hover .listing__image img { filter: none; }
+
+@media (min-width: 48rem) {
+  .listing { grid-template-columns: 6rem minmax(11rem, 15rem) 1fr; align-items: start; column-gap: 2rem; }
+  .listing__date { grid-row: auto; }
+}
+@media (min-width: 64rem) {
+  .listing { grid-template-columns: 8rem 18rem 1fr; }
+  .listing__title { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.4rem); }
+}
+
+.afisha-past .block-head { margin-bottom: 1.5rem; }
+.afisha-past .block-head .lead { color: var(--paper-dim); }
+
+/* ---------- CTA ---------- */
+.afisha-cta { background: var(--signal); color: var(--ink); }
+.afisha-cta__inner { display: grid; gap: 1.25rem; justify-items: start; }
+.afisha-cta .lead { color: var(--ink); }
+.afisha-cta__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+@media (min-width: 60rem) { .afisha-cta__inner { grid-template-columns: 1.2fr 1fr; align-items: end; column-gap: 4rem; } .afisha-cta__actions { grid-column: 2; } }

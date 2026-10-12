@@ -2,48 +2,137 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Календарь мероприятий СЭНС — спектакли, лекции, концерты и воркшопы в Минске.">
-  <title>Календарь мероприятий — СЭНС</title>
-  <link rel="stylesheet" href="events.css?v=20261003-1">
-<link rel="stylesheet" href="shared.css?v=20261003-1"><link rel="stylesheet" href="navigation.css?v=20260925"></head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Афиша СЭНС — спектакли, практики и разговоры в Минске</title>
+  <meta name="description" content="Афиша культурного хаба СЭНС на Кульман 1/2 в Минске: спектакли, танцевальные практики, лекции и вечеринки. Записывайтесь на ближайшие события.">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="canonical" href="https://sens-minsk.vercel.app/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="СЭНС">
+  <meta property="og:title" content="Афиша СЭНС">
+  <meta property="og:description" content="Спектакли, практики, разговоры и вечеринки на Кульман 1/2.">
+  <meta property="og:url" content="https://sens-minsk.vercel.app/events.html">
+  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/sens-favicon.png" type="image/png">
+  <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="sens.css?v=20261012-13">
+  <link rel="stylesheet" href="afisha.css?v=20261012-1">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
 <body>
-  <a class="skip-link" href="#events">К событиям</a>
-  <header class="sens-header"><div class="sens-header-inner"><a class="sens-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="168"></a><details class="sens-menu"><summary aria-label="Открыть навигацию">Меню <span aria-hidden="true">☰</span></summary><nav aria-label="Основная навигация"><a href="index.html#hall">О СЭНС</a><a href="events.html">Афиша</a><a href="space.html">Пространство</a><a href="index.html#troupe">Труппа</a><a href="rent.html">Аренда</a><a href="rent.html#contact">Связаться ↗</a></nav></details></div><div class="sens-progress" aria-hidden="true"><span data-sens-progress></span></div></header>
+  <a class="skip-link" href="#main">К содержанию</a>
 
-  <main>
-    <section class="hero frame" aria-labelledby="page-title">
-      <div class="hero-meta"><span>Афиша СЭНС</span><span>Кульман 1/2 · Минск</span></div>
-      <p class="eyebrow">События, на которые хочется прийти</p>
-      <h1 id="page-title">АФИ<span>ША</span></h1>
-      <p class="hero-note">Выбирайте событие по настроению. Здесь появляются показы, разговоры, музыка и практика — всё, что происходит в СЭНС.</p>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="152" height="29"></a>
+      <details class="site-menu">
+        <summary aria-label="Открыть меню"></summary>
+        <nav aria-label="Основная навигация">
+          <a href="events.html">Афиша</a>
+          <a href="index.html#repertoire">Спектакли</a>
+          <a href="space.html">Пространство</a>
+          <a href="index.html#troupe">Труппа</a>
+          <a href="rent.html">Аренда</a>
+          <a class="site-menu__cta" href="rent.html#contact">Забронировать зал</a>
+        </nav>
+      </details>
+    </div>
+    <div class="site-progress" aria-hidden="true"><span data-progress></span></div>
+  </header>
+
+  <main id="main">
+    <section class="afisha-head" aria-labelledby="afisha-title">
+      <div class="wrap">
+        <p class="meta meta--signal">Кульман 1/2 · Минск</p>
+        <h1 id="afisha-title" class="display">Афиша</h1>
+        <p class="lead">Спектакли, танцевальные практики, разговоры и вечеринки. Выберите, что ближе, и записывайтесь.</p>
+        <div class="afisha-controls">
+          <div class="afisha-tabs" role="group" aria-label="Период">
+            <a href="events.html" data-view-link="upcoming">Ближайшие</a>
+            <a href="events.html?view=past" data-view-link="past">Прошедшие</a>
+          </div>
+          <div class="afisha-filters" role="group" aria-label="Формат">
+            <button type="button" data-type="">Все</button>
+            <button type="button" data-type="performances">Сцена</button>
+            <button type="button" data-type="talks">Разговоры</button>
+            <button type="button" data-type="practice">Практика</button>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="calendar frame" id="events" aria-labelledby="events-title">
-      <div class="section-top"><div class="section-marker"><span>02</span><span>Новые встречи</span></div><h2 id="events-title">Ближайшее</h2></div>
-      <div class="filters" role="group" aria-label="Фильтр событий">
-        <button class="filter is-active" data-filter="all">Все события</button><button class="filter" data-filter="performances">Сцена</button><button class="filter" data-filter="talks">Разговоры</button><button class="filter" data-filter="practice">Практика</button>
+    <section class="block afisha-list" aria-labelledby="list-title">
+      <div class="wrap">
+        <h2 id="list-title" class="visually-hidden">События</h2>
+        <div data-list aria-busy="true"><p class="afisha__loading">Загружаем афишу…</p></div>
       </div>
-      <a class="past-events-link" href="?view=past" data-past-link>Посмотреть прошедшие мероприятия →</a><div class="events-list" aria-live="polite"><p class="calendar-note">Загружаем афишу…</p></div><p class="filter-empty" hidden>В этой категории пока нет ближайших событий. Выберите «Все события».</p><p class="calendar-note">Новые события добавляем сюда и в <a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a>. Если хотите предложить своё — <a href="rent.html#contact">напишите нам</a>.</p>
+    </section>
+
+    <section class="block block--rule afisha-past" data-past-section hidden aria-labelledby="past-title">
+      <div class="wrap">
+        <div class="block-head">
+          <h2 id="past-title" class="title">Так было</h2>
+          <p class="lead">Прошедшие события — с фото и описанием.</p>
+        </div>
+        <ol class="listings" data-past-list></ol>
+      </div>
+    </section>
+
+    <section class="block afisha-cta" aria-labelledby="cta-title">
+      <div class="wrap afisha-cta__inner">
+        <h2 id="cta-title" class="title">Хотите провести своё событие?</h2>
+        <p class="lead">Зал 221 м² до 100 гостей — для спектакля, лекции, концерта или мастер-класса.</p>
+        <div class="afisha-cta__actions">
+          <a class="btn btn--dark" href="rent.html">Аренда и цены <span aria-hidden="true">→</span></a>
+          <a class="btn btn--outline-dark" href="rent.html#contact">Предложить проект</a>
+        </div>
+      </div>
     </section>
   </main>
-  <footer class="sens-footer"><a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="144"></a><div>Минск · Кульман 1/2<br><a href="https://yandex.by/maps/?text=Минск%20Кульман%201%2F2" target="_blank" rel="noreferrer">Построить маршрут ↗</a></div><div><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a><br><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a></div></footer>
-  <dialog class="registration-dialog" data-registration-dialog>
-    <button class="dialog-close" type="button" data-dialog-close aria-label="Закрыть">×</button>
-    <div class="dialog-grid">
-      <div class="dialog-event"><p class="eyebrow">Запись на событие</p><h2 data-registration-title>Название события</h2><p data-registration-date></p><span>Кульман 1/2 · Минск</span></div>
-      <form class="registration-form" data-registration-form>
-        <input type="hidden" name="event_id"><input type="hidden" name="form_started_at"><label class="trap" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
-        <label>Имя и фамилия <input name="name" required maxlength="100" autocomplete="name" placeholder="Как к вам обращаться?"></label>
-        <label>Номер телефона <input name="phone" required maxlength="40" autocomplete="tel" inputmode="tel" placeholder="+375 29 000-00-00"></label>
-        <div class="form-row"><label>Telegram / Instagram <input name="social" maxlength="100" placeholder="@username"></label><label>Количество гостей <input name="guests" type="number" min="1" max="10" value="1" required></label></div>
-        <label>Комментарий <textarea name="comment" rows="3" maxlength="500" placeholder="Если хотите что-то уточнить"></textarea></label>
-        <label class="consent"><input name="consent" type="checkbox" value="accepted" required><span>Согласен(на) на обработку данных для записи на мероприятие</span></label>
-        <button class="button submit-registration" type="submit">Отправить заявку</button><p class="form-status" data-registration-status role="status"></p>
-      </form>
-      <div class="registration-success" data-registration-success hidden><span>Готово</span><h2>Заявка отправлена.</h2><p>Организатор получил вашу заявку. Сохраните дату и время события; для уточнения деталей мы свяжемся с вами по указанному контакту.</p><button class="button" type="button" data-dialog-close>Закрыть</button></div>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="128" height="24" loading="lazy"></a>
+      <ul><li><a href="events.html">Афиша</a></li><li><a href="index.html#repertoire">Спектакли</a></li><li><a href="index.html#troupe">Труппа</a></li></ul>
+      <ul><li><a href="space.html">Пространство</a></li><li><a href="rent.html">Аренда</a></li><li><a href="rent.html#contact">Заявка</a></li></ul>
+      <ul><li>Минск, Кульман 1/2</li><li><a href="tel:+375445099414">+375 44 509-94-14</a></li><li><a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Telegram ↗</a></li><li><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a></li></ul>
     </div>
+  </footer>
+
+  <nav class="action-bar" aria-label="Быстрые действия" data-action-bar>
+    <a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Написать в Telegram</a>
+    <a href="rent.html">Аренда зала</a>
+  </nav>
+
+  <dialog class="notify" data-notify-dialog aria-labelledby="notify-title">
+    <form class="notify__form" data-notify-form novalidate>
+      <button class="notify__close" type="button" data-notify-close aria-label="Закрыть">×</button>
+      <p class="meta meta--signal" data-notify-topic>Афиша СЭНС</p>
+      <h2 id="notify-title" class="title">Напишем первыми</h2>
+      <p class="notify__intro">Оставьте контакт — напишем, как только откроем показы или в афише появится то, что вам интересно.</p>
+      <fieldset class="chips" data-notify-chips>
+        <legend>Что вам интересно</legend>
+        <label class="chip"><input type="checkbox" name="interest" value="Спектакли"><span>Спектакли</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Танцевальные практики"><span>Танцевальные практики</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Лекции и разговоры"><span>Лекции и разговоры</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Вечеринки"><span>Вечеринки</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Детские занятия"><span>Для детей</span></label>
+      </fieldset>
+      <label class="field"><span>Ваше пожелание</span><textarea name="idea" maxlength="1200" placeholder="Например: хочу вечер контактной импровизации по пятницам"></textarea></label>
+      <label class="field"><span>Имя *</span><input name="name" required maxlength="100" autocomplete="name"></label>
+      <label class="field"><span>Telegram, телефон или email *</span><input name="contact" required maxlength="160" autocomplete="tel"></label>
+      <label class="honeypot" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="consent"><input type="checkbox" name="consent" value="accepted" required><span>Согласен(на) на обработку персональных данных *</span></label>
+      <button class="btn btn--signal" type="submit">Отправить <span aria-hidden="true">→</span></button>
+      <p class="form-status" role="status" data-notify-status></p>
+    </form>
   </dialog>
-  <script type="module" src="events.js"></script>
-<script src="shared.js?v=20261012" defer></script></body>
+
+  <script type="module" src="afisha.js?v=20261012-1"></script>
+  <script src="sens.js?v=20261012-13" defer></script>
+</body>
 </html>

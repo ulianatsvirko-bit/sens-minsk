@@ -1,1 +1,88 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Событие · СЭНС</title><link rel="stylesheet" href="events.css"><link rel="stylesheet" href="event.css"><link rel="stylesheet" href="shared.css?v=20260923"><link rel="stylesheet" href="navigation.css?v=20260925"></head><body><header class="sens-header"><div class="sens-header-inner"><a class="sens-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="168"></a><details class="sens-menu"><summary aria-label="Открыть навигацию">Меню <span aria-hidden="true">☰</span></summary><nav aria-label="Основная навигация"><a href="index.html#hall">О СЭНС</a><a href="events.html">Афиша</a><a href="space.html">Пространство</a><a href="index.html#troupe">Труппа</a><a href="rent.html">Аренда</a><a href="rent.html#contact">Связаться ↗</a></nav></details></div><div class="sens-progress" aria-hidden="true"><span data-sens-progress></span></div></header><main class="detail frame"><div id="detail-content"><p class="calendar-note">Загружаем событие…</p></div></main><script type="module" src="event.js"></script><script src="shared.js?v=20261012" defer></script><footer class="sens-footer"><a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="144"></a><div>Минск · Кульман 1/2<br><a href="https://yandex.by/maps/?text=Минск%20Кульман%201%2F2" target="_blank" rel="noreferrer">Построить маршрут ↗</a></div><div><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a><br><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noreferrer">Instagram ↗</a></div></footer></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Событие · СЭНС</title>
+  <meta name="description" content="Событие в культурном хабе СЭНС на Кульман 1/2 в Минске: дата, время, стоимость и запись.">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="СЭНС">
+  <meta property="og:title" content="Событие в СЭНС">
+  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/sens-favicon.png" type="image/png">
+  <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="sens.css?v=20261012-13">
+  <link rel="stylesheet" href="afisha.css?v=20261012-1">
+  <link rel="stylesheet" href="event-page.css?v=20261012-1">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="152" height="29"></a>
+      <details class="site-menu">
+        <summary aria-label="Открыть меню"></summary>
+        <nav aria-label="Основная навигация">
+          <a href="events.html">Афиша</a>
+          <a href="index.html#repertoire">Спектакли</a>
+          <a href="space.html">Пространство</a>
+          <a href="index.html#troupe">Труппа</a>
+          <a href="rent.html">Аренда</a>
+          <a class="site-menu__cta" href="rent.html#contact">Забронировать зал</a>
+        </nav>
+      </details>
+    </div>
+    <div class="site-progress" aria-hidden="true"><span data-progress></span></div>
+  </header>
+
+  <main id="main" class="event-page">
+    <div class="wrap event-back"><a class="link-arrow" href="events.html"><span aria-hidden="true">←</span> Вся афиша</a></div>
+    <div data-event aria-busy="true"><p class="wrap afisha__loading">Загружаем событие…</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="128" height="24" loading="lazy"></a>
+      <ul><li><a href="events.html">Афиша</a></li><li><a href="index.html#repertoire">Спектакли</a></li><li><a href="index.html#troupe">Труппа</a></li></ul>
+      <ul><li><a href="space.html">Пространство</a></li><li><a href="rent.html">Аренда</a></li><li><a href="rent.html#contact">Заявка</a></li></ul>
+      <ul><li>Минск, Кульман 1/2</li><li><a href="tel:+375445099414">+375 44 509-94-14</a></li><li><a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Telegram ↗</a></li><li><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a></li></ul>
+    </div>
+  </footer>
+
+  <nav class="action-bar" aria-label="Быстрые действия" data-action-bar>
+    <a href="#register" data-bar-register>Записаться</a>
+    <a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Написать в Telegram</a>
+  </nav>
+
+  <dialog class="notify" data-notify-dialog aria-labelledby="notify-title">
+    <form class="notify__form" data-notify-form novalidate>
+      <button class="notify__close" type="button" data-notify-close aria-label="Закрыть">×</button>
+      <p class="meta meta--signal" data-notify-topic>Афиша СЭНС</p>
+      <h2 id="notify-title" class="title">Напишем первыми</h2>
+      <p class="notify__intro">Оставьте контакт — напишем, как только откроем показы или в афише появится то, что вам интересно.</p>
+      <fieldset class="chips" data-notify-chips>
+        <legend>Что вам интересно</legend>
+        <label class="chip"><input type="checkbox" name="interest" value="Спектакли"><span>Спектакли</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Танцевальные практики"><span>Танцевальные практики</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Лекции и разговоры"><span>Лекции и разговоры</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Вечеринки"><span>Вечеринки</span></label>
+        <label class="chip"><input type="checkbox" name="interest" value="Детские занятия"><span>Для детей</span></label>
+      </fieldset>
+      <label class="field"><span>Ваше пожелание</span><textarea name="idea" maxlength="1200" placeholder="Например: хочу вечер контактной импровизации по пятницам"></textarea></label>
+      <label class="field"><span>Имя *</span><input name="name" required maxlength="100" autocomplete="name"></label>
+      <label class="field"><span>Telegram, телефон или email *</span><input name="contact" required maxlength="160" autocomplete="tel"></label>
+      <label class="honeypot" aria-hidden="true">Сайт<input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="consent"><input type="checkbox" name="consent" value="accepted" required><span>Согласен(на) на обработку персональных данных *</span></label>
+      <button class="btn btn--signal" type="submit">Отправить <span aria-hidden="true">→</span></button>
+      <p class="form-status" role="status" data-notify-status></p>
+    </form>
+  </dialog>
+
+  <script type="module" src="event-page.js?v=20261012-1"></script>
+  <script src="sens.js?v=20261012-13" defer></script>
+</body>
+</html>

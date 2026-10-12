@@ -245,3 +245,32 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .js [data-reveal] { opacity: 0; transform: translateY(1.5rem); transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out); }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
 }
+
+/* ---------- Afisha empty state (home + afisha) ---------- */
+.afisha__loading { color: var(--muted); }
+.afisha-empty {
+  display: grid; gap: 1.5rem; padding: clamp(1.5rem, 1rem + 3vw, 3rem);
+  background: var(--graphite); border-left: 3px solid var(--signal);
+}
+.afisha-empty h3 { margin: 0; font-size: var(--t-h3); line-height: 1.2; }
+.afisha-empty p { margin: 0; color: var(--paper-dim); max-width: 52ch; }
+.afisha-empty__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+@media (min-width: 56rem) {
+  .afisha-empty { grid-template-columns: 1fr auto; align-items: center; column-gap: 3rem; }
+}
+
+/* ---------- Notify dialog ---------- */
+.notify {
+  width: min(100% - 2rem, 36rem); max-height: calc(100svh - 2rem); padding: 0; border: 1px solid var(--line);
+  background: var(--graphite); color: var(--paper);
+}
+.notify::backdrop { background: #0b0b0cd0; backdrop-filter: blur(6px); }
+.notify__form { position: relative; display: grid; gap: 1.1rem; padding: clamp(1.25rem, 1rem + 2vw, 2.25rem); }
+.notify__form .title { font-size: clamp(2rem, 1.6rem + 2vw, 3rem); padding-right: 2.5rem; }
+.notify__intro { margin: 0; color: var(--paper-dim); }
+.notify__close {
+  position: absolute; top: 0.75rem; right: 0.75rem; width: 2.75rem; height: 2.75rem;
+  border: 1px solid var(--line); background: none; font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.notify__close:hover { border-color: var(--paper); }
+.notify .btn { justify-self: start; }
