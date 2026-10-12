@@ -198,7 +198,27 @@ function initLazyVideos() {
   document.querySelectorAll('[data-lazy-video]').forEach((video) => observer.observe(video));
 }
 
+/* Photo strips: arrows scroll by roughly one screen and disable at the ends. */
+function initStrips() {
+  document.querySelectorAll('[data-strip]').forEach((strip) => {
+    const wrap = strip.parentElement;
+    const prev = wrap.querySelector('[data-strip-prev]');
+    const next = wrap.querySelector('[data-strip-next]');
+    const update = () => {
+      prev.disabled = strip.scrollLeft <= 2;
+      next.disabled = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2;
+    };
+    const step = () => Math.max(strip.clientWidth * 0.8, 240);
+    prev.addEventListener('click', () => strip.scrollBy({ left: -step(), behavior: reducedMotion.matches ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => strip.scrollBy({ left: step(), behavior: reducedMotion.matches ? 'auto' : 'smooth' }));
+    strip.addEventListener('scroll', update, { passive: true });
+    new ResizeObserver(update).observe(strip);
+    update();
+  });
+}
+
 useImageFallback();
+initStrips();
 initLazyVideos();
 initHeroVideo();
 initAfisha();
