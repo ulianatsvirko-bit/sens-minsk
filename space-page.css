@@ -136,6 +136,7 @@
 .visit-cta__inner { display: grid; gap: 2rem; }
 .visit-cta .display { margin-top: 0.75rem; }
 .visit-cta .lead { color: var(--ink); }
+.visit-cta .route b { background: var(--ink); color: var(--signal); }
 .visit-cta__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
 @media (min-width: 60rem) { .visit-cta__inner { grid-template-columns: 1.2fr 1fr; align-items: end; column-gap: 4rem; } }
 
@@ -143,6 +144,7 @@
 .tech__grid { display: grid; gap: 2.5rem; }
 .tech__group { display: grid; gap: 1rem; align-content: start; }
 .tech__name { margin: 0; padding-bottom: 0.75rem; border-bottom: 2px solid var(--signal); font-family: var(--font-display); font-size: var(--t-title); line-height: 0.9; letter-spacing: 0.02em; text-transform: uppercase; }
+.tech__price { margin-left: 0.5rem; font-family: var(--font-text); font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; color: var(--signal); vertical-align: middle; }
 .tech__list { display: grid; margin: 0; padding: 0; list-style: none; }
 .tech__list li { display: grid; gap: 0.2rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
 .tech__list b { font-size: 1rem; line-height: 1.3; }

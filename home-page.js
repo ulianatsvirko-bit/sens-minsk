@@ -1,10 +1,14 @@
 import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
-import { LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js';
+import { HALL, LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js';
+import { plural } from './lib/rent-calc.js?v=20261012-2';
 import { initNotify } from './notify.js';
 import { useImageFallback } from './lib/event-view.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const MOVE_MS = 900;
+const WAVE_MS = 320;
+const AUTOPLAY_MS = 4200;
 
 /* ---------- Hero video ---------- */
 function initHeroVideo() {
@@ -98,14 +102,15 @@ function initTransformer() {
     name: root.querySelector('[data-format-name]'),
     text: root.querySelector('[data-format-text]'),
     cap: root.querySelector('[data-format-cap]'),
-    label: root.querySelector('[data-plan-label]')
+    label: root.querySelector('[data-plan-label]'),
+    count: root.querySelector('[data-plan-count]')
   };
+  const svg = seatLayer.closest('svg');
 
   const seats = Array.from({ length: SEAT_COUNT }, (_, i) => {
     const circle = document.createElementNS(SVG_NS, 'circle');
     circle.setAttribute('r', '5');
     circle.setAttribute('class', 'plan__seat');
-    circle.style.setProperty('--d', `${(i % 12) * 18}ms`);
     seatLayer.append(circle);
     return circle;
   });
@@ -116,21 +121,46 @@ function initTransformer() {
   const preload = (src) => { const img = new Image(); img.src = src; };
   Object.values(LAYOUTS).forEach((layout) => preload(layout.photo));
 
+  let movingTimer = 0;
+  let shownCount = 0;
+
   function drawPlan(name) {
     const layout = LAYOUTS[name];
     const positions = seatPositions(name);
     // Removed seats stay where they were and fade out, so they can fly back from there.
     lastPosition = positions.map((point, i) => point || lastPosition[i]);
     seats.forEach((seat, i) => {
+      // Seats travel as a wave that starts at the stage end of the hall.
+      const delay = positions[i] ? Math.round((positions[i].x / HALL.width) * WAVE_MS + (i % 3) * 30) : 0;
+      seat.style.setProperty('--d', `${delay}ms`);
       seat.style.transform = `translate(${lastPosition[i].x}px, ${lastPosition[i].y}px)`;
       seat.classList.toggle('is-off', !positions[i]);
     });
+    svg.classList.add('is-moving');
+    clearTimeout(movingTimer);
+    movingTimer = setTimeout(() => svg.classList.remove('is-moving'), MOVE_MS + WAVE_MS);
+    countTo(positions.filter(Boolean).length);
     if (layout.stage) {
       Object.entries(layout.stage).forEach(([key, value]) => stage.setAttribute(key, String(value)));
       stage.style.opacity = '1';
     } else {
       stage.style.opacity = '0';
     }
+  }
+
+  function countTo(target) {
+    if (!fields.count) return;
+    const from = shownCount;
+    shownCount = target;
+    const write = (value) => { fields.count.textContent = value ? `${value} ${plural(value, 'стул', 'стула', 'стульев')}` : 'без стульев'; };
+    if (reducedMotion.matches || from === target) { write(target); return; }
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / MOVE_MS);
+      write(Math.round(from + (target - from) * (1 - (1 - t) ** 3)));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   }
 
   function select(tab, { focus = false } = {}) {
@@ -160,6 +190,22 @@ function initTransformer() {
     else { photo.classList.add('is-swapping'); swapTimer = setTimeout(swap, 300); }
   }
 
+  // Until someone picks a format, the hall quietly rearranges itself on its own.
+  let autoTimer = 0;
+  let isTouched = false;
+  const stopAuto = () => { isTouched = true; clearInterval(autoTimer); };
+  const startAuto = () => {
+    if (isTouched || reducedMotion.matches) return;
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      const index = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+      select(tabs[(index + 1) % tabs.length]);
+    }, AUTOPLAY_MS);
+  };
+  root.addEventListener('pointerdown', stopAuto);
+  root.addEventListener('keydown', stopAuto);
+  root.addEventListener('focusin', stopAuto);
+
   root.querySelector('[role="tablist"]').addEventListener('click', (event) => {
     const tab = event.target.closest('[role="tab"]');
     if (tab) select(tab);
@@ -179,11 +225,15 @@ function initTransformer() {
 
   // Seats fly in from the storage corner the first time the plan is seen.
   drawPlan('free');
-  new IntersectionObserver(([entry], observer) => {
-    if (!entry.isIntersecting) return;
-    observer.disconnect();
-    select(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
-  }, { threshold: 0.35 }).observe(seatLayer.closest('svg'));
+  let hasEntered = false;
+  new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) { clearInterval(autoTimer); return; }
+    if (!hasEntered) {
+      hasEntered = true;
+      select(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+    }
+    startAuto();
+  }, { threshold: 0.35 }).observe(svg);
 }
 
 /* Videos further down the page load and play only while visible. */

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ageText, dateParts, eventSchema, filterByType, paragraphs, renderListing, splitEvents, toIcs } from '../lib/event-view.js';
+import { ageText, dateParts, eventSchema, filterByType, paragraphs, renderListing, renderPastCard, splitEvents, toIcs } from '../lib/event-view.js';
 
 const event = (overrides = {}) => ({ id: '1', published: true, date: '2026-10-20', time: '19:00', type: 'talks', title: 'Разговор', price: '25', description: '', image: '/uploads/a.jpg', times: [{ time: '19:00', endTime: '21:00', age: '16+' }], ...overrides });
 
@@ -67,4 +67,13 @@ test('eventSchema describes the event and only offers tickets for upcoming price
 test('timesText lists start and end times without ages', async () => {
   const { timesText } = await import('../lib/event-view.js');
   assert.equal(timesText(event({ times: [{ time: '12:00', endTime: '14:00', age: '16+' }, { time: '18:00', age: '' }] })), '12:00–14:00 / 18:00');
+});
+
+test('renderPastCard shows poster, date and escaped title linking to the event', () => {
+  const html = renderPastCard(event({ id: '9', date: '2026-10-04', title: '<b>Латина</b>', type: 'practice' }));
+  assert.match(html, /href="event\.html\?id=9"/);
+  assert.match(html, /src="\/uploads\/a\.jpg"/);
+  assert.match(html, /4 октября/);
+  assert.match(html, /&lt;b&gt;Латина&lt;\/b&gt;/);
+  assert.doesNotMatch(html, /<b>Латина/);
 });

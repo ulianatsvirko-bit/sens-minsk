@@ -56,3 +56,17 @@
 .afisha-cta .lead { color: var(--ink); }
 .afisha-cta__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 @media (min-width: 60rem) { .afisha-cta__inner { grid-template-columns: 1.2fr 1fr; align-items: end; column-gap: 4rem; } .afisha-cta__actions { grid-column: 2; } }
+
+/* ---------- Empty afisha: recent events as photos ---------- */
+.afisha-empty--slim { padding: 1.25rem clamp(1rem, 0.5rem + 2vw, 2rem); }
+.afisha-empty--slim p { color: var(--paper); }
+.past-grid__title { margin: clamp(2.5rem, 2rem + 2vw, 4rem) 0 1.25rem; font-family: var(--font-display); font-size: var(--t-title); line-height: 0.9; text-transform: uppercase; letter-spacing: 0.02em; }
+.past-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 0.75rem; margin: 0 0 1.5rem; padding: 0; list-style: none; }
+.past-card a { display: grid; gap: 0.6rem; color: var(--paper); text-decoration: none; }
+.past-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--graphite); transition: transform 0.8s var(--ease-out); }
+.past-card a { overflow: hidden; }
+.past-card__text { display: grid; gap: 0.3rem; }
+.past-card__meta { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); }
+.past-card__title { font-size: 1.1rem; line-height: 1.2; }
+.past-card a:hover .past-card__title, .past-card a:focus-visible .past-card__title { color: var(--signal); }
+@media (min-width: 56rem) { .past-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem 1rem; } }

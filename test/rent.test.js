@@ -40,6 +40,14 @@ test('technical staff is added to rent but not to turnkey', () => {
   assert.equal(calculate({ mode: 'turnkey', guests: 50, tech: true }).total, 3500);
 });
 
+test('projector with screen adds 50 BYN to rent but not to turnkey', () => {
+  const daily = calculate({ mode: 'daily', date: '2026-10-12', video: true });
+  assert.equal(daily.total, PRICES.dayMonThu + PRICES.projector);
+  assert.equal(PRICES.projector, 50);
+  assert.ok(daily.lines.some((line) => line.label.includes('Проектор')));
+  assert.equal(calculate({ mode: 'turnkey', guests: 50, video: true }).total, 3500);
+});
+
 test('plural and formatByn speak Russian', () => {
   assert.equal(plural(1, 'час', 'часа', 'часов'), 'час');
   assert.equal(plural(3, 'час', 'часа', 'часов'), 'часа');

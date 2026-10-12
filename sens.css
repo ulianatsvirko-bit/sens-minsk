@@ -277,3 +277,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .notify__close:hover { border-color: var(--paper); }
 .notify .btn { justify-self: start; }
+
+/* ---------- Route: how to find the entrance ---------- */
+.route { display: grid; gap: 0.6rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.route li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: center; }
+.route b { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--signal); color: var(--ink); font-size: 0.85rem; font-weight: 900; }
+.route span { line-height: 1.35; }
+.route strong { font-weight: 800; }

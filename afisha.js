@@ -1,5 +1,5 @@
 import { localDateKey } from './lib/home-events.js';
-import { TYPES, filterByType, renderListing, splitEvents, useImageFallback } from './lib/event-view.js';
+import { TYPES, filterByType, renderListing, renderPastCard, splitEvents, useImageFallback } from './lib/event-view.js?v=20261012-2';
 import { initNotify } from './notify.js';
 
 const EMPTY_UPCOMING = `
@@ -13,6 +13,23 @@ const EMPTY_UPCOMING = `
       <a class="btn btn--quiet" href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a>
     </div>
   </div>`;
+
+const PAST_SHOWCASE_SIZE = 6;
+
+/** Nothing scheduled yet: a slim notice, then recent events as photo cards. */
+function emptyWithPast(past) {
+  return `
+  <div class="afisha-empty afisha-empty--slim">
+    <p><b>Новые события скоро.</b> Оставьте контакт — напишем первыми.</p>
+    <div class="afisha-empty__actions">
+      <button class="btn btn--signal" type="button" data-notify="Афиша СЭНС">Узнавать о новых событиях <span aria-hidden="true">→</span></button>
+      <a class="btn btn--quiet" href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+  <h3 class="past-grid__title">Так было недавно</h3>
+  <ol class="past-grid">${past.map(renderPastCard).join('')}</ol>
+  <a class="link-arrow" href="events.html?view=past">Все прошедшие события <span aria-hidden="true">→</span></a>`;
+}
 
 const params = new URLSearchParams(location.search);
 const state = {
@@ -62,6 +79,10 @@ function renderList() {
     list.innerHTML = `<ol class="listings">${items.map((event) => renderListing(event)).join('')}</ol>`;
   } else if (state.upcoming.length) {
     list.innerHTML = `<p class="afisha__loading">В формате «${typeName}» пока ничего не запланировано. <button class="link-arrow" type="button" data-type="">Показать все события</button></p>`;
+  } else if (state.past.length && !state.type) {
+    list.innerHTML = emptyWithPast(state.past.slice(0, PAST_SHOWCASE_SIZE));
+    pastSection.hidden = true;
+    return;
   } else {
     list.innerHTML = EMPTY_UPCOMING;
   }
