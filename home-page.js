@@ -1,6 +1,5 @@
 import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
 import { HALL, LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js?v=20261012-4';
-import { plural } from './lib/rent-calc.js?v=20261012-2';
 import { initNotify } from './notify.js';
 import { useImageFallback } from './lib/event-view.js';
 
@@ -9,7 +8,6 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const MOVE_MS = 900;
 const WAVE_MS = 320;
 const AUTOPLAY_MS = 4200;
-const EMPTY_HALL_PHOTO = 'assets/space/hall-empty.jpg';
 
 /* ---------- Hero video ---------- */
 function initHeroVideo() {
@@ -103,8 +101,7 @@ function initTransformer() {
     name: root.querySelector('[data-format-name]'),
     text: root.querySelector('[data-format-text]'),
     cap: root.querySelector('[data-format-cap]'),
-    label: root.querySelector('[data-plan-label]'),
-    count: root.querySelector('[data-plan-count]')
+    label: root.querySelector('[data-plan-label]')
   };
   const svg = seatLayer.closest('svg');
 
@@ -123,7 +120,6 @@ function initTransformer() {
   Object.values(LAYOUTS).filter((layout) => layout.photo).forEach((layout) => preload(layout.photo));
 
   let movingTimer = 0;
-  let shownCount = 0;
 
   function drawPlan(name) {
     const layout = LAYOUTS[name];
@@ -140,28 +136,12 @@ function initTransformer() {
     svg.classList.add('is-moving');
     clearTimeout(movingTimer);
     movingTimer = setTimeout(() => svg.classList.remove('is-moving'), MOVE_MS + WAVE_MS);
-    countTo(positions.filter(Boolean).length);
     if (layout.stage) {
       Object.entries(layout.stage).forEach(([key, value]) => stage.setAttribute(key, String(value)));
       stage.style.opacity = '1';
     } else {
       stage.style.opacity = '0';
     }
-  }
-
-  function countTo(target) {
-    if (!fields.count) return;
-    const from = shownCount;
-    shownCount = target;
-    const write = (value) => { fields.count.textContent = value ? `${value} ${plural(value, 'стул', 'стула', 'стульев')}` : 'без стульев'; };
-    if (reducedMotion.matches || from === target) { write(target); return; }
-    const start = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / MOVE_MS);
-      write(Math.round(from + (target - from) * (1 - (1 - t) ** 3)));
-      if (t < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
   }
 
   function select(tab, { focus = false } = {}) {
@@ -184,13 +164,12 @@ function initTransformer() {
     drawPlan(name);
 
     clearTimeout(swapTimer);
-    // Formats without their own photo show the empty hall, dimmed, so the block keeps its size.
+    // Formats without a photo show only the plan, large, in place of the photo.
     root.dataset.mode = layout.photo ? 'photo' : 'plan';
-    const src = layout.photo || EMPTY_HALL_PHOTO;
-    const alt = layout.photo ? layout.alt : '';
-    if (currentPhoto === src) { photo.alt = alt; photo.classList.remove('is-swapping'); return; }
-    currentPhoto = src;
-    const swap = () => { photo.src = src; photo.alt = alt; photo.classList.remove('is-swapping'); };
+    if (!layout.photo) return;
+    if (currentPhoto === layout.photo) { photo.classList.remove('is-swapping'); return; }
+    currentPhoto = layout.photo;
+    const swap = () => { photo.src = layout.photo; photo.alt = layout.alt; photo.classList.remove('is-swapping'); };
     if (reducedMotion.matches) swap();
     else { photo.classList.add('is-swapping'); swapTimer = setTimeout(swap, 300); }
   }

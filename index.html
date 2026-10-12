@@ -22,7 +22,7 @@
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261012-16">
-  <link rel="stylesheet" href="home-page.css?v=20261012-21">
+  <link rel="stylesheet" href="home-page.css?v=20261012-22">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -128,7 +128,6 @@
             <button role="tab" id="tab-concert" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="concert">Концерт</button>
             <button role="tab" id="tab-windows" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="windows">Показ вдоль зала</button>
             <button role="tab" id="tab-free" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="free">Практика · съёмка</button>
-            <span class="transformer__more" aria-hidden="true">Ещё — только схема</span>
             <button role="tab" id="tab-cabaret" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="cabaret">Кабаре</button>
             <button role="tab" id="tab-runway" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="runway">Подиум</button>
             <button role="tab" id="tab-arena" aria-controls="panel-format" aria-selected="false" tabindex="-1" data-layout="arena">Арена</button>
@@ -138,7 +137,6 @@
           <div class="transformer__stage" id="panel-format" role="tabpanel" aria-labelledby="tab-theatre">
             <figure class="transformer__photo">
               <img data-format-photo src="assets/space/hall-semicircle.jpg" alt="Ряды стульев полукругом перед сценой" width="1600" height="1066" loading="lazy" decoding="async">
-              <figcaption class="transformer__photo-note">Фото этой расстановки пока нет — смотрите схему</figcaption>
             </figure>
             <figure class="transformer__plan">
               <svg viewBox="0 0 600 300" role="img" aria-labelledby="plan-caption" data-plan>
@@ -147,7 +145,7 @@
                 <rect class="plan__stage" data-plan-stage x="20" y="40" width="80" height="220"/>
                 <g data-plan-seats></g>
               </svg>
-              <figcaption id="plan-caption" class="meta plan__caption"><span>Схема зала, вид сверху · <span data-plan-label>сцена и ряды</span></span><b data-plan-count aria-hidden="true"></b></figcaption>
+              <figcaption id="plan-caption" class="meta">Схема зала, вид сверху · <span data-plan-label>сцена и ряды</span></figcaption>
             </figure>
             <div class="transformer__info">
               <h3 class="transformer__name" data-format-name>Спектакль</h3>
@@ -337,7 +335,7 @@
     </form>
   </dialog>
 
-  <script type="module" src="home-page.js?v=20261012-21"></script>
+  <script type="module" src="home-page.js?v=20261012-22"></script>
   <script src="sens.js?v=20261012-13" defer></script>
 </body>
 </html>
