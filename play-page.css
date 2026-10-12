@@ -55,7 +55,6 @@
 .waves__svg { display: block; width: 100%; height: auto; max-height: 70svh; overflow: visible; }
 .waves__thread { fill: none; stroke: var(--signal); stroke-width: 1.4; stroke-linecap: round; mix-blend-mode: screen; }
 .waves__knot { fill: var(--paper); transform-box: fill-box; transform-origin: center; animation: knot-pulse 2.8s ease-in-out infinite; }
-.waves__caption { margin-top: 1.25rem; text-align: center; font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.12em; color: var(--paper-dim); }
 @keyframes knot-pulse { 50% { transform: scale(1.8); opacity: 0.4; } }
 @media (prefers-reduced-motion: reduce) { .waves__knot { animation: none; } }
 @media (min-width: 60rem) {
