@@ -217,6 +217,7 @@ function initRegister(event) {
 
 function renderMissing() {
   document.title = 'Событие не найдено · СЭНС';
+  document.querySelector('[data-bar-register]')?.setAttribute('hidden', '');
   root.innerHTML = `
     <section class="wrap event-missing">
       <h1 class="title">Событие не найдено</h1>
@@ -227,6 +228,7 @@ function renderMissing() {
 
 async function load() {
   try {
+    if (!id) throw new Error('no event id');
     const [eventResponse, listResponse] = await Promise.all([
       fetch(`/api/events/${encodeURIComponent(id)}`),
       fetch('/api/events').catch(() => null)

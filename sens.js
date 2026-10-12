@@ -2,7 +2,7 @@
 (() => {
   const menu = document.querySelector('.site-menu');
   if (menu) {
-    const wide = matchMedia('(min-width: 64rem)');
+    const wide = matchMedia('(min-width: 56rem)');
     const summary = menu.querySelector('summary');
     const sync = () => {
       menu.open = wide.matches;
@@ -24,6 +24,8 @@
       const target = new URL(link.href, location.href);
       const targetPage = target.pathname.split('/').pop() || 'index.html';
       if (targetPage === page && !target.hash && page !== 'index.html') link.setAttribute('aria-current', 'page');
+      // Inner pages of a section (a play, an event) light up their parent item via <body data-nav>.
+      if (document.body.dataset.nav && link.getAttribute('href') === document.body.dataset.nav) link.setAttribute('aria-current', 'true');
     });
   }
 

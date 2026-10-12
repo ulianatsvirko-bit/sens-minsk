@@ -138,7 +138,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .site-progress { position: absolute; inset: auto 0 -1px; height: 2px; pointer-events: none; }
 .site-progress span { display: block; height: 100%; background: var(--signal); transform: scaleX(0); transform-origin: left; }
 
-@media (min-width: 64rem) {
+@media (min-width: 56rem) {
   .site-menu summary { display: none; }
   .site-menu nav, .site-menu:not([open]) nav {
     position: static; display: flex; align-items: center; gap: clamp(1.1rem, 2vw, 2rem);
@@ -182,6 +182,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   font-weight: 800; text-decoration: none; border-bottom: 1.5px solid var(--signal);
 }
 .link-arrow:hover { color: var(--signal); }
+.page-back { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; color: var(--paper-dim); font-size: var(--t-small); font-weight: 800; text-decoration: none; transition: color 0.2s; }
+.page-back:hover { color: var(--signal); }
+.page-back:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.25rem; }
 
 /* ---------- Blocks ---------- */
 .block { padding-block: var(--block); }
@@ -241,7 +244,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .action-bar:has(a[hidden]) { grid-template-columns: 1fr; }
 .action-bar:has(a[hidden]) a:not([hidden]) { background: var(--signal); color: var(--ink); }
 .action-bar[data-hidden] { transform: translateY(110%); }
-@media (min-width: 64rem) { .action-bar { display: none; } }
+@media (min-width: 56rem) { .action-bar { display: none; } }
 
 /* ---------- Reveal ---------- */
 @media (prefers-reduced-motion: no-preference) {

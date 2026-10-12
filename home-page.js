@@ -60,6 +60,17 @@ const EMPTY_STATE = `
     </div>
   </div>`;
 
+// The afisha loads after the browser has already jumped to a #section from another page,
+// and its past-events rail pushes later sections down. Re-anchor unless the visitor has scrolled.
+let hasUserScrolled = false;
+['wheel', 'touchmove', 'keydown'].forEach((type) => addEventListener(type, () => { hasUserScrolled = true; }, { once: true, passive: true }));
+
+function restoreHashTarget() {
+  if (hasUserScrolled || !location.hash) return;
+  const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
+}
+
 async function initAfisha() {
   const now = document.querySelector('[data-afisha-now]');
   const past = document.querySelector('[data-past]');
@@ -84,6 +95,7 @@ async function initAfisha() {
     now.innerHTML = '<p class="afisha__loading">Афиша не загрузилась. Обновите страницу или откройте <a href="events.html">полный календарь</a>.</p>';
   } finally {
     now.removeAttribute('aria-busy');
+    restoreHashTarget();
   }
 }
 
