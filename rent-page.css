@@ -12,6 +12,17 @@
   .rent-hero__inner { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4vw, 5rem); align-items: end; }
 }
 
+@media (max-width: 47.99rem) {
+  .rent-hero__inner { gap: 1.5rem; }
+  .rent-hero__photo { aspect-ratio: 16 / 9; }
+  .formats { gap: 0.75rem; }
+  .format h3 { font-size: 1.9rem; }
+  .visit-strip__inner { gap: 1.25rem; }
+  .visit-strip__photo { aspect-ratio: 16 / 9; }
+  .faq { gap: 1rem; }
+  .faq__list summary { padding: 0.9rem 0; font-size: 1rem; }
+  .contact__inner { gap: 1.75rem; }
+}
 .price-strip { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .price-strip li { display: grid; gap: 0.2rem; padding: 1rem 1rem 1rem 0; border-bottom: 1px solid var(--line); }
 .price-strip li:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--line); }

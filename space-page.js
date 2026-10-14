@@ -143,5 +143,67 @@ function initSlideshow() {
   setPaused(paused);
 }
 
+// Tour reel: starts muted once it is on screen, pauses when scrolled away.
+// On phones the native bar is replaced by tap-to-pause, a big play button and a sound toggle.
+function initTour() {
+  const box = document.querySelector('.tour__video');
+  const video = box?.querySelector('video');
+  if (!video) return;
+
+  const phone = window.matchMedia('(max-width: 47.99rem)');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData === true;
+  let userPaused = false;
+  let inView = false;
+
+  const play = Object.assign(document.createElement('button'), { type: 'button', className: 'tour__play' });
+  play.setAttribute('aria-label', 'Смотреть видео');
+  const sound = Object.assign(document.createElement('button'), { type: 'button', className: 'tour__sound' });
+  box.append(play, sound);
+
+  video.muted = true;
+  video.loop = true;
+
+  const sync = () => {
+    box.classList.toggle('is-playing', !video.paused);
+    sound.setAttribute('aria-pressed', String(!video.muted));
+    sound.textContent = video.muted ? 'Включить звук' : 'Выключить звук';
+  };
+  const useLayout = () => {
+    video.controls = !phone.matches;
+    box.classList.toggle('has-touch-ui', phone.matches);
+  };
+  // Browsers may refuse playback (e.g. low-power mode); the play button stays visible then.
+  const start = () => video.play().catch(sync);
+
+  ['play', 'pause', 'volumechange'].forEach((type) => video.addEventListener(type, sync));
+  phone.addEventListener('change', useLayout);
+
+  video.addEventListener('click', () => {
+    if (!phone.matches) return;
+    if (video.paused) { userPaused = false; start(); } else { userPaused = true; video.pause(); }
+  });
+  play.addEventListener('click', () => { userPaused = false; start(); });
+  sound.addEventListener('click', () => {
+    video.muted = !video.muted;
+    if (video.paused) { userPaused = false; start(); }
+  });
+
+  const autoplay = () => {
+    if (calm || userPaused || !inView || document.hidden) return;
+    video.preload = 'auto';
+    start();
+  };
+  new IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting;
+    if (inView) autoplay(); else video.pause();
+  }, { threshold: 0.5 }).observe(video);
+  // The browser pauses media in a background tab; resume when the visitor comes back.
+  document.addEventListener('visibilitychange', autoplay);
+
+  useLayout();
+  sync();
+}
+
 initFloor();
 initSlideshow();
+initTour();

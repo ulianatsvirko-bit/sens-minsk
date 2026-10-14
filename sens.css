@@ -41,6 +41,16 @@
   --dur: 0.6s;
 }
 
+/* Phones: tighter rhythm so a page reads in fewer screens. */
+@media (max-width: 47.99rem) {
+  :root {
+    --t-body: 1rem;
+    --t-lead: 1.0625rem;
+    --t-h3: 1.25rem;
+    --block: 2.75rem;
+  }
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-padding-top: calc(var(--header-h) + 1rem); -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
@@ -191,6 +201,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .block--rule { border-top: 1px solid var(--line); }
 .block-head { display: grid; gap: 1.25rem; margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
 .block-head .lead { color: var(--paper-dim); }
+@media (max-width: 47.99rem) {
+  body { line-height: 1.5; }
+  .block-head { gap: 0.9rem; margin-bottom: 1.5rem; }
+}
 @media (min-width: 56rem) {
   .block-head { grid-template-columns: 1fr minmax(18rem, 30rem); align-items: end; column-gap: 4rem; }
   .block-head > .meta { grid-column: 1 / -1; }

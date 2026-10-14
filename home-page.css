@@ -85,9 +85,15 @@
 .event-card h3 a:hover { color: var(--signal); }
 .event-card p { margin: 0; }
 .event-card p:not(.meta) { color: var(--paper-dim); font-size: var(--t-small); }
+@media (max-width: 47.99rem) {
+  .event-cards { gap: 2rem; }
+  .event-card { gap: 0.75rem; }
+  .event-card__image { aspect-ratio: 4 / 3; }
+  .event-card__date b { font-size: 2.5rem; }
+}
 @media (min-width: 48rem) { .event-cards { grid-template-columns: repeat(3, 1fr); } }
 
-.past { margin-top: clamp(3.5rem, 2.5rem + 4vw, 6rem); }
+.past { margin-top: clamp(2.5rem, 1.5rem + 4vw, 6rem); }
 .past__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; margin-bottom: 1.5rem; }
 .past__rail {
   --edge: max(var(--gutter), calc((100vw - 90rem) / 2));
@@ -212,6 +218,16 @@
 .troupe__lead { grid-column: 1 / -1; }
 .troupe__lead img { aspect-ratio: 16 / 11; object-position: center 20%; }
 .troupe__lead span { color: var(--signal); }
+@media (max-width: 47.99rem) {
+  /* Three across, the director the same size as everyone else. */
+  .troupe__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem 0.5rem; }
+  .troupe__grid li { min-width: 0; }
+  .troupe__lead { grid-column: auto; }
+  .troupe__lead img { aspect-ratio: 4 / 5; object-position: top; }
+  .troupe__grid img { margin-bottom: 0.4rem; }
+  .troupe__grid b { font-size: 0.8125rem; line-height: 1.2; hyphens: auto; }
+  .troupe__grid span { font-size: 0.625rem; letter-spacing: 0.03em; hyphens: auto; }
+}
 @media (min-width: 48rem) {
   .troupe__grid { grid-template-columns: repeat(4, 1fr); }
   .troupe__lead { grid-column: span 2; grid-row: span 2; }
@@ -267,6 +283,12 @@
 .rent__price p:last-child { margin: 0; max-width: 34ch; font-size: var(--t-lead); line-height: 1.4; }
 .rent__ways { display: grid; margin: 0; padding: 0; list-style: none; }
 .rent__ways li { display: grid; gap: 0.3rem; padding: 1.1rem 0; border-top: 1.5px solid var(--ink); }
+@media (max-width: 47.99rem) {
+  .rent__inner { gap: 1.75rem; }
+  .rent__ways li { padding: 0.85rem 0; }
+  .visit__map, .visit__map iframe { min-height: 16rem; }
+  .play__strip img { height: 12rem; }
+}
 .rent__ways b { font-size: var(--t-h3); line-height: 1.15; }
 .rent__ways span { max-width: 46ch; }
 .rent__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }

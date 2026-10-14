@@ -38,6 +38,13 @@
 .listing--past .listing__image img { filter: grayscale(1); }
 .listing--past:hover .listing__image img { filter: none; }
 
+@media (max-width: 47.99rem) {
+  .listing { padding: 1.25rem 0; gap: 0.75rem 1rem; }
+  .listing__image { aspect-ratio: 4 / 3; }
+  .past-grid { gap: 1.25rem 0.5rem; }
+  .past-card img { aspect-ratio: 1; }
+  .past-card__title { font-size: 0.95rem; }
+}
 @media (min-width: 48rem) {
   .listing { grid-template-columns: 6rem minmax(11rem, 15rem) 1fr; align-items: start; column-gap: 2rem; }
   .listing__date { grid-row: auto; }
