@@ -31,9 +31,9 @@ test('instagram handles become safe profile links', () => {
   assert.equal(instagramUrl('javascript:alert(1)'), '');
 });
 
-test('Liza Esipova has a bio and the ballet artist role', () => {
+test('Liza Esipova has a bio and the same artist role as the troupe', () => {
   const liza = findMember('elizaveta-esipova');
-  assert.equal(liza.role, 'Артистка балета');
+  assert.equal(liza.role, 'Артистка');
   assert.match(liza.bio, /университет культуры и искусств/);
 });
 

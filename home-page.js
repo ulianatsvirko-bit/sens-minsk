@@ -1,7 +1,7 @@
 import { localDateKey, renderPastEvents, renderUpcomingEvents, selectPastEvents } from './lib/home-events.js';
 import { HALL, LAYOUTS, SEAT_COUNT, seatPositions } from './lib/hall-layouts.js?v=20261012-4';
 import { initNotify } from './notify.js';
-import { initTroupe } from './troupe-dialog.js?v=20261012-8';
+import { initTroupe } from './troupe-dialog.js?v=20261014-1';
 import { useImageFallback } from './lib/event-view.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
