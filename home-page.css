@@ -70,6 +70,8 @@
   .hero__line { max-width: 34ch; }
 }
 
+@media (max-width: 47.99rem) { .hero__pause { display: none; } }
+
 /* ---------- Afisha ---------- */
 .afisha__loading { color: var(--muted); }
 .afisha__all { margin-top: 2rem; }
@@ -85,6 +87,9 @@
 .event-card h3 a:hover { color: var(--signal); }
 .event-card p { margin: 0; }
 .event-card p:not(.meta) { color: var(--paper-dim); font-size: var(--t-small); }
+/* Sign-up is the main action of a card: a solid button, set apart from the quiet "Вся афиша" link. */
+.event-card__cta { justify-self: start; min-width: 12rem; margin-top: 0.5rem; }
+@media (max-width: 47.99rem) { .event-card__cta { justify-self: stretch; } }
 @media (max-width: 47.99rem) {
   .event-cards { gap: 2rem; }
   .event-card { gap: 0.75rem; }

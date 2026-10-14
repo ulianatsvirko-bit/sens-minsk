@@ -257,7 +257,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .action-bar a[hidden] { display: none; }
 .action-bar:has(a[hidden]) { grid-template-columns: 1fr; }
 .action-bar:has(a[hidden]) a:not([hidden]) { background: var(--signal); color: var(--ink); }
-.action-bar[data-hidden] { transform: translateY(110%); }
+.js .action-bar:not([data-shown]) { transform: translateY(110%); }
 @media (min-width: 56rem) { .action-bar { display: none; } }
 
 /* ---------- Reveal ---------- */

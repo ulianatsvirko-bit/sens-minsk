@@ -53,13 +53,19 @@
     revealTargets.forEach((target) => observer.observe(target));
   }
 
-  // Hide the mobile action bar over the footer so it never covers contacts.
+  // Mobile action bar: stays out of the way on the first screen, slides in once the
+  // visitor starts scrolling, and hides again over the footer so it never covers contacts.
   const bar = document.querySelector('[data-action-bar]');
-  const footer = document.querySelector('.site-footer');
-  if (bar && footer) {
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) bar.setAttribute('data-hidden', '');
-      else bar.removeAttribute('data-hidden');
-    }).observe(footer);
+  if (bar) {
+    const SCROLL_START_PX = 80;
+    const top = document.createElement('div');
+    top.setAttribute('aria-hidden', 'true');
+    top.style.cssText = `position:absolute;top:0;left:0;width:1px;height:${SCROLL_START_PX}px;pointer-events:none`;
+    document.body.prepend(top);
+    const footer = document.querySelector('.site-footer');
+    const state = { atTop: true, overFooter: false };
+    const update = () => bar.toggleAttribute('data-shown', !state.atTop && !state.overFooter);
+    new IntersectionObserver(([entry]) => { state.atTop = entry.isIntersecting; update(); }).observe(top);
+    if (footer) new IntersectionObserver(([entry]) => { state.overFooter = entry.isIntersecting; update(); }).observe(footer);
   }
 })();

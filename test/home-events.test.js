@@ -101,3 +101,10 @@ test('impossible calendar dates are ignored everywhere', async () => {
   assert.deepEqual(selectUpcomingEvents(events, '2026-01-01'), []);
   assert.deepEqual(selectPastEvents(events, '2027-01-01'), []);
 });
+
+test('the next event card has a solid sign-up button, not a plain link', () => {
+  const html = renderUpcomingEvents([
+    { id: 7, title: 'Практика', date: '2026-10-24', time: '12:00', published: 1 }
+  ], '2026-10-12');
+  assert.match(html, /<a class="btn btn--signal event-card__cta" href="event\.html\?id=7#detail-registration">Записаться/);
+});
