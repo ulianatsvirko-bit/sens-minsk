@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
-import { TROUPE, findMember, instagramUrl, memberGallery } from '../lib/troupe.js';
+import { TROUPE, artistHref, findMember, instagramUrl, memberGallery, memberNeighbours } from '../lib/troupe.js';
 
 test('every troupe member has a unique id and an existing portrait', () => {
   const ids = TROUPE.map((member) => member.id);
@@ -62,4 +62,16 @@ test('Alexey Valkovich has six photos at their original 1280px size', () => {
 test('Anna Arkhipova has four photos, two of them landscape', () => {
   const gallery = memberGallery(findMember('anna-arkhipova'));
   assert.deepEqual(gallery.map((shot) => shot.width > shot.height), [false, true, false, true]);
+});
+
+test('every member has a personal page link', () => {
+  assert.equal(artistHref('nikita-skurat'), 'artist.html?id=nikita-skurat');
+});
+
+test('neighbours wrap around the troupe list', () => {
+  const first = TROUPE[0];
+  const last = TROUPE.at(-1);
+  assert.deepEqual(memberNeighbours(first.id), { prev: last, next: TROUPE[1] });
+  assert.deepEqual(memberNeighbours(last.id), { prev: TROUPE.at(-2), next: first });
+  assert.equal(memberNeighbours('nobody'), null);
 });

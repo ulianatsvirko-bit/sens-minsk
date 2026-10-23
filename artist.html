@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Артист труппы · СЭНС</title>
+  <meta name="description" content="Артист труппы театра современной хореографии СЭНС в Минске: кто он и фотографии.">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta property="og:type" content="profile">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="СЭНС">
+  <meta property="og:title" content="Труппа театра современной хореографии СЭНС">
+  <meta property="og:image" content="https://sens-minsk.vercel.app/assets/og-sens.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/sens-favicon.png" type="image/png">
+  <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="sens.css?v=20261014-2">
+  <link rel="stylesheet" href="troupe-page.css?v=20261023-1">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-nav="troupe.html">
+  <a class="skip-link" href="#main">К содержанию</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="152" height="29"></a>
+      <details class="site-menu">
+        <summary aria-label="Открыть меню"></summary>
+        <nav aria-label="Основная навигация">
+          <a href="events.html">Афиша</a>
+          <a href="index.html#repertoire">Спектакли</a>
+          <a href="space.html">Пространство</a>
+          <a href="troupe.html">Труппа</a>
+          <a href="rent.html">Аренда</a>
+          <a class="site-menu__cta" href="rent.html#contact">Забронировать зал</a>
+        </nav>
+      </details>
+    </div>
+    <div class="site-progress" aria-hidden="true"><span data-progress></span></div>
+  </header>
+
+  <main id="main" class="artist-page">
+    <div class="wrap artist-back"><a class="page-back" href="troupe.html"><span aria-hidden="true">←</span> Вся труппа</a></div>
+
+    <article class="artist" data-artist aria-labelledby="artist-name">
+      <div class="wrap artist__intro">
+        <figure class="artist__portrait">
+          <img data-artist-photo alt="" width="853" height="1280" fetchpriority="high" decoding="async">
+        </figure>
+        <div class="artist__info">
+          <p class="meta meta--signal" data-artist-role>Труппа СЭНС</p>
+          <h1 id="artist-name" class="artist__name" data-artist-name>Артист труппы</h1>
+          <p class="artist__bio" data-artist-bio>Труппа театра современной хореографии СЭНС.</p>
+          <a class="link-arrow" data-artist-instagram href="#" target="_blank" rel="noopener" hidden>Instagram <span></span> <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <section class="block block--rule artist__photos" data-artist-photos aria-labelledby="photos-title" hidden>
+        <div class="wrap">
+          <h2 id="photos-title" class="title">Фото<em>графии</em></h2>
+          <ul class="artist__gallery" data-artist-gallery></ul>
+        </div>
+      </section>
+    </article>
+
+    <nav class="block block--rule artist-next" aria-label="Другие артисты">
+      <div class="wrap artist-next__inner">
+        <a class="artist-next__link" data-artist-prev href="troupe.html"><span class="meta">← Предыдущий</span><b></b></a>
+        <a class="artist-next__link artist-next__link--next" data-artist-next href="troupe.html"><span class="meta">Следующий →</span><b></b></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="128" height="24" loading="lazy"></a>
+      <ul><li><a href="events.html">Афиша</a></li><li><a href="index.html#repertoire">Спектакли</a></li><li><a href="troupe.html">Труппа</a></li></ul>
+      <ul><li><a href="space.html">Пространство</a></li><li><a href="rent.html">Аренда</a></li><li><a href="rent.html#contact">Заявка</a></li></ul>
+      <ul><li>Минск, Кульман 1/2</li><li><a href="tel:+375445099414">+375 44 509-94-14</a></li><li><a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Telegram ↗</a></li><li><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a></li></ul>
+    </div>
+  </footer>
+
+  <nav class="action-bar" aria-label="Быстрые действия" data-action-bar>
+    <a href="troupe.html">Вся труппа</a>
+    <a href="events.html">Афиша</a>
+  </nav>
+
+  <script type="module" src="artist-page.js?v=20261023-1"></script>
+  <script src="sens.js?v=20261014-2" defer></script>
+</body>
+</html>

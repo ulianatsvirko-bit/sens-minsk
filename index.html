@@ -22,7 +22,7 @@
   <link rel="icon" href="assets/sens-favicon.png" type="image/png">
   <link rel="preload" href="assets/fonts/beni-black.otf" as="font" type="font/otf" crossorigin>
   <link rel="stylesheet" href="sens.css?v=20261014-2">
-  <link rel="stylesheet" href="home-page.css?v=20261014-3">
+  <link rel="stylesheet" href="home-page.css?v=20261023-1">
   <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">
   {
@@ -52,7 +52,7 @@
           <a href="events.html">Афиша</a>
           <a href="#repertoire">Спектакли</a>
           <a href="space.html">Пространство</a>
-          <a href="#troupe">Труппа</a>
+          <a href="troupe.html">Труппа</a>
           <a href="rent.html">Аренда</a>
           <a class="site-menu__cta" href="rent.html#contact">Забронировать зал</a>
         </nav>
@@ -232,25 +232,26 @@
       </article>
     </section>
 
-    <!-- Troupe -->
+    <!-- Troupe: a short hello; the full troupe and personal pages live on troupe.html. -->
     <section id="troupe" class="block block--rule troupe" aria-labelledby="troupe-title">
-      <div class="wrap">
+      <div class="wrap troupe__inner">
         <div class="block-head">
           <p class="meta meta--signal">Труппа</p>
           <h2 id="troupe-title" class="title">Труппа театра современной хореографии <em>СЭНС</em></h2>
-          <p class="lead">Официальная театральная труппа культурного хаба СЭНС.</p>
+          <p class="lead">Артисты, которые танцуют наши спектакли. У каждого — своя страница с фотографиями.</p>
         </div>
-        <ul class="troupe__grid">
-          <li class="troupe__lead"><button class="troupe__card" type="button" data-member="alexandra-buyalskaya" aria-haspopup="dialog"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Буяльская</b><span>Художественный руководитель</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="tatiana-lebedeva" aria-haspopup="dialog"><img src="assets/troupe/tatiana-lebedeva.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Татьяна Лебедева</b><span>Артистка · балетмейстер</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="elizaveta-esipova" aria-haspopup="dialog"><img src="assets/troupe/elizaveta-esipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Елизавета Есипова</b><span>Артистка</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="maria-mikhaliuk" aria-haspopup="dialog"><img src="assets/troupe/maria-mikhaliuk.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Мария Михалюк</b><span>Артистка</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="konstantin-matsukevich" aria-haspopup="dialog"><img src="assets/troupe/konstantin-matsukevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Константин Мацукевич</b><span>Артист</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="alexey-valkovich" aria-haspopup="dialog"><img src="assets/troupe/alexey-valkovich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Алексей Валькович</b><span>Артист</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="alexandra-kinevich" aria-haspopup="dialog"><img src="assets/troupe/alexandra-kinevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Александра Киневич</b><span>Артистка</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="anna-arkhipova" aria-haspopup="dialog"><img src="assets/troupe/anna-arkhipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Анна Архипова</b><span>Артистка</span></button></li>
-          <li><button class="troupe__card" type="button" data-member="nikita-skurat" aria-haspopup="dialog"><img src="assets/troupe/nikita-skurat.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><b>Никита Скурат</b><span>Артист</span></button></li>
+        <ul class="troupe__faces" aria-label="Артисты труппы">
+          <li><a href="artist.html?id=alexandra-buyalskaya"><img src="assets/troupe/alexandra-buyalskaya.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Александра Буяльская</span></a></li>
+          <li><a href="artist.html?id=tatiana-lebedeva"><img src="assets/troupe/tatiana-lebedeva.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Татьяна Лебедева</span></a></li>
+          <li><a href="artist.html?id=elizaveta-esipova"><img src="assets/troupe/elizaveta-esipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Елизавета Есипова</span></a></li>
+          <li><a href="artist.html?id=maria-mikhaliuk"><img src="assets/troupe/maria-mikhaliuk.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Мария Михалюк</span></a></li>
+          <li><a href="artist.html?id=konstantin-matsukevich"><img src="assets/troupe/konstantin-matsukevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Константин Мацукевич</span></a></li>
+          <li><a href="artist.html?id=alexey-valkovich"><img src="assets/troupe/alexey-valkovich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Алексей Валькович</span></a></li>
+          <li><a href="artist.html?id=alexandra-kinevich"><img src="assets/troupe/alexandra-kinevich.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Александра Киневич</span></a></li>
+          <li><a href="artist.html?id=anna-arkhipova"><img src="assets/troupe/anna-arkhipova.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Анна Архипова</span></a></li>
+          <li><a href="artist.html?id=nikita-skurat"><img src="assets/troupe/nikita-skurat.jpg" alt="" width="853" height="1280" loading="lazy" decoding="async"><span>Никита Скурат</span></a></li>
         </ul>
+        <a class="btn btn--line" href="troupe.html">Вся труппа <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -305,7 +306,7 @@
   <footer class="site-footer">
     <div class="site-footer__inner">
       <a href="index.html" aria-label="СЭНС — главная"><img src="assets/sens-logo-lockup.png" alt="СЭНС" width="128" height="24" loading="lazy"></a>
-      <ul><li><a href="events.html">Афиша</a></li><li><a href="#repertoire">Спектакли</a></li><li><a href="#troupe">Труппа</a></li></ul>
+      <ul><li><a href="events.html">Афиша</a></li><li><a href="#repertoire">Спектакли</a></li><li><a href="troupe.html">Труппа</a></li></ul>
       <ul><li><a href="space.html">Пространство</a></li><li><a href="rent.html">Аренда</a></li><li><a href="rent.html#contact">Заявка</a></li></ul>
       <ul><li>Минск, Кульман 1/2</li><li><a href="tel:+375445099414">+375 44 509-94-14</a></li><li><a href="https://t.me/sensehubminsk" target="_blank" rel="noopener">Telegram ↗</a></li><li><a href="mailto:sensehubminsk@gmail.com">sensehubminsk@gmail.com</a></li><li><a href="https://www.instagram.com/senseminsk/" target="_blank" rel="noopener">Instagram ↗</a></li></ul>
     </div>
@@ -315,26 +316,6 @@
     <a href="events.html">Афиша</a>
     <a href="rent.html">Аренда зала</a>
   </nav>
-
-  <dialog class="member" data-member-dialog aria-labelledby="member-name">
-    <div class="member__inner">
-      <button class="member__close" type="button" data-member-close aria-label="Закрыть">×</button>
-      <div class="member__gallery">
-        <ul class="member__track" data-member-track tabindex="0"></ul>
-        <div class="member__nav" data-member-nav>
-          <button type="button" data-member-prev aria-label="Предыдущее фото">←</button>
-          <span class="member__count" data-member-count aria-live="polite"></span>
-          <button type="button" data-member-next aria-label="Следующее фото">→</button>
-        </div>
-      </div>
-      <div class="member__info">
-        <p class="meta meta--signal" data-member-role></p>
-        <h2 id="member-name" class="title" data-member-name></h2>
-        <p class="member__about" data-member-bio></p>
-        <a class="link-arrow" data-member-instagram href="#" target="_blank" rel="noopener" hidden>Instagram <span></span> <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-  </dialog>
 
   <dialog class="notify" data-notify-dialog aria-labelledby="notify-title">
     <form class="notify__form" data-notify-form novalidate>
@@ -360,7 +341,7 @@
     </form>
   </dialog>
 
-  <script type="module" src="home-page.js?v=20261014-2"></script>
+  <script type="module" src="home-page.js?v=20261023-1"></script>
   <script src="sens.js?v=20261014-2" defer></script>
 </body>
 </html>

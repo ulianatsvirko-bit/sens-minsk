@@ -63,9 +63,12 @@
 
 /* ---------- Cast ---------- */
 .cast { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem 0.75rem; margin: 0; padding: 0; list-style: none; }
-.cast li { display: grid; gap: 0.15rem; align-content: start; min-width: 0; }
+.cast li { min-width: 0; }
+.cast a { display: grid; gap: 0.15rem; align-content: start; color: inherit; text-decoration: none; }
+.cast a:hover b, .cast a:focus-visible b { color: var(--signal); }
+.cast a:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.35rem; }
 .cast img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: 0.5rem; filter: grayscale(1); transition: filter 0.5s; }
-.cast li:hover img { filter: none; }
+.cast a:hover img, .cast a:focus-visible img { filter: none; }
 .cast b { font-size: 0.95rem; line-height: 1.2; hyphens: auto; overflow-wrap: break-word; }
 .cast span { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 47.99rem) { .cast span { font-size: 0.625rem; letter-spacing: 0.03em; hyphens: auto; } }

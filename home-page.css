@@ -211,69 +211,25 @@
   .play--super { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); column-gap: clamp(2rem, 5vw, 6rem); align-items: center; }
 }
 
-/* ---------- Troupe ---------- */
-.troupe__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 0.75rem; margin: 0; padding: 0; list-style: none; }
-.troupe__card { display: grid; gap: 0.2rem; align-content: start; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
-.troupe__grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; margin-bottom: 0.6rem; filter: grayscale(1); transition: filter 0.5s, transform 0.6s var(--ease-out); }
-.troupe__card:hover img, .troupe__card:focus-visible img { filter: none; }
-.troupe__card:hover b { color: var(--signal); }
-.troupe__card:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.35rem; }
-.troupe__grid b { font-size: 1rem; line-height: 1.2; }
-.troupe__grid span { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.troupe__lead { grid-column: 1 / -1; }
-.troupe__lead img { aspect-ratio: 16 / 11; object-position: center 20%; }
-.troupe__lead span { color: var(--signal); }
-@media (max-width: 47.99rem) {
-  /* Three across, the director the same size as everyone else. */
-  .troupe__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem 0.5rem; }
-  .troupe__grid li { min-width: 0; }
-  .troupe__lead { grid-column: auto; }
-  .troupe__lead img { aspect-ratio: 4 / 5; object-position: top; }
-  .troupe__grid img { margin-bottom: 0.4rem; }
-  .troupe__grid b { font-size: 0.8125rem; line-height: 1.2; hyphens: auto; }
-  .troupe__grid span { font-size: 0.625rem; letter-spacing: 0.03em; hyphens: auto; }
+/* ---------- Troupe teaser: faces in a row, the full troupe lives on troupe.html ---------- */
+.troupe__inner { display: grid; gap: 1.75rem; }
+.troupe__inner .block-head { margin-bottom: 0; }
+.troupe__inner .btn { justify-self: start; }
+.troupe__faces {
+  display: flex; gap: 0.4rem; margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter); list-style: none;
+  overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--gutter); scrollbar-width: none;
 }
-@media (min-width: 48rem) {
-  .troupe__grid { grid-template-columns: repeat(4, 1fr); }
-  .troupe__lead { grid-column: span 2; grid-row: span 2; }
-  .troupe__lead img { aspect-ratio: 4 / 5; object-position: top; }
-}
-@media (min-width: 72rem) { .troupe__grid { grid-template-columns: repeat(6, 1fr); } }
-
-/* ---------- Member dialog ---------- */
-.member {
-  width: min(100% - 1.5rem, 68rem); max-height: calc(100svh - 1.5rem); padding: 0; overflow: auto;
-  border: 1px solid var(--line); background: var(--graphite); color: var(--paper);
-}
-.member::backdrop { background: #0b0b0cd8; backdrop-filter: blur(6px); }
-.member__inner { position: relative; display: grid; }
-.member__close {
-  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2; width: 2.75rem; height: 2.75rem;
-  border: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 75%, transparent); font-size: 1.5rem; line-height: 1; cursor: pointer;
-}
-.member__close:hover { border-color: var(--paper); }
-.member__gallery { display: grid; min-width: 0; background: var(--ink); }
-.member__track { display: flex; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
-.member__track::-webkit-scrollbar { display: none; }
-.member__track:focus-visible { outline: 2px solid var(--signal); outline-offset: -2px; }
-.member__track li { flex: 0 0 100%; scroll-snap-align: start; }
-.member__track img { display: block; width: 100%; height: min(62svh, 40rem); object-fit: cover; object-position: center 25%; }
-.member__track img.is-wide { object-fit: contain; object-position: center; }
-.member__nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.6rem; border-top: 1px solid var(--line); }
-.member__nav[hidden] { display: none; }
-.member__nav button { width: 2.75rem; height: 2.75rem; border: 1px solid var(--line); background: none; font-size: 1.1rem; cursor: pointer; }
-.member__nav button:hover:not(:disabled) { border-color: var(--paper); }
-.member__nav button:disabled { opacity: 0.3; cursor: default; }
-.member__count { font-size: var(--t-meta); font-weight: 800; letter-spacing: 0.1em; color: var(--paper-dim); }
-.member__info { display: grid; gap: 1rem; align-content: end; padding: clamp(1.25rem, 1rem + 2vw, 2.5rem); }
-.member__info .title { font-size: clamp(2.25rem, 1.5rem + 3vw, 4rem); line-height: 0.92; }
-.member__about { margin: 0; color: var(--paper-dim); }
-.member__info .link-arrow { justify-self: start; }
-.member__info .link-arrow[hidden] { display: none; }
+.troupe__faces::-webkit-scrollbar { display: none; }
+.troupe__faces li { flex: 0 0 6.5rem; scroll-snap-align: start; }
+.troupe__faces a { display: grid; gap: 0.45rem; text-decoration: none; color: var(--paper-dim); font-size: 0.8125rem; font-weight: 700; line-height: 1.2; }
+.troupe__faces img { width: 100%; aspect-ratio: 3 / 5; object-fit: cover; object-position: top; filter: grayscale(1); transition: filter 0.5s, transform 0.6s var(--ease-out); }
+.troupe__faces a:hover, .troupe__faces a:focus-visible { color: var(--signal); }
+.troupe__faces a:hover img, .troupe__faces a:focus-visible img { filter: none; transform: translateY(-0.35rem); }
+.troupe__faces a:focus-visible { outline: 2px solid var(--signal); outline-offset: 0.3rem; }
+@media (prefers-reduced-motion: reduce) { .troupe__faces img { transition: none; } .troupe__faces a:hover img { transform: none; } }
 @media (min-width: 56rem) {
-  .member__inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
-  .member__track img { height: min(80svh, 48rem); }
-  .member__info { padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .troupe__faces { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0.6rem; margin: 0; padding: 0; overflow: visible; }
+  .troupe__faces a { hyphens: auto; overflow-wrap: break-word; }
 }
 
 /* ---------- Rent ---------- */
