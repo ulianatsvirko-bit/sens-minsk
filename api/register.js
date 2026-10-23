@@ -4,7 +4,11 @@ const clean = (value, max) => String(value || '').trim().replace(/[\u0000-\u001F
 const escapeHtml = (value) => value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const send = (response, status, body) => { response.status(status).setHeader('Content-Type','application/json; charset=utf-8'); response.setHeader('Cache-Control','no-store'); response.end(JSON.stringify(body)); };
 
-export default async function handler(request, response) {
+// On Vercel the event list comes from the VPS API; the Node server passes its own database instead.
+const fetchPublishedEvents = async () => (await fetch('https://sens.109.199.105.77.nip.io/api/events',{headers:{Accept:'application/json'}})).json();
+
+export function createRegisterHandler(loadEvents = fetchPublishedEvents) {
+  return async function handler(request, response) {
   if (request.method !== 'POST') { response.setHeader('Allow','POST'); return send(response,405,{message:'Метод не поддерживается.'}); }
   const origin=request.headers.origin, host=request.headers['x-forwarded-host']||request.headers.host;
   try { if(origin&&host&&new URL(origin).host!==host)return send(response,403,{message:'Отправка с другого сайта запрещена.'}); } catch { return send(response,400,{message:'Некорректный запрос.'}); }
@@ -14,8 +18,7 @@ export default async function handler(request, response) {
   const eventId=clean(body.event_id,40), name=clean(body.name,100), phone=clean(body.phone,40), social=clean(body.social,100), comment=clean(body.comment,500), guests=Math.min(10,Math.max(1,Number(body.guests)||1));
   if(!eventId||!name||!phone||body.consent!=='accepted')return send(response,400,{message:'Заполните имя, телефон и подтвердите согласие.'});
   try {
-    const eventsResponse=await fetch('https://sens.109.199.105.77.nip.io/api/events',{headers:{Accept:'application/json'}});
-    const events=await eventsResponse.json(); const event=events.find(item=>String(item.id)===eventId&&item.published);
+    const events=await loadEvents(); const event=events.find(item=>String(item.id)===eventId&&item.published);
     if(!event)return send(response,404,{message:'Это событие больше недоступно для записи.'});
     const slots=eventSlots(event);
     const selected=slots.find(slot=>slotValue(slot)===body.event_slot);
@@ -25,4 +28,7 @@ export default async function handler(request, response) {
     await sendTelegramMessage(text);
     return send(response,200,{ok:true});
   } catch(error){console.error('Registration failed:',error.message);return send(response,502,{message:'Не удалось отправить заявку. Попробуйте чуть позже.'});}
+  };
 }
+
+export default createRegisterHandler();

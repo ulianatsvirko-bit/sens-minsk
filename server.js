@@ -7,6 +7,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseBusySlot, publicBusy } from './lib/busy-slots.js';
+import contactHandler from './api/contact.js';
+import { createRegisterHandler } from './api/register.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(root, 'data');
@@ -99,6 +101,9 @@ const times=inputTimes.map(slot=>{if(!slot||typeof slot.time!=='string'||!/^([01
 const data={title:clean(body.title,160),date:clean(body.date,10),time:times[0].time,times,type:type||'practice',price:clean(body.price,80),places:Math.max(0,Number(body.places)||0),description:String(body.description||'').trim().slice(0,2000).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,'' ),form:clean(body.form,500),image:clean(body.image,500),gallery:Array.isArray(body.gallery)?body.gallery.filter(item=>/^\/uploads\//.test(item)).slice(0,15):[],published:body.published?1:0};if(!data.image&&data.gallery.length)data.image=data.gallery[0];if(!data.title||!/^\d{4}-\d{2}-\d{2}$/.test(data.date)||!/^\d{2}:\d{2}$/.test(data.time))throw new Error('Заполните название, дату и время.');if(data.form&&!/^https:\/\//.test(data.form))throw new Error('Ссылка записи должна начинаться с https://');return data}
 app.post('/api/admin/events', sameOrigin, requireAuth, (req,res)=>{try{const e=parseEvent(req.body);const out=db.prepare('INSERT INTO events(title,date,time,type,price,places,description,form_url,image_url,gallery_json,times_json,published) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)').run(e.title,e.date,e.time,e.type,e.price,e.places,e.description,e.form,e.image,JSON.stringify(e.gallery),JSON.stringify(e.times),e.published);res.status(201).json(eventFromRow(db.prepare('SELECT * FROM events WHERE id=?').get(out.lastInsertRowid)))}catch(e){res.status(400).json({message:e.message})}});
 app.put('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{try{const e=parseEvent(req.body);const out=db.prepare('UPDATE events SET title=?,date=?,time=?,type=?,price=?,places=?,description=?,form_url=?,image_url=?,gallery_json=?,times_json=?,published=?,updated_at=CURRENT_TIMESTAMP WHERE id=?').run(e.title,e.date,e.time,e.type,e.price,e.places,e.description,e.form,e.image,JSON.stringify(e.gallery),JSON.stringify(e.times),e.published,req.params.id);if(!out.changes)return res.status(404).json({message:'Событие не найдено.'});res.json(eventFromRow(db.prepare('SELECT * FROM events WHERE id=?').get(req.params.id)))}catch(e){res.status(400).json({message:e.message})}});
+// Site forms → Telegram. The same handlers run as Vercel functions; here registration reads events from the local database.
+app.post('/api/contact', contactHandler);
+app.post('/api/register', createRegisterHandler(async () => db.prepare('SELECT * FROM events WHERE published=1').all().map(eventFromRow)));
 app.get('/api/busy', (req,res)=>{const today=minskToday();res.set('Cache-Control','public, max-age=60');res.json(publicBusy(db.prepare('SELECT date,start,end FROM busy_slots WHERE date>=? ORDER BY date,start').all(today), today))});
 app.get('/api/admin/busy', requireAuth, (req,res)=>res.json(db.prepare('SELECT id,date,start,end,note FROM busy_slots WHERE date>=? ORDER BY date,start').all(minskToday()).map(row=>({...row,id:String(row.id)}))));
 app.post('/api/admin/busy', sameOrigin, requireAuth, (req,res)=>{try{const slot=parseBusySlot(req.body);const out=db.prepare('INSERT INTO busy_slots(date,start,end,note) VALUES(?,?,?,?)').run(slot.date,slot.start,slot.end,slot.note);res.status(201).json({id:String(out.lastInsertRowid),...slot})}catch(e){res.status(400).json({message:e.message})}});

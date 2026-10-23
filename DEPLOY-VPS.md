@@ -23,6 +23,8 @@ nano .env
 
 Создать надёжный секрет можно командой `openssl rand -hex 32`. В `.env` обязательно замените `ADMIN_LOGIN`, `ADMIN_PASSWORD` и `SESSION_SECRET`.
 
+Чтобы формы сайта (заявка на аренду и запись на событие) отправлялись в Telegram, заполните `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`; `TELEGRAM_CHAT_ID_2` — необязательный второй чат для копий. Сервер сам отвечает на `/api/contact` и `/api/register`, Vercel для этого не нужен.
+
 ## 2. Запуск
 
 ```bash
