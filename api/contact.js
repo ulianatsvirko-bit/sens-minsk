@@ -1,4 +1,5 @@
 import { validDate } from '../lib/busy-slots.js';
+import { sendTelegramMessage } from '../lib/telegram.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const CLOCK_SKEW_MS = 5 * 60 * 1000;
@@ -107,18 +108,7 @@ export default async function handler(request, response) {
   ].filter((line) => line !== null).join('\n');
 
   try {
-    const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
-    });
-    const telegramResult = await telegramResponse.json();
-
-    if (!telegramResponse.ok || !telegramResult.ok) {
-      console.error('Telegram sendMessage failed:', telegramResult.description || telegramResponse.status);
-      return sendJson(response, 502, { message: 'Сервис отправки временно недоступен.' });
-    }
-
+    await sendTelegramMessage(text);
     return sendJson(response, 200, { ok: true });
   } catch (error) {
     console.error('Telegram request failed:', error.message);

@@ -1,4 +1,5 @@
 import {eventSlots, needsSlotChoice, slotValue, slotLabel} from '../lib/event-slots.js';
+import {sendTelegramMessage} from '../lib/telegram.js';
 const clean = (value, max) => String(value || '').trim().replace(/[\u0000-\u001F\u007F]/g, '').slice(0, max);
 const escapeHtml = (value) => value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const send = (response, status, body) => { response.status(status).setHeader('Content-Type','application/json; charset=utf-8'); response.setHeader('Cache-Control','no-store'); response.end(JSON.stringify(body)); };
@@ -21,8 +22,7 @@ export default async function handler(request, response) {
     if ((needsSlotChoice(event)||body.event_slot) && !selected) return send(response,400,{message:'Выберите доступное время и возрастную группу. Если расписание изменилось, обновите страницу.'});
     const selectedSlot=selected||slots[0];
     const text=['<b>Новая запись на мероприятие · СЭНС</b>','',`<b>Событие:</b> ${escapeHtml(event.title)}`,`<b>Дата:</b> ${escapeHtml(event.date)} · ${escapeHtml(slotLabel(selectedSlot))}`,`<b>Имя:</b> ${escapeHtml(name)}`,`<b>Телефон:</b> ${escapeHtml(phone)}`,`<b>Telegram / Instagram:</b> ${escapeHtml(social||'—')}`,`<b>Количество гостей:</b> ${guests}`,`<b>Комментарий:</b> ${escapeHtml(comment||'—')}`].join('\n');
-    const telegram=await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:process.env.TELEGRAM_CHAT_ID,text,parse_mode:'HTML'})});
-    const result=await telegram.json(); if(!telegram.ok||!result.ok)throw new Error(result.description||'Telegram error');
+    await sendTelegramMessage(text);
     return send(response,200,{ok:true});
   } catch(error){console.error('Registration failed:',error.message);return send(response,502,{message:'Не удалось отправить заявку. Попробуйте чуть позже.'});}
 }
