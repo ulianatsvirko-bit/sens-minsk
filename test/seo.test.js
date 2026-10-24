@@ -73,3 +73,11 @@ test('page descriptions stay within what search results show', async () => {
     assert.ok(description.length <= 170, `${file}: ${description.length}`);
   }
 });
+
+test('home page names the site СЭНС for search results', async () => {
+  const html = await read('index.html');
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1]));
+  const site = schemas.find((schema) => schema['@type'] === 'WebSite');
+  assert.equal(site.name, 'СЭНС');
+  assert.equal(site.url, `${ORIGIN}/`);
+});
