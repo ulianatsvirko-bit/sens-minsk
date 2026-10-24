@@ -53,14 +53,11 @@ test('every homepage image declares its size', async () => {
   for (const tag of images) assert.match(tag, /width="\d+" height="\d+"/, tag);
 });
 
-test('Vercel keeps public pages static and proxies the event API', async () => {
+test('the old Vercel address sends every path to the new domain', async () => {
   const config = JSON.parse(await read('vercel.json'));
-  assert.deepEqual(config.redirects.slice(0, 1), [
-    { source: '/space', destination: '/space.html', permanent: false }
+  assert.deepEqual(config.redirects, [
+    { source: '/(.*)', destination: 'https://sense.smartdance.by/$1', permanent: true }
   ]);
-  assert.equal(config.rewrites.some(({ source, destination }) => source === '/api/events' && destination.includes('/api/events')), true);
-  assert.equal(config.rewrites.some(({ source }) => source === '/api/admin/:path*'), true);
-  assert.equal(config.redirects.some(({ source, destination }) => source === '/rent.html' || destination === '/rent.html'), false);
 });
 
 test('space page is built on the shared foundation and draws the floor plan', async () => {
@@ -84,11 +81,6 @@ test('rent page keeps the #contact anchor, calculator, calendar and sends extra 
   }
   const images = html.match(/<img\b[^>]*>/g) || [];
   for (const tag of images) assert.match(tag, /width="\d+" height="\d+"/, tag);
-});
-
-test('Vercel proxies the public busy-dates API to the VPS', async () => {
-  const config = JSON.parse(await read('vercel.json'));
-  assert.ok(config.rewrites.some(({ source, destination }) => source === '/api/busy' && destination.endsWith('/api/busy')));
 });
 
 test('play pages exist, link to each other and are linked from the homepage', async () => {

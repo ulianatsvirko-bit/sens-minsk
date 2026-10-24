@@ -1,35 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/space",
-      "destination": "/space.html",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/events",
-      "destination": "https://sens.109.199.105.77.nip.io/api/events"
-    },
-    {
-      "source": "/api/events/:id",
-      "destination": "https://sens.109.199.105.77.nip.io/api/events/:id"
-    },
-    {
-      "source": "/api/busy",
-      "destination": "https://sens.109.199.105.77.nip.io/api/busy"
-    },
-    {
-      "source": "/api/auth/:path*",
-      "destination": "https://sens.109.199.105.77.nip.io/api/auth/:path*"
-    },
-    {
-      "source": "/api/admin/:path*",
-      "destination": "https://sens.109.199.105.77.nip.io/api/admin/:path*"
-    },
-    {
-      "source": "/uploads/:path*",
-      "destination": "https://sens.109.199.105.77.nip.io/uploads/:path*"
+      "source": "/(.*)",
+      "destination": "https://sense.smartdance.by/$1",
+      "permanent": true
     }
   ]
 }
