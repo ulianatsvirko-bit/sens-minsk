@@ -126,3 +126,10 @@ test('no page links to the old #troupe anchor', async () => {
     assert.doesNotMatch(await read(file), /#troupe"/, file);
   }
 });
+
+test('pages link home as / so the address never shows index.html', async () => {
+  for (const file of ['index.html', 'events.html', 'event.html', 'space.html', 'rent.html', 'troupe.html', 'artist.html', 'spinoy-k-zavtra.html', 'superpozitsiya.html']) {
+    assert.doesNotMatch(await read(file), /(?:href|data-nav)="index\.html/, file);
+  }
+  assert.match(await read('server.js'), /app\.get\('\/index\.html', \(req,res\) => res\.redirect\(301, '\/'\)\)/);
+});

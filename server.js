@@ -111,7 +111,7 @@ app.delete('/api/admin/busy/:id', sameOrigin, requireAuth, (req,res)=>{const out
 app.delete('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{const out=db.prepare('DELETE FROM events WHERE id=?').run(req.params.id);res.status(out.changes?200:404).json(out.changes?{ok:true}:{message:'Событие не найдено.'})});
 
 app.get('/', (req,res) => res.sendFile(path.join(root, 'index.html')));
-app.get('/index.html', (req,res) => res.sendFile(path.join(root, 'index.html')));
+app.get('/index.html', (req,res) => res.redirect(301, '/'));
 app.get(['/space', '/space.html'], (req,res) => res.sendFile(path.join(root, 'space.html')));
 app.use(express.static(root, { extensions:['html'] }));
 app.use((error,req,res,next)=>{console.error(error);res.status(error.code==='LIMIT_FILE_SIZE'?413:500).json({message:error.code==='LIMIT_FILE_SIZE'?'Файл больше 8 МБ.':'Ошибка сервера.'})});
