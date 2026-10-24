@@ -11,6 +11,8 @@ import contactHandler from './api/contact.js';
 import { createRegisterHandler } from './api/register.js';
 import { artistMeta, buildSitemap, eventMeta, renderHead } from './lib/seo.js';
 import { TROUPE, findMember } from './lib/troupe.js';
+import { RENT_FORMATS, findRentFormat } from './lib/rent-formats.js';
+import { renderRentFormatPage } from './lib/rent-format-page.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(root, 'data');
@@ -22,7 +24,7 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
 const siteUrl = (process.env.SITE_URL || 'https://sense.smartdance.by').replace(/\/$/, '');
-const SITEMAP_PAGES = ['/', '/events', '/troupe', '/spinoy-k-zavtra', '/superpozitsiya', '/space', '/rent'];
+const SITEMAP_PAGES = ['/', '/events', '/troupe', '/spinoy-k-zavtra', '/superpozitsiya', '/space', '/rent', ...RENT_FORMATS.map(({ slug }) => `/${slug}`)];
 const adminLogin = process.env.ADMIN_LOGIN;
 const adminPassword = process.env.ADMIN_PASSWORD;
 const sessionSecret = process.env.SESSION_SECRET;
@@ -116,6 +118,7 @@ app.delete('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{const o
 
 app.get('/', (req,res) => res.sendFile(path.join(root, 'index.html')));
 app.get('/index.html', (req,res) => res.redirect(301, '/'));
+app.get('/favicon.ico', (req,res) => res.sendFile(path.join(root, 'assets', 'sens-favicon.png')));
 // Pages live at clean addresses (/troupe, /artist?id=…); old *.html links redirect there.
 app.use((req,res,next) => {
   const page = req.method === 'GET' && req.path.match(/^\/([a-z0-9-]+)\.html$/);
@@ -136,6 +139,8 @@ app.get('/event', (req,res,next) => {
   if (!row) return next();
   sendPage(res, 'event.html', eventMeta(eventFromRow(row), siteUrl, minskToday()));
 });
+// Rent landing pages, one per kind of event (lib/rent-formats.js).
+app.get(RENT_FORMATS.map(({ slug }) => `/${slug}`), (req,res) => res.type('html').send(renderRentFormatPage(findRentFormat(req.path.slice(1)))));
 app.get('/sitemap.xml', (req,res) => {
   const events = db.prepare('SELECT id,date,published FROM events WHERE published=1 ORDER BY date DESC').all().map(row => ({ id:String(row.id), date:row.date, published:true }));
   res.type('application/xml').send(buildSitemap(siteUrl, { pages:SITEMAP_PAGES, members:TROUPE, events }));

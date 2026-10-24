@@ -1,0 +1,12 @@
+/* Rent landing pages (/arenda-zala-dlya-…) on top of sens.css and rent-page.css */
+
+.format-title { font-size: clamp(2.6rem, 1.4rem + 5vw, 5.5rem); line-height: 0.9; }
+
+.format-points { display: grid; gap: 0; margin: 0.5rem 0 0; padding: 0; list-style: none; width: 100%; border-top: 1px solid var(--line); }
+.format-points li { position: relative; padding: 0.85rem 0 0.85rem 1.6rem; border-bottom: 1px solid var(--line); font-weight: 700; }
+.format-points li::before { content: "→"; position: absolute; left: 0; color: var(--signal); }
+
+.format-cta { background: var(--graphite); }
+.format-cta__inner { display: grid; gap: 1.25rem; justify-items: start; }
+.format-cta__inner .lead { color: var(--paper-dim); }
+
