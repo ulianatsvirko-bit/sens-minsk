@@ -61,3 +61,16 @@ test('the server answers format pages and lists them in the sitemap', async () =
   assert.match(server, /findRentFormat\(/);
   assert.match(server, /RENT_FORMATS\.map/);
 });
+
+test('party pages show the real party reel and photos, loaded lazily', () => {
+  for (const slug of ['arenda-zala-dlya-korporativa', 'arenda-zala-dlya-dnya-rozhdeniya']) {
+    const format = findRentFormat(slug);
+    const html = renderRentFormatPage(format);
+    assert.match(html, /<video[^>]*data-src="assets\/rent\/party-reel\.mp4"[^>]*muted[^>]*playsinline/, slug);
+    assert.doesNotMatch(html, /<video[^>]*\ssrc=/, slug);
+    assert.match(html, /src="assets\/rent\/party-champagne-tower\.jpg"/, slug);
+    assert.match(html, /src="rent-format\.js/, slug);
+    for (const file of [format.scenes.video.src, format.scenes.video.poster, ...format.scenes.photos.map(({ src }) => src)]) assert.ok(existsSync(file), file);
+  }
+  assert.doesNotMatch(renderRentFormatPage(findRentFormat('arenda-zala-dlya-detskogo-prazdnika')), /party-reel/);
+});
