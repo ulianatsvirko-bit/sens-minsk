@@ -222,7 +222,7 @@ function renderMissing() {
     <section class="wrap event-missing">
       <h1 class="title">Событие не найдено</h1>
       <p class="lead">Возможно, ссылка устарела или событие сняли с афиши.</p>
-      <a class="btn btn--signal" href="events.html">Открыть афишу <span aria-hidden="true">→</span></a>
+      <a class="btn btn--signal" href="events">Открыть афишу <span aria-hidden="true">→</span></a>
     </section>`;
 }
 

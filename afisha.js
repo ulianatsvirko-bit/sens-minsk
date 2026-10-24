@@ -28,7 +28,7 @@ function emptyWithPast(past) {
   </div>
   <h3 class="past-grid__title">Так было недавно</h3>
   <ol class="past-grid">${past.map(renderPastCard).join('')}</ol>
-  <a class="link-arrow" href="events.html?view=past">Все прошедшие события <span aria-hidden="true">→</span></a>`;
+  <a class="link-arrow" href="events?view=past">Все прошедшие события <span aria-hidden="true">→</span></a>`;
 }
 
 const params = new URLSearchParams(location.search);
@@ -57,7 +57,7 @@ function renderControls() {
     else link.removeAttribute('aria-current');
     const href = new URLSearchParams(link.dataset.viewLink === 'past' ? { view: 'past' } : {});
     if (state.type) href.set('type', state.type);
-    link.href = `events.html${href.toString() ? `?${href}` : ''}`;
+    link.href = `events${href.toString() ? `?${href}` : ''}`;
   });
   document.querySelectorAll('[data-type]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.type === state.type)));
   document.getElementById('afisha-title').textContent = state.view === 'past' ? 'Так было' : 'Афиша';

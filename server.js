@@ -112,7 +112,13 @@ app.delete('/api/admin/events/:id', sameOrigin, requireAuth, (req,res)=>{const o
 
 app.get('/', (req,res) => res.sendFile(path.join(root, 'index.html')));
 app.get('/index.html', (req,res) => res.redirect(301, '/'));
-app.get(['/space', '/space.html'], (req,res) => res.sendFile(path.join(root, 'space.html')));
+// Pages live at clean addresses (/troupe, /artist?id=…); old *.html links redirect there.
+app.use((req,res,next) => {
+  const page = req.method === 'GET' && req.path.match(/^\/([a-z0-9-]+)\.html$/);
+  if (!page || !fs.existsSync(path.join(root, `${page[1]}.html`))) return next();
+  const query = req.originalUrl.slice(req.path.length);
+  res.redirect(301, `/${page[1]}${query}`);
+});
 app.use(express.static(root, { extensions:['html'] }));
 app.use((error,req,res,next)=>{console.error(error);res.status(error.code==='LIMIT_FILE_SIZE'?413:500).json({message:error.code==='LIMIT_FILE_SIZE'?'Файл больше 8 МБ.':'Ошибка сервера.'})});
 app.listen(port,()=>console.log(`SENS started on http://127.0.0.1:${port}`));

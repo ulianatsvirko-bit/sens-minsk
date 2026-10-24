@@ -7,7 +7,7 @@ document.querySelector('.dialog-foot')?.prepend(previewButton);
 previewButton.onclick = () => {
   const id = $('#event-id').value;
   if (!id) return toast('Сначала сохраните событие, чтобы открыть предпросмотр.');
-  window.open(`event.html?id=${encodeURIComponent(id)}`, '_blank', 'noopener');
+  window.open(`event?id=${encodeURIComponent(id)}`, '_blank', 'noopener');
 };
 const typeNames = { performances:'Сцена', talks:'Разговор', practice:'Практика' };
 const month = ['ЯНВ','ФЕВ','МАР','АПР','МАЙ','ИЮН','ИЮЛ','АВГ','СЕН','ОКТ','НОЯ','ДЕК'];

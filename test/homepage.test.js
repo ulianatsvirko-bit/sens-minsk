@@ -95,30 +95,30 @@ test('play pages exist, link to each other and are linked from the homepage', as
   const home = await read('index.html');
   for (const [slug, other] of [['spinoy-k-zavtra', 'superpozitsiya'], ['superpozitsiya', 'spinoy-k-zavtra']]) {
     const html = await read(`${slug}.html`);
-    assert.match(home, new RegExp(`href="${slug}\\.html"`));
-    assert.match(html, new RegExp(`href="${other}\\.html"`));
+    assert.match(home, new RegExp(`href="${slug}"`));
+    assert.match(html, new RegExp(`href="${other}"`));
     assert.match(html, /data-notify="Спектакль/);
     assert.match(html, /Татьяна Лебедева/);
     assert.match(html, /"@type": "CreativeWork"/);
     for (const tag of html.match(/<img\b[^>]*>/g) || []) assert.match(tag, /width="\d+" height="\d+"/, tag);
   }
   const sitemap = await read('sitemap.xml');
-  assert.match(sitemap, /spinoy-k-zavtra\.html/);
-  assert.match(sitemap, /superpozitsiya\.html/);
+  assert.match(sitemap, /smartdance\.by\/spinoy-k-zavtra</);
+  assert.match(sitemap, /smartdance\.by\/superpozitsiya</);
 });
 
 test('troupe has its own page, every artist card leads to a personal page', async () => {
   const [home, page, sitemap] = await Promise.all([read('index.html'), read('troupe.html'), read('sitemap.xml')]);
   const { TROUPE } = await import('../lib/troupe.js');
-  assert.match(home, /href="troupe\.html"/);
+  assert.match(home, /href="troupe"/);
   assert.doesNotMatch(home, /data-member-dialog/);
   assert.match(page, /<h1[^>]*>Труппа театра современной хореографии <em>СЭНС<\/em>/);
   for (const { id } of TROUPE) {
-    assert.match(page, new RegExp(`href="artist\\.html\\?id=${id}"`), id);
-    assert.match(home, new RegExp(`href="artist\\.html\\?id=${id}"`), id);
+    assert.match(page, new RegExp(`href="artist\\?id=${id}"`), id);
+    assert.match(home, new RegExp(`href="artist\\?id=${id}"`), id);
   }
   for (const tag of page.match(/<img\b[^>]*>/g) || []) assert.match(tag, /width="\d+" height="\d+"/, tag);
-  assert.match(sitemap, /troupe\.html/);
+  assert.match(sitemap, /smartdance\.by\/troupe</);
 });
 
 test('no page links to the old #troupe anchor', async () => {
@@ -132,4 +132,12 @@ test('pages link home as / so the address never shows index.html', async () => {
     assert.doesNotMatch(await read(file), /(?:href|data-nav)="index\.html/, file);
   }
   assert.match(await read('server.js'), /app\.get\('\/index\.html', \(req,res\) => res\.redirect\(301, '\/'\)\)/);
+});
+
+test('pages link to clean addresses and the server redirects old *.html ones', async () => {
+  for (const file of ['index.html', 'events.html', 'event.html', 'space.html', 'rent.html', 'troupe.html', 'artist.html', 'spinoy-k-zavtra.html', 'superpozitsiya.html']) {
+    assert.doesNotMatch(await read(file), /(?:href|content|data-nav)="[^"]*(?:events|event|space|rent|troupe|artist|spinoy-k-zavtra|superpozitsiya)\.html/, file);
+  }
+  const server = await read('server.js');
+  assert.match(server, /res\.redirect\(301, `\/\$\{page\[1\]\}\$\{query\}`\)/);
 });

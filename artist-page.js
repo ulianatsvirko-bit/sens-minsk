@@ -1,4 +1,4 @@
-// Artist page: artist.html?id=<member id> → portrait, role, bio, Instagram, photos and the next artist.
+// Artist page: artist?id=<member id> → portrait, role, bio, Instagram, photos and the next artist.
 import { artistHref, findMember, instagramUrl, memberNeighbours } from './lib/troupe.js?v=20261023-1';
 
 const FALLBACK_BIO = 'Труппа театра современной хореографии СЭНС.';
@@ -49,4 +49,4 @@ function render(member) {
 
 const member = findMember(new URLSearchParams(location.search).get('id'));
 if (member) render(member);
-else location.replace('troupe.html');
+else location.replace('troupe');

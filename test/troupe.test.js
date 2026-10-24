@@ -65,7 +65,7 @@ test('Anna Arkhipova has four photos, two of them landscape', () => {
 });
 
 test('every member has a personal page link', () => {
-  assert.equal(artistHref('nikita-skurat'), 'artist.html?id=nikita-skurat');
+  assert.equal(artistHref('nikita-skurat'), 'artist?id=nikita-skurat');
 });
 
 test('neighbours wrap around the troupe list', () => {

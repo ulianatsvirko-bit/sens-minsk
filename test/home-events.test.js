@@ -59,7 +59,7 @@ test('renderUpcomingEvents escapes API content and URL identifiers', () => {
     image: `\" onerror=\"alert(1)`
   }], '2026-09-22');
 
-  assert.match(html, /event\.html\?id=one%26x%3D%22bad/);
+  assert.match(html, /event\?id=one%26x%3D%22bad/);
   assert.doesNotMatch(html, /<img src=x onerror/);
   assert.match(html, /&lt;img src=x onerror=alert\(1\)&gt;/);
   assert.match(html, /A &amp; B &lt; C/);
@@ -82,7 +82,7 @@ test('selectPastEvents keeps published events before today, newest first, limite
 test('renderPastEvents escapes content and links to the event page', async () => {
   const { renderPastEvents } = await import('../lib/home-events.js');
   const html = renderPastEvents([{ id: '7', published: true, date: '2026-09-25', title: '<b>Вечер</b>', image: 'javascript:x' }]);
-  assert.match(html, /<li><a href="event\.html\?id=7">/);
+  assert.match(html, /<li><a href="event\?id=7">/);
   assert.match(html, /&lt;b&gt;Вечер&lt;\/b&gt;/);
   assert.match(html, /src="assets\/premiere-stage\.jpg"/);
   assert.match(html, /25 сентября/);
@@ -106,5 +106,5 @@ test('the next event card has a solid sign-up button, not a plain link', () => {
   const html = renderUpcomingEvents([
     { id: 7, title: 'Практика', date: '2026-10-24', time: '12:00', published: 1 }
   ], '2026-10-12');
-  assert.match(html, /<a class="btn btn--signal event-card__cta" href="event\.html\?id=7#detail-registration">Записаться/);
+  assert.match(html, /<a class="btn btn--signal event-card__cta" href="event\?id=7#detail-registration">Записаться/);
 });

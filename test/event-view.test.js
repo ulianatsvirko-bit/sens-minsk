@@ -31,7 +31,7 @@ test('dateParts and ageText read the schedule', () => {
 
 test('renderListing escapes API content and links registration for upcoming events only', () => {
   const html = renderListing(event({ id: '7"x', title: '<img onerror=1>' }));
-  assert.match(html, /event\.html\?id=7%22x#register/);
+  assert.match(html, /event\?id=7%22x#register/);
   assert.doesNotMatch(html, /<img onerror/);
   assert.match(html, /&lt;img onerror=1&gt;/);
   assert.match(html, /16\+/);
@@ -71,7 +71,7 @@ test('timesText lists start and end times without ages', async () => {
 
 test('renderPastCard shows poster, date and escaped title linking to the event', () => {
   const html = renderPastCard(event({ id: '9', date: '2026-10-04', title: '<b>Латина</b>', type: 'practice' }));
-  assert.match(html, /href="event\.html\?id=9"/);
+  assert.match(html, /href="event\?id=9"/);
   assert.match(html, /src="\/uploads\/a\.jpg"/);
   assert.match(html, /4 октября/);
   assert.match(html, /&lt;b&gt;Латина&lt;\/b&gt;/);

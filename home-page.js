@@ -92,7 +92,7 @@ async function initAfisha() {
       past.hidden = false;
     }
   } catch {
-    now.innerHTML = '<p class="afisha__loading">Афиша не загрузилась. Обновите страницу или откройте <a href="events.html">полный календарь</a>.</p>';
+    now.innerHTML = '<p class="afisha__loading">Афиша не загрузилась. Обновите страницу или откройте <a href="events">полный календарь</a>.</p>';
   } finally {
     now.removeAttribute('aria-busy');
     restoreHashTarget();
