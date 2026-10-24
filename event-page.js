@@ -134,6 +134,8 @@ function setMeta(name, content, attr = 'name') {
 }
 
 function addSchema(schema) {
+  // The Node server already puts the Event schema into the HTML; don't add a second copy.
+  if (document.querySelector('script[type="application/ld+json"]')) return;
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(schema).replace(/</g, '\\u003c');

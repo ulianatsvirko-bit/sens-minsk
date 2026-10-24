@@ -9,6 +9,8 @@ import { fileURLToPath } from 'node:url';
 import { parseBusySlot, publicBusy } from './lib/busy-slots.js';
 import contactHandler from './api/contact.js';
 import { createRegisterHandler } from './api/register.js';
+import { artistMeta, buildSitemap, eventMeta, renderHead } from './lib/seo.js';
+import { TROUPE, findMember } from './lib/troupe.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(root, 'data');
@@ -19,6 +21,8 @@ fs.mkdirSync(uploadDir, { recursive: true });
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const siteUrl = (process.env.SITE_URL || 'https://sense.smartdance.by').replace(/\/$/, '');
+const SITEMAP_PAGES = ['/', '/events', '/troupe', '/spinoy-k-zavtra', '/superpozitsiya', '/space', '/rent'];
 const adminLogin = process.env.ADMIN_LOGIN;
 const adminPassword = process.env.ADMIN_PASSWORD;
 const sessionSecret = process.env.SESSION_SECRET;
@@ -118,6 +122,23 @@ app.use((req,res,next) => {
   if (!page || !fs.existsSync(path.join(root, `${page[1]}.html`))) return next();
   const query = req.originalUrl.slice(req.path.length);
   res.redirect(301, `/${page[1]}${query}`);
+});
+// SEO: artist and event pages get their real title, description and schema in the HTML itself,
+// so search engines see them without running the page script.
+const sendPage = (res, file, meta, status = 200) => res.status(status).type('html').send(renderHead(fs.readFileSync(path.join(root, file), 'utf8'), meta));
+app.get('/artist', (req,res) => {
+  const member = findMember(String(req.query.id || ''));
+  if (!member) return res.redirect(302, '/troupe');
+  sendPage(res, 'artist.html', artistMeta(member, siteUrl));
+});
+app.get('/event', (req,res,next) => {
+  const row = db.prepare('SELECT * FROM events WHERE id=? AND published=1').get(String(req.query.id || ''));
+  if (!row) return next();
+  sendPage(res, 'event.html', eventMeta(eventFromRow(row), siteUrl, minskToday()));
+});
+app.get('/sitemap.xml', (req,res) => {
+  const events = db.prepare('SELECT id,date,published FROM events WHERE published=1 ORDER BY date DESC').all().map(row => ({ id:String(row.id), date:row.date, published:true }));
+  res.type('application/xml').send(buildSitemap(siteUrl, { pages:SITEMAP_PAGES, members:TROUPE, events }));
 });
 app.use(express.static(root, { extensions:['html'] }));
 app.use((error,req,res,next)=>{console.error(error);res.status(error.code==='LIMIT_FILE_SIZE'?413:500).json({message:error.code==='LIMIT_FILE_SIZE'?'Файл больше 8 МБ.':'Ошибка сервера.'})});

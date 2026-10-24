@@ -19,10 +19,7 @@ function fillNeighbour(link, member) {
 
 function render(member) {
   const page = document.querySelector('[data-artist]');
-  document.title = `${member.name} — труппа СЭНС`;
-  document.querySelector('meta[name="description"]')
-    .setAttribute('content', `${member.name}, ${member.role.toLowerCase()} труппы театра современной хореографии СЭНС в Минске.`);
-  document.querySelector('meta[property="og:title"]').setAttribute('content', `${member.name} — труппа СЭНС`);
+  // Title, description and social tags come from the server (lib/seo.js).
 
   const portrait = page.querySelector('[data-artist-photo]');
   Object.assign(portrait, { src: member.photo, alt: member.name });

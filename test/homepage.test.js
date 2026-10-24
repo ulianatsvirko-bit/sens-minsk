@@ -102,13 +102,13 @@ test('play pages exist, link to each other and are linked from the homepage', as
     assert.match(html, /"@type": "CreativeWork"/);
     for (const tag of html.match(/<img\b[^>]*>/g) || []) assert.match(tag, /width="\d+" height="\d+"/, tag);
   }
-  const sitemap = await read('sitemap.xml');
-  assert.match(sitemap, /smartdance\.by\/spinoy-k-zavtra</);
-  assert.match(sitemap, /smartdance\.by\/superpozitsiya</);
+  const server = await read('server.js');
+  assert.match(server, /SITEMAP_PAGES = \[[^\]]*'\/spinoy-k-zavtra'/);
+  assert.match(server, /SITEMAP_PAGES = \[[^\]]*'\/superpozitsiya'/);
 });
 
 test('troupe has its own page, every artist card leads to a personal page', async () => {
-  const [home, page, sitemap] = await Promise.all([read('index.html'), read('troupe.html'), read('sitemap.xml')]);
+  const [home, page, server] = await Promise.all([read('index.html'), read('troupe.html'), read('server.js')]);
   const { TROUPE } = await import('../lib/troupe.js');
   assert.match(home, /href="troupe"/);
   assert.doesNotMatch(home, /data-member-dialog/);
@@ -118,7 +118,7 @@ test('troupe has its own page, every artist card leads to a personal page', asyn
     assert.match(home, new RegExp(`href="artist\\?id=${id}"`), id);
   }
   for (const tag of page.match(/<img\b[^>]*>/g) || []) assert.match(tag, /width="\d+" height="\d+"/, tag);
-  assert.match(sitemap, /smartdance\.by\/troupe</);
+  assert.match(server, /SITEMAP_PAGES = \[[^\]]*'\/troupe'/);
 });
 
 test('no page links to the old #troupe anchor', async () => {
